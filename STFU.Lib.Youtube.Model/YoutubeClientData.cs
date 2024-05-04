@@ -10,10 +10,6 @@ namespace STFU.Lib.Youtube.Model
 		
 		public static string YoutubeApiKey => "AIzaSyBBbYQJWXzWoyDSAT36NKq-T6BxHM12my4";
 
-		public static string TwitterOauthToken => "4HYYUwh4J2ztSpEDAIIh4M5c5";
-
-		public static string TwitterOauthTokenSecret => "ZjXBXxRkuDDVrYqn1hOurXLUdNXPMwIjAQNRNNMuqB8o3yoVii";
-
 		public static string UpdaterApiKey => "AIzaSyC8l0tHuvhFLU6HtzHXwW2Nraf-ARMm1wE";
 	}
 }

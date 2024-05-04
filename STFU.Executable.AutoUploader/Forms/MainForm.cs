@@ -8,8 +8,6 @@ using log4net;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using STFU.Lib.GUI.Forms;
 using STFU.Lib.Playlistservice;
-using STFU.Lib.Twitter;
-using STFU.Lib.Twitter.Model;
 using STFU.Lib.Youtube;
 using STFU.Lib.Youtube.Automation;
 using STFU.Lib.Youtube.Automation.Interfaces;
@@ -43,9 +41,6 @@ namespace STFU.Executable.AutoUploader.Forms
 
         readonly IYoutubePlaylistContainer playlistContainer = new YoutubePlaylistContainer();
         readonly IPlaylistServiceConnectionContainer playlistServiceConnectionContainer = new PlaylistServiceConnectionContainer();
-
-        readonly ITwitterAccountContainer twitterAccountContainer = new TwitterAccountContainer();
-
         readonly IYoutubeAccountCommunicator accountCommunicator = new YoutubeAccountCommunicator();
 
 		IAutomationUploader autoUploader;
@@ -65,8 +60,6 @@ namespace STFU.Executable.AutoUploader.Forms
 
 		PlaylistPersistor playlistPersistor = null;
 		PlaylistServiceConnectionPersistor playlistServiceConnectionPersistor = null;
-
-		TwitterAccountPersistor twitterAccountPersistor = null;
 
 		private readonly bool showReleaseNotes = false;
 		bool ended = false;
@@ -674,9 +667,6 @@ namespace STFU.Executable.AutoUploader.Forms
 				}
 			}
 
-			twitterAccountPersistor = new TwitterAccountPersistor(twitterAccountContainer, "./settings/twitter-account.json");
-			twitterAccountPersistor.Load();
-
 			foreach (var item in queueContainer.RegisteredJobs)
 			{
 				item.Account = accountContainer.RegisteredAccounts.FirstOrDefault(a => a.Id == item.Account.Id);
@@ -747,7 +737,6 @@ namespace STFU.Executable.AutoUploader.Forms
 			RefillSelectedPathsListView();
 			RefillArchiveView();
 			ActivateAccountLink();
-			ActivateAccountLinkTwitter();
 
 			if (File.Exists("stfu-updater.exe"))
 			{
@@ -1214,90 +1203,6 @@ namespace STFU.Executable.AutoUploader.Forms
 
 					autoUploader.Uploader.RemoveFromQueue(autoUploader.Uploader.Queue.ElementAt(0));
 				}
-			}
-		}
-
-		private void verbindenToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Logger.Info("This shit won't get logged");
-
-			ConnectToTwitter();
-		}
-
-		private void ConnectToTwitter()
-		{
-			Logger.Info("This shit won't get logged");
-
-			tlpSettings.Enabled = false;
-
-			var oauthCommunicator = new TwitterAccountConnector();
-            var addForm = new AddTwitterAccountForm
-            {
-                Communicator = oauthCommunicator
-            };
-
-            var result = addForm.ShowDialog(this);
-            try
-            {
-                ITwitterAccount account;
-                if (result == DialogResult.OK && (account = oauthCommunicator.ConnectAccount(addForm.AuthPin)) != null)
-                {
-                    twitterAccountContainer.Account = account;
-                    twitterAccountPersistor.Save();
-
-                    MessageBox.Show(this, "Der Uploader wurde erfolgreich mit dem Account verbunden!", "Account verbunden!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    ActivateAccountLinkTwitter();
-                }
-            }
-            catch (QuotaErrorException)
-            {
-                MessageBox.Show(this, $"Die Verbindung mit dem Account konnte nicht hergestellt werden. Das liegt daran, dass Youtube die Anzahl der Aufrufe, die Programme machen dürfen, beschränkt. Für dieses Programm wurden heute alle Aufrufe ausgeschöpft, daher geht es heute nicht mehr.{Environment.NewLine}{Environment.NewLine}Bitte versuche es morgen wieder.", "Account kann heute nicht verbunden werden!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-
-            tlpSettings.Enabled = true;
-		}
-
-		private void ActivateAccountLinkTwitter()
-		{
-			Logger.Info("This shit won't get logged");
-
-			twitterAccountLinkLabel.Visible = twitterAccountLabel.Visible = twitterAccountVerbindungLösenToolStripMenuItem.Enabled = twitterAccountContainer.Account != null;
-			twitterAccountVerbindenToolStripMenuItem.Enabled = twitterAccountContainer.Account == null;
-
-			if (twitterAccountContainer.Account != null)
-			{
-				twitterAccountLinkLabel.Text = twitterAccountContainer.Account.ScreenName;
-			}
-		}
-
-		private void twitterAccountLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-		{
-			Logger.Info("This shit won't get logged");
-
-			if (twitterAccountContainer.Account == null)
-			{
-				return;
-			}
-
-            Process p = new Process
-            {
-                StartInfo = new ProcessStartInfo($"https://twitter.com/i/user/{twitterAccountContainer.Account.UserId}")
-            };
-            p.Start();
-		}
-
-		private void twitterAccountVerbindungLösenToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			Logger.Info("This shit won't get logged");
-
-			CoreTweetTest.Tweet(twitterAccountContainer.Account);
-			if (twitterAccountContainer.Account != null && TwitterAccountConnector.ScheduleTweet(twitterAccountContainer.Account))
-			{
-				twitterAccountContainer.Account = null;
-				twitterAccountPersistor.Save();
-
-				ActivateAccountLinkTwitter();
 			}
 		}
 

@@ -42,9 +42,6 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.youtubeAccountToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.verbindenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.verbindungLösenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.twitterAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.twitterAccountVerbindenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.twitterAccountVerbindungLösenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.templatesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.pfadeToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.playlistsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,8 +52,6 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.videotutorialPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.threadImLPFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.threadImYTFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.discordServerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.strohiAufTwitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.downloadSeiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -103,8 +98,6 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.archiveRemoveJobButton = new System.Windows.Forms.Button();
 			this.archiveAddButton = new System.Windows.Forms.Button();
 			this.moveBackToQueueButton = new System.Windows.Forms.Button();
-			this.twitterAccountLabel = new System.Windows.Forms.Label();
-			this.twitterAccountLinkLabel = new System.Windows.Forms.LinkLabel();
 			this.bgwCreateUploader = new System.ComponentModel.BackgroundWorker();
 			this.watchingTimer = new System.Windows.Forms.Timer(this.components);
 			this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
@@ -146,8 +139,6 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.tlpSettings.Controls.Add(this.lnklblCurrentLoggedIn, 3, 4);
 			this.tlpSettings.Controls.Add(this.mainMenu, 0, 0);
 			this.tlpSettings.Controls.Add(this.mainTabControl, 1, 2);
-			this.tlpSettings.Controls.Add(this.twitterAccountLabel, 5, 4);
-			this.tlpSettings.Controls.Add(this.twitterAccountLinkLabel, 7, 4);
 			this.tlpSettings.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tlpSettings.Enabled = false;
 			this.tlpSettings.Location = new System.Drawing.Point(0, 0);
@@ -225,7 +216,6 @@ namespace STFU.Executable.AutoUploader.Forms
 			// 
 			this.verwaltenToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.youtubeAccountToolStripMenuItem1,
-            this.twitterAccountToolStripMenuItem,
             this.templatesToolStripMenuItem1,
             this.pfadeToolStripMenuItem1,
             this.playlistsToolStripMenuItem,
@@ -256,30 +246,6 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.verbindungLösenToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.verbindungLösenToolStripMenuItem.Text = "Verbindung lösen";
 			this.verbindungLösenToolStripMenuItem.Click += new System.EventHandler(this.DeleteConnectionToolStripMenuItem_Click);
-			// 
-			// twitterAccountToolStripMenuItem
-			// 
-			this.twitterAccountToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.twitterAccountVerbindenToolStripMenuItem,
-            this.twitterAccountVerbindungLösenToolStripMenuItem});
-			this.twitterAccountToolStripMenuItem.Name = "twitterAccountToolStripMenuItem";
-			this.twitterAccountToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-			this.twitterAccountToolStripMenuItem.Text = "Twitter-Account";
-			this.twitterAccountToolStripMenuItem.Visible = false;
-			// 
-			// twitterAccountVerbindenToolStripMenuItem
-			// 
-			this.twitterAccountVerbindenToolStripMenuItem.Name = "twitterAccountVerbindenToolStripMenuItem";
-			this.twitterAccountVerbindenToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-			this.twitterAccountVerbindenToolStripMenuItem.Text = "Verbinden";
-			this.twitterAccountVerbindenToolStripMenuItem.Click += new System.EventHandler(this.verbindenToolStripMenuItem_Click);
-			// 
-			// twitterAccountVerbindungLösenToolStripMenuItem
-			// 
-			this.twitterAccountVerbindungLösenToolStripMenuItem.Name = "twitterAccountVerbindungLösenToolStripMenuItem";
-			this.twitterAccountVerbindungLösenToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
-			this.twitterAccountVerbindungLösenToolStripMenuItem.Text = "Verbindung lösen";
-			this.twitterAccountVerbindungLösenToolStripMenuItem.Click += new System.EventHandler(this.twitterAccountVerbindungLösenToolStripMenuItem_Click);
 			// 
 			// templatesToolStripMenuItem1
 			// 
@@ -317,8 +283,6 @@ namespace STFU.Executable.AutoUploader.Forms
             this.videotutorialPlaylistToolStripMenuItem,
             this.threadImLPFToolStripMenuItem,
             this.threadImYTFToolStripMenuItem,
-            this.discordServerToolStripMenuItem,
-            this.strohiAufTwitterToolStripMenuItem,
             this.toolStripSeparator1,
             this.downloadSeiteToolStripMenuItem,
             this.toolStripSeparator3,
@@ -359,20 +323,6 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.threadImYTFToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
 			this.threadImYTFToolStripMenuItem.Text = "Thread im YTF";
 			this.threadImYTFToolStripMenuItem.Click += new System.EventHandler(this.ThreadImYTFToolStripMenuItem_Click);
-			// 
-			// discordServerToolStripMenuItem
-			// 
-			this.discordServerToolStripMenuItem.Name = "discordServerToolStripMenuItem";
-			this.discordServerToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
-			this.discordServerToolStripMenuItem.Text = "Discord-Server";
-			this.discordServerToolStripMenuItem.Click += new System.EventHandler(this.discordServerToolStripMenuItem_Click);
-			// 
-			// strohiAufTwitterToolStripMenuItem
-			// 
-			this.strohiAufTwitterToolStripMenuItem.Name = "strohiAufTwitterToolStripMenuItem";
-			this.strohiAufTwitterToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
-			this.strohiAufTwitterToolStripMenuItem.Text = "strohi auf Twitter";
-			this.strohiAufTwitterToolStripMenuItem.Click += new System.EventHandler(this.strohiAufTwitterToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator1
 			// 
@@ -994,32 +944,6 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.moveBackToQueueButton.UseVisualStyleBackColor = true;
 			this.moveBackToQueueButton.Click += new System.EventHandler(this.MoveBackToQueueButton_Click);
 			// 
-			// twitterAccountLabel
-			// 
-			this.twitterAccountLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.twitterAccountLabel.AutoSize = true;
-			this.twitterAccountLabel.Location = new System.Drawing.Point(103, 622);
-			this.twitterAccountLabel.Margin = new System.Windows.Forms.Padding(0);
-			this.twitterAccountLabel.Name = "twitterAccountLabel";
-			this.twitterAccountLabel.Size = new System.Drawing.Size(42, 13);
-			this.twitterAccountLabel.TabIndex = 10;
-			this.twitterAccountLabel.Text = "Twitter:";
-			this.twitterAccountLabel.Visible = false;
-			// 
-			// twitterAccountLinkLabel
-			// 
-			this.twitterAccountLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.twitterAccountLinkLabel.AutoSize = true;
-			this.twitterAccountLinkLabel.Location = new System.Drawing.Point(155, 622);
-			this.twitterAccountLinkLabel.Margin = new System.Windows.Forms.Padding(0);
-			this.twitterAccountLinkLabel.Name = "twitterAccountLinkLabel";
-			this.twitterAccountLinkLabel.Size = new System.Drawing.Size(23, 13);
-			this.twitterAccountLinkLabel.TabIndex = 11;
-			this.twitterAccountLinkLabel.TabStop = true;
-			this.twitterAccountLinkLabel.Text = "link";
-			this.twitterAccountLinkLabel.Visible = false;
-			this.twitterAccountLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.twitterAccountLinkLabel_LinkClicked);
-			// 
 			// bgwCreateUploader
 			// 
 			this.bgwCreateUploader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgwCreateUploaderDoWork);
@@ -1114,9 +1038,7 @@ namespace STFU.Executable.AutoUploader.Forms
 		private System.Windows.Forms.ColumnHeader cbInactive;
 		private System.Windows.Forms.ToolStripMenuItem hilfeToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem threadImLPFToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem strohiAufTwitterToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem threadImYTFToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem discordServerToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem downloadSeiteToolStripMenuItem;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem neueFunktionenToolStripMenuItem;
@@ -1158,11 +1080,6 @@ namespace STFU.Executable.AutoUploader.Forms
 		private System.Windows.Forms.Button addVideosToQueueButton;
 		private System.Windows.Forms.Button clearVideosButton;
 		private System.Windows.Forms.ToolTip toolTip;
-		private System.Windows.Forms.ToolStripMenuItem twitterAccountToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem twitterAccountVerbindenToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem twitterAccountVerbindungLösenToolStripMenuItem;
-		private System.Windows.Forms.Label twitterAccountLabel;
-		private System.Windows.Forms.LinkLabel twitterAccountLinkLabel;
 		private System.Windows.Forms.ToolStripMenuItem playlistsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem playlistserviceToolStripMenuItem;
 	}
