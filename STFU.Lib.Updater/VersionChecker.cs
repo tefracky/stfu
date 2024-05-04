@@ -10,18 +10,18 @@ namespace STFU.Lib.Updater
 {
 	public class VersionChecker
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(VersionChecker));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(VersionChecker));
 
 		public UpdateInformation CheckStfuVersion(string currentVersion)
 		{
-			LOGGER.Info($"Checking if there is a newer version available than '{currentVersion}'");
+			Logger.Info($"Checking if there is a newer version available than '{currentVersion}'");
 
 			UpdateInformation infos = new UpdateInformation(false, null, null);
 
 			var file = GetLatestStfuZipInfo();
 			if (file != null && NewVersionAvailable(file, currentVersion))
 			{
-				LOGGER.Info($"Newer version available, creating new update information");
+				Logger.Info($"Newer version available, creating new update information");
 				infos = new UpdateInformation(true, file.Name.Split('-')[1], file.Id);
 			}
 
@@ -67,12 +67,13 @@ namespace STFU.Lib.Updater
 
 		private File GetLatestStfuZipInfo()
 		{
-			LOGGER.Info($"Loading latest stfu version from google drive");
+			Logger.Info($"Loading latest stfu version from google drive");
 
-			var service = new DriveService(new BaseClientService.Initializer
-			{
-				ApiKey = YoutubeClientData.UpdaterApiKey
-			});
+            var initializer = new BaseClientService.Initializer
+            {
+                ApiKey = YoutubeClientData.UpdaterApiKey
+            };
+            var service = new DriveService(initializer);
 
 			var request = service.Files.List();
 			request.Q = "'1kCRPLg-95PjbQKjEpj-HW7tjvzmZ87RI' in parents";
@@ -87,7 +88,7 @@ namespace STFU.Lib.Updater
 
 			var file = result?.Files?.FirstOrDefault(f => f.MimeType == "application/x-zip-compressed");
 
-			LOGGER.Info($"Found newest version file '{file.Name}'");
+			Logger.Info($"Found newest version file '{file.Name}'");
 
 			return file;
 		}

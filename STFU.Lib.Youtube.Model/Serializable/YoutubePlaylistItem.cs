@@ -6,37 +6,37 @@ namespace STFU.Lib.Youtube.Model.Serializable
 	{
 		public YoutubePlaylistItem(string playlistId, string videoId)
 		{
-			snippet = new PlaylistSnippet(playlistId, videoId);
+			Snippet = new PlaylistSnippet(playlistId, videoId);
 		}
 
-		public PlaylistSnippet snippet { get; set; } 
+		public PlaylistSnippet Snippet { get; set; } 
 	}
 
 	public class PlaylistSnippet
 	{
 		public PlaylistSnippet(string playlistId, string videoId)
 		{
-			this.playlistId = playlistId;
+			this.PlaylistId = playlistId;
 
-			resourceId = new VideoResource()
-			{
-				videoId = videoId
-			};
-		}
+			ResourceId = new VideoResource
+            {
+                VideoId = videoId
+            };
+        }
 
 		[JsonProperty(PropertyName = "playlistId")]
-		public string playlistId { get; set; }
+		public string PlaylistId { get; set; }
 
 		[JsonProperty(PropertyName = "resourceId")]
-		public VideoResource resourceId { get; set; }
+		public VideoResource ResourceId { get; set; }
 	}
 
 	public class VideoResource
 	{
 		[JsonProperty(PropertyName = "kind")]
-		public string kind { get; set; } = "youtube#video";
+		public string Kind { get; set; } = "youtube#video";
 
 		[JsonProperty(PropertyName = "videoId")]
-		public string videoId { get; set; }
+		public string VideoId { get; set; }
 	}
 }

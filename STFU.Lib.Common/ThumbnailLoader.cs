@@ -11,11 +11,11 @@ namespace STFU.Lib.Common
 {
 	public static class ThumbnailLoader
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(ThumbnailLoader));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(ThumbnailLoader));
 
 		public static Image Load(string path)
 		{
-			LOGGER.Info($"Loading Image from path '{path}'");
+			Logger.Info($"Loading Image from path '{path}'");
 			Image result = new Bitmap(1, 1);
 			((Bitmap)result).SetPixel(0, 0, Color.Transparent);
 
@@ -25,25 +25,25 @@ namespace STFU.Lib.Common
 				{
 					ImageFactory imageFactory = new ImageFactory().Load(path);
 					result = imageFactory.Image;
-					LOGGER.Info($"Loaded image successfully");
+					Logger.Info($"Loaded image successfully");
 				}
 				catch (Exception ex)
 				{
-					LOGGER.Error(ex);
+					Logger.Error(ex);
 				}
 			}
 			else
 			{
 				try
 				{
-					LOGGER.Warn($"Image '{path}' does not exist, using fallback image instead");
+					Logger.Warn($"Image '{path}' does not exist, using fallback image instead");
 					Assembly myAssembly = Assembly.GetExecutingAssembly();
 					Stream myStream = myAssembly.GetManifestResourceStream("STFU.Lib.Common.Kein-Thumbnail.png");
 					result = new Bitmap(myStream);
 				}
 				catch (Exception ex)
 				{
-					LOGGER.Error(ex);
+					Logger.Error(ex);
 				}
 			}
 
@@ -52,13 +52,13 @@ namespace STFU.Lib.Common
 
 		public static Image Load(string path, int width, int height)
 		{
-			LOGGER.Info($"Loading Image from path '{path}' with resolution {width}x{height}");
+			Logger.Info($"Loading Image from path '{path}' with resolution {width}x{height}");
 			return ResizeImage(Load(path), width, height);
 		}
 
 		public static string LoadAsBase64(string path, int width, int height)
 		{
-			LOGGER.Info($"Loading Image from path '{path}' with resolution {width}x{height} as base64");
+			Logger.Info($"Loading Image from path '{path}' with resolution {width}x{height} as base64");
 			return Convert.ToBase64String(ImageToByteArray(Load(path, width, height)));
 		}
 
@@ -95,14 +95,9 @@ namespace STFU.Lib.Common
 			return ms.ToArray();
 		}
 
-		private static EncoderParameters GetJpegQualityEncoderParams(long qualityLevel)
-		{
-			Encoder myEncoder = Encoder.Quality;
-
-			EncoderParameters myEncoderParameters = new EncoderParameters(1);
-			EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, qualityLevel);
-
-			return myEncoderParameters;
+		private static EncoderParameters GetJpegQualityEncoderParams()
+        {
+            return new EncoderParameters(1);
 		}
 
 		private static ImageCodecInfo GetEncoder(ImageFormat format)

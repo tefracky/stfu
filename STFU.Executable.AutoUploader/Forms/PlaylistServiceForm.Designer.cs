@@ -230,7 +230,7 @@
 			this.accountsListView.TabIndex = 8;
 			this.accountsListView.UseCompatibleStateImageBehavior = false;
 			this.accountsListView.View = System.Windows.Forms.View.Details;
-			this.accountsListView.SelectedIndexChanged += new System.EventHandler(this.accountsListView_SelectedIndexChanged);
+			this.accountsListView.SelectedIndexChanged += new System.EventHandler(this.AccountsListView_SelectedIndexChanged);
 			// 
 			// templatesColumnHeader
 			// 
@@ -251,7 +251,7 @@
 			this.connectAccountButton.TabIndex = 3;
 			this.connectAccountButton.Text = "+";
 			this.connectAccountButton.UseVisualStyleBackColor = true;
-			this.connectAccountButton.Click += new System.EventHandler(this.connectAccountButton_Click);
+			this.connectAccountButton.Click += new System.EventHandler(this.ConnectAccountButton_Click);
 			// 
 			// removeAccountButton
 			// 
@@ -267,7 +267,7 @@
 			this.removeAccountButton.TabIndex = 6;
 			this.removeAccountButton.Text = "-";
 			this.removeAccountButton.UseVisualStyleBackColor = true;
-			this.removeAccountButton.Click += new System.EventHandler(this.removeAccountButton_Click);
+			this.removeAccountButton.Click += new System.EventHandler(this.RemoveAccountButton_Click);
 			// 
 			// clearAccountsButton
 			// 
@@ -284,7 +284,7 @@
 			this.clearAccountsButton.TabIndex = 7;
 			this.clearAccountsButton.Text = "x";
 			this.clearAccountsButton.UseVisualStyleBackColor = true;
-			this.clearAccountsButton.Click += new System.EventHandler(this.clearAccountsButton_Click);
+			this.clearAccountsButton.Click += new System.EventHandler(this.ClearAccountsButton_Click);
 			// 
 			// accountDetailsTlp
 			// 
@@ -420,7 +420,7 @@
 			this.channelUrlLinkLabel.TabIndex = 4;
 			this.channelUrlLinkLabel.TabStop = true;
 			this.channelUrlLinkLabel.Text = "url";
-			this.channelUrlLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.channelUrlLinkLabel_LinkClicked);
+			this.channelUrlLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ChannelUrlLinkLabel_LinkClicked);
 			// 
 			// tasksGroupbox
 			// 
@@ -655,7 +655,7 @@
 			this.searchButton.TabIndex = 4;
 			this.searchButton.Text = "Suchen!";
 			this.searchButton.UseVisualStyleBackColor = true;
-			this.searchButton.Click += new System.EventHandler(this.searchButton_Click);
+			this.searchButton.Click += new System.EventHandler(this.SearchButton_Click);
 			// 
 			// tableLayoutPanel6
 			// 
@@ -886,8 +886,8 @@
 			this.tasksListView.TabIndex = 9;
 			this.tasksListView.UseCompatibleStateImageBehavior = false;
 			this.tasksListView.View = System.Windows.Forms.View.Details;
-			this.tasksListView.SelectedIndexChanged += new System.EventHandler(this.tasksListView_SelectedIndexChanged);
-			this.tasksListView.DoubleClick += new System.EventHandler(this.tasksListView_DoubleClick);
+			this.tasksListView.SelectedIndexChanged += new System.EventHandler(this.TasksListView_SelectedIndexChanged);
+			this.tasksListView.DoubleClick += new System.EventHandler(this.TasksListView_DoubleClick);
 			// 
 			// columnHeader2
 			// 
@@ -933,7 +933,7 @@
 			this.addTaskButton.TabIndex = 3;
 			this.addTaskButton.Text = "+";
 			this.addTaskButton.UseVisualStyleBackColor = true;
-			this.addTaskButton.Click += new System.EventHandler(this.addTaskButton_Click);
+			this.addTaskButton.Click += new System.EventHandler(this.AddTaskButton_Click);
 			// 
 			// removeTaskButton
 			// 
@@ -950,7 +950,7 @@
 			this.removeTaskButton.TabIndex = 6;
 			this.removeTaskButton.Text = "-";
 			this.removeTaskButton.UseVisualStyleBackColor = true;
-			this.removeTaskButton.Click += new System.EventHandler(this.removeTaskButton_Click);
+			this.removeTaskButton.Click += new System.EventHandler(this.RemoveTaskButton_Click);
 			// 
 			// clearTasksButton
 			// 
@@ -967,7 +967,7 @@
 			this.clearTasksButton.TabIndex = 7;
 			this.clearTasksButton.Text = "x";
 			this.clearTasksButton.UseVisualStyleBackColor = true;
-			this.clearTasksButton.Click += new System.EventHandler(this.clearTasksButton_Click);
+			this.clearTasksButton.Click += new System.EventHandler(this.ClearTasksButton_Click);
 			// 
 			// filterMinAttemptCountTextbox
 			// 
@@ -1059,7 +1059,7 @@
 			this.connectServiceButton.TabIndex = 4;
 			this.connectServiceButton.Text = "Verbinden";
 			this.connectServiceButton.UseVisualStyleBackColor = true;
-			this.connectServiceButton.Click += new System.EventHandler(this.connectServiceButton_Click);
+			this.connectServiceButton.Click += new System.EventHandler(this.ConnectServiceButton_Click);
 			// 
 			// connectionStatusLabel
 			// 

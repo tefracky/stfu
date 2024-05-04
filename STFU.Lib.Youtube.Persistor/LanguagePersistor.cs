@@ -11,7 +11,7 @@ namespace STFU.Lib.Youtube.Persistor
 {
 	public class LanguagePersistor
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(LanguagePersistor));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(LanguagePersistor));
 
 		public string Path { get; private set; } = null;
 		public IYoutubeLanguageContainer Container { get; private set; } = null;
@@ -19,7 +19,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public LanguagePersistor(IYoutubeLanguageContainer container, string path)
 		{
-			LOGGER.Debug($"Creating language persistor for path '{path}'");
+			Logger.Debug($"Creating language persistor for path '{path}'");
 
 			Path = path;
 			Container = container;
@@ -27,7 +27,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public bool Load()
 		{
-			LOGGER.Info($"Loading languages from path '{Path}'");
+			Logger.Info($"Loading languages from path '{Path}'");
 			Container.UnregisterAllLanguages();
 
 			bool worked = true;
@@ -39,14 +39,14 @@ namespace STFU.Lib.Youtube.Persistor
 					using (StreamReader reader = new StreamReader(Path))
 					{
 						var json = reader.ReadToEnd();
-						LOGGER.Debug($"Json from loaded path: '{json}'");
+						Logger.Debug($"Json from loaded path: '{json}'");
 
 						var languages = JsonConvert.DeserializeObject<YoutubeLanguage[]>(json);
-						LOGGER.Info($"Loaded {languages.Length} languages");
+						Logger.Info($"Loaded {languages.Length} languages");
 
 						foreach (var loaded in languages)
 						{
-							LOGGER.Info($"Adding language '{loaded.Name}'");
+							Logger.Info($"Adding language '{loaded.Name}'");
 							Container.RegisterLanguage(loaded);
 						}
 					}
@@ -62,7 +62,7 @@ namespace STFU.Lib.Youtube.Persistor
 			|| e is PathTooLongException
 			|| e is IOException)
 			{
-				LOGGER.Error($"Could not load languages, exception occured!", e);
+				Logger.Error($"Could not load languages, exception occured!", e);
 				worked = false;
 			}
 
@@ -72,7 +72,7 @@ namespace STFU.Lib.Youtube.Persistor
 		public bool Save()
 		{
 			ILanguage[] languages = Container.RegisteredLanguages.ToArray();
-			LOGGER.Info($"Saving {languages.Length} languages to file '{Path}'");
+			Logger.Info($"Saving {languages.Length} languages to file '{Path}'");
 
 			var json = JsonConvert.SerializeObject(languages);
 
@@ -83,7 +83,7 @@ namespace STFU.Lib.Youtube.Persistor
 				{
 					writer.Write(json);
 				}
-				LOGGER.Info($"Languages saved");
+				Logger.Info($"Languages saved");
 
 				RecreateSaved();
 			}
@@ -95,7 +95,7 @@ namespace STFU.Lib.Youtube.Persistor
 			|| e is PathTooLongException
 			|| e is IOException)
 			{
-				LOGGER.Error($"Could not save languages, exception occured!", e);
+				Logger.Error($"Could not save languages, exception occured!", e);
 				worked = false;
 			}
 
@@ -104,19 +104,19 @@ namespace STFU.Lib.Youtube.Persistor
 
 		private void RecreateSaved()
 		{
-			LOGGER.Debug($"Recreating cache of saved languages");
+			Logger.Debug($"Recreating cache of saved languages");
 			Saved = new YoutubeLanguageContainer();
 			foreach (var language in Container.RegisteredLanguages)
 			{
-				LOGGER.Debug($"Recreating cache for language '{language.Name}'");
-				var newLanguage = new YoutubeLanguage()
-				{
-					Hl = language.Hl,
-					Id = language.Id,
-					Name = language.Name
-				};
+				Logger.Debug($"Recreating cache for language '{language.Name}'");
+				var newLanguage = new YoutubeLanguage
+                {
+                    Hl = language.Hl,
+                    Id = language.Id,
+                    Name = language.Name
+                };
 
-				Saved.RegisterLanguage(newLanguage);
+                Saved.RegisterLanguage(newLanguage);
 			}
 		}
 	}

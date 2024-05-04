@@ -9,7 +9,7 @@ namespace STFU.Lib.Youtube
 {
 	public class YoutubeClientContainer : IYoutubeClientContainer
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubeClientContainer));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubeClientContainer));
 
 		private IList<IYoutubeClient> Clients { get; } = new List<IYoutubeClient>();
 
@@ -19,14 +19,14 @@ namespace STFU.Lib.Youtube
 		{
 			if (!RegisteredClients.Any(c => c.Id == client.Id))
 			{
-				LOGGER.Info($"Adding youtube client credentials with name '{client.Name}'");
+				Logger.Info($"Adding youtube client credentials with name '{client.Name}'");
 				Clients.Add(client);
 			}
 		}
 
 		public void UnregisterAllClients()
 		{
-			LOGGER.Info("Removing all youtube client credentials");
+			Logger.Info("Removing all youtube client credentials");
 			Clients.Clear();
 		}
 
@@ -34,7 +34,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Clients.Contains(client))
 			{
-				LOGGER.Info($"Removing youtube client credential with name '{client.Name}'");
+				Logger.Info($"Removing youtube client credential with name '{client.Name}'");
 				Clients.Remove(client);
 			}
 		}
@@ -43,7 +43,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Clients.Count > index)
 			{
-				LOGGER.Info($"Removing youtube client credential with name '{Clients[index].Name}' at index {index}");
+				Logger.Info($"Removing youtube client credential with name '{Clients[index].Name}' at index {index}");
 				Clients.RemoveAt(index);
 			}
 		}

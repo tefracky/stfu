@@ -18,9 +18,9 @@ namespace STFU.Lib.Youtube.Upload.Steps
 		{
 			get
 			{
-				if (fileStream != null)
+				if (FileStream != null)
 				{
-					return ((double)fileStream.Position) * 100 / fileStream.Length;
+					return ((double)FileStream.Position) * 100 / FileStream.Length;
 				}
 
 				return 0;
@@ -32,7 +32,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 		internal override void Run()
 		{
-			LOGGER.Info($"Uploading video file '{Video.Path}' to youtube");
+			Logger.Info($"Uploading video file '{Video.Path}' to youtube");
 
 			// Initialisieren
 			GenerateInitUri();
@@ -40,8 +40,8 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 			if (request == null && !Status.QuotaReached)
 			{
-				LOGGER.Warn($"Upload could not be continued or old upload address was not valid anymore - restarting upload");
-				LOGGER.Debug($"Old upload address: '{Status.UploadAddress}'");
+				Logger.Warn($"Upload could not be continued or old upload address was not valid anymore - restarting upload");
+				Logger.Debug($"Old upload address: '{Status.UploadAddress}'");
 
 				// evtl. vorhandene UploadUri hat nicht geklappt => Versuch, den Upload von vorne zu beginnen.
 				Status.UploadAddress = null;
@@ -52,7 +52,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 			// Hochladen
 			if (!Status.QuotaReached && request != null && File.Exists(Video.Path))
 			{
-				LOGGER.Info($"Uploading video file to '{request.Method} {request.RequestUri}'");
+				Logger.Info($"Uploading video file to '{request.Method} {request.RequestUri}'");
 
 				Upload(Video.Path, request);
 
@@ -65,9 +65,9 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 					if (!Status.QuotaReached)
 					{
-						Video.Id = JsonConvert.DeserializeObject<SerializableYoutubeVideo>(result).id;
+						Video.Id = JsonConvert.DeserializeObject<SerializableYoutubeVideo>(result).Id;
 
-						LOGGER.Info($"Upload finished successful - video is now on youtube with id {Video.Id} - url: https://youtube.com/watch?v={Video.Id}");
+						Logger.Info($"Upload finished successful - video is now on youtube with id {Video.Id} - url: https://youtube.com/watch?v={Video.Id}");
 
 						// Status entfernen, damit nicht erneut an die selbe Adresse hochgeladen wird.
 						Status.UploadAddress = null;
@@ -75,7 +75,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 				}
 				else
 				{
-					LOGGER.Error($"Upload did not finish successful");
+					Logger.Error($"Upload did not finish successful");
 				}
 			}
 
@@ -86,15 +86,14 @@ namespace STFU.Lib.Youtube.Upload.Steps
 		{
 			if (Status.UploadAddress == null && !Status.QuotaReached)
 			{
-				LOGGER.Info($"Creating upload uri");
+				Logger.Info($"Creating upload uri");
 				string result = InitializeUploadOnYoutube();
 
 				Status.QuotaReached = QuotaProblemHandler.IsQuotaLimitReached(result);
 
-				Uri uri = null;
-				if (!Status.QuotaReached && Uri.TryCreate(result, UriKind.Absolute, out uri))
+                if (!Status.QuotaReached && Uri.TryCreate(result, UriKind.Absolute, out var uri))
 				{
-					LOGGER.Info($"Upload uri was created: '{uri}'");
+					Logger.Info($"Upload uri was created: '{uri}'");
 					Status.UploadAddress = uri;
 				}
 			}
@@ -151,14 +150,13 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 		private long CheckUploadStatus()
 		{
-			LOGGER.Info($"Checking upload status");
+			Logger.Info($"Checking upload status");
 
 			var request = HttpWebRequestCreator.CreateWithAuthHeader(Status.UploadAddress.AbsoluteUri, "PUT", Account.GetActiveToken());
 			request.ContentLength = 0;
 			request.Headers.Add($"content-range: bytes */{Video.File.Length}");
 
-			WebException ex = null;
-			var answer = WebService.Communicate(request, out ex);
+            var answer = WebService.Communicate(request, out var ex);
 
 			if (answer == null)
 			{
@@ -166,19 +164,19 @@ namespace STFU.Lib.Youtube.Upload.Steps
 				{
 					// Upload kann nicht fortgesetzt werden, da Verarbeitung mittlerweile abgebrochen wurde.
 					// Workaround: Upload neu starten
-					LOGGER.Error($"Youtube upload cannot be continued because it was paused for too long", ex);
+					Logger.Error($"Youtube upload cannot be continued because it was paused for too long", ex);
 					return -2;
 				}
 				else if (ex?.Response != null && (int)((HttpWebResponse)ex.Response).StatusCode != 308)
 				{
 					// Es gab einen anderen unerwarteten Fehler.
 					// Auch hier ist der Workaround ein Neustart.
-					LOGGER.Error($"Youtube upload cannot be continued because an exceptioin occured", ex);
+					Logger.Error($"Youtube upload cannot be continued because an exceptioin occured", ex);
 					return -3;
 				}
 				else
 				{
-					LOGGER.Info($"Youtube upload should be started from the beginning");
+					Logger.Info($"Youtube upload should be started from the beginning");
 					return -1;
 				}
 			}
@@ -196,11 +194,11 @@ namespace STFU.Lib.Youtube.Upload.Steps
 			try
 			{
 				lastbyte = Convert.ToInt64(answer.Split('-')[1]);
-				LOGGER.Info($"Upload can be continued from byte {lastbyte} onwards");
+				Logger.Info($"Upload can be continued from byte {lastbyte} onwards");
 			}
 			catch (Exception exc)
 			{
-				LOGGER.Error($"lastbyte could not be parsed - youtube upload should be started from the beginning", exc);
+				Logger.Error($"lastbyte could not be parsed - youtube upload should be started from the beginning", exc);
 				return -1;
 			}
 
@@ -209,7 +207,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 		public override void Cancel()
 		{
-			LOGGER.Info($"Canceling video upload");
+			Logger.Info($"Canceling video upload");
 			CancellationTokenSource.Cancel();
 		}
 	}

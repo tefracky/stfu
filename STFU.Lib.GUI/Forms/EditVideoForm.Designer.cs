@@ -84,7 +84,7 @@
 			this.submitButton.TabIndex = 1;
 			this.submitButton.Text = "Übernehmen";
 			this.submitButton.UseVisualStyleBackColor = true;
-			this.submitButton.Click += new System.EventHandler(this.submitButton_Click);
+			this.submitButton.Click += new System.EventHandler(this.SubmitButton_Click);
 			// 
 			// cancelButton
 			// 
@@ -100,7 +100,7 @@
 			this.cancelButton.TabIndex = 2;
 			this.cancelButton.Text = "Abbrechen";
 			this.cancelButton.UseVisualStyleBackColor = true;
-			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+			this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
 			// 
 			// EditVideoForm
 			// 

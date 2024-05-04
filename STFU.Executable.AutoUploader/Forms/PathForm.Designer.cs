@@ -146,8 +146,8 @@
 			this.lvPaths.TabIndex = 10;
 			this.lvPaths.UseCompatibleStateImageBehavior = false;
 			this.lvPaths.View = System.Windows.Forms.View.Details;
-			this.lvPaths.SelectedIndexChanged += new System.EventHandler(this.lvSelectedPathsSelectedIndexChanged);
-			this.lvPaths.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lvSelectedPathsKeyDown);
+			this.lvPaths.SelectedIndexChanged += new System.EventHandler(this.LvSelectedPathsSelectedIndexChanged);
+			this.lvPaths.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LvSelectedPathsKeyDown);
 			// 
 			// chPath
 			// 
@@ -214,7 +214,7 @@
 			this.movePathUpButton.Text = "↑";
 			this.toolTip.SetToolTip(this.movePathUpButton, "Schiebt den markierten Pfad um eine Stelle nach oben");
 			this.movePathUpButton.UseVisualStyleBackColor = true;
-			this.movePathUpButton.Click += new System.EventHandler(this.movePathUpButtonClick);
+			this.movePathUpButton.Click += new System.EventHandler(this.MovePathUpButtonClick);
 			// 
 			// movePathDownButton
 			// 
@@ -230,7 +230,7 @@
 			this.movePathDownButton.Text = "↓";
 			this.toolTip.SetToolTip(this.movePathDownButton, "Schiebt den markierten Pfad um eine Stelle nach unten");
 			this.movePathDownButton.UseVisualStyleBackColor = true;
-			this.movePathDownButton.Click += new System.EventHandler(this.movePathDownButtonClick);
+			this.movePathDownButton.Click += new System.EventHandler(this.MovePathDownButtonClick);
 			// 
 			// deletePathButton
 			// 
@@ -247,7 +247,7 @@
 			this.deletePathButton.Text = "-";
 			this.toolTip.SetToolTip(this.deletePathButton, "Löscht den markierten Pfad");
 			this.deletePathButton.UseVisualStyleBackColor = true;
-			this.deletePathButton.Click += new System.EventHandler(this.deletePathButtonClick);
+			this.deletePathButton.Click += new System.EventHandler(this.DeletePathButtonClick);
 			// 
 			// clearButton
 			// 
@@ -264,7 +264,7 @@
 			this.clearButton.Text = "x";
 			this.toolTip.SetToolTip(this.clearButton, "Löscht alle Pfade");
 			this.clearButton.UseVisualStyleBackColor = true;
-			this.clearButton.Click += new System.EventHandler(this.clearButtonClick);
+			this.clearButton.Click += new System.EventHandler(this.ClearButtonClick);
 			// 
 			// editPathGroupbox
 			// 
@@ -375,7 +375,7 @@
 			this.btnSelectPath.TabIndex = 13;
 			this.btnSelectPath.Text = "Pfad wählen";
 			this.btnSelectPath.UseVisualStyleBackColor = true;
-			this.btnSelectPath.Click += new System.EventHandler(this.btnSelectPathClick);
+			this.btnSelectPath.Click += new System.EventHandler(this.BtnSelectPathClick);
 			// 
 			// label3
 			// 
@@ -412,7 +412,7 @@
 			this.btnSave.TabIndex = 17;
 			this.btnSave.Text = "Speichern";
 			this.btnSave.UseVisualStyleBackColor = true;
-			this.btnSave.Click += new System.EventHandler(this.btnSaveClick);
+			this.btnSave.Click += new System.EventHandler(this.BtnSaveClick);
 			// 
 			// cobSelectedTemplate
 			// 
@@ -466,7 +466,7 @@
 			this.toolTip.SetToolTip(this.chbRecursive, "Wenn diese Option gewählt wird, werden alle unter dem Verzeichnis liegenden Ordne" +
         "r (und deren Unterordner usw.) durchsucht.");
 			this.chbRecursive.UseVisualStyleBackColor = true;
-			this.chbRecursive.CheckedChanged += new System.EventHandler(this.chbRecursiveCheckedChanged);
+			this.chbRecursive.CheckedChanged += new System.EventHandler(this.ChbRecursiveCheckedChanged);
 			// 
 			// chbHidden
 			// 
@@ -494,7 +494,7 @@
 			this.btnMarkAsRead.TabIndex = 17;
 			this.btnMarkAsRead.Text = "Alle Videos als hochgeladen markieren";
 			this.btnMarkAsRead.UseVisualStyleBackColor = true;
-			this.btnMarkAsRead.Click += new System.EventHandler(this.btnMarkAsReadClick);
+			this.btnMarkAsRead.Click += new System.EventHandler(this.BtnMarkAsReadClick);
 			// 
 			// moveAfterUploadCheckbox
 			// 
@@ -508,7 +508,7 @@
 			this.moveAfterUploadCheckbox.TabIndex = 16;
 			this.moveAfterUploadCheckbox.Text = "Nach Upload verschieben: ";
 			this.moveAfterUploadCheckbox.UseVisualStyleBackColor = true;
-			this.moveAfterUploadCheckbox.CheckedChanged += new System.EventHandler(this.moveAfterUploadCheckbox_CheckedChanged);
+			this.moveAfterUploadCheckbox.CheckedChanged += new System.EventHandler(this.MoveAfterUploadCheckbox_CheckedChanged);
 			// 
 			// moveAfterUploadTextbox
 			// 
@@ -533,7 +533,7 @@
 			this.moveAfterUploadButton.TabIndex = 13;
 			this.moveAfterUploadButton.Text = "Zielordner wählen";
 			this.moveAfterUploadButton.UseVisualStyleBackColor = true;
-			this.moveAfterUploadButton.Click += new System.EventHandler(this.moveAfterUploadButton_Click);
+			this.moveAfterUploadButton.Click += new System.EventHandler(this.MoveAfterUploadButton_Click);
 			// 
 			// btnCancel
 			// 
@@ -549,7 +549,7 @@
 			this.btnCancel.TabIndex = 18;
 			this.btnCancel.Text = "Abbrechen";
 			this.btnCancel.UseVisualStyleBackColor = true;
-			this.btnCancel.Click += new System.EventHandler(this.btnCancelClick);
+			this.btnCancel.Click += new System.EventHandler(this.BtnCancelClick);
 			// 
 			// label5
 			// 

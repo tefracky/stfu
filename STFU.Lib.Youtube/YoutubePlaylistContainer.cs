@@ -9,7 +9,7 @@ namespace STFU.Lib.Youtube
 {
 	public class YoutubePlaylistContainer : IYoutubePlaylistContainer
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubePlaylistContainer));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubePlaylistContainer));
 
 		private IList<IYoutubePlaylist> Playlists { get; } = new List<IYoutubePlaylist>();
 
@@ -19,7 +19,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (!RegisteredPlaylists.Any(p => p == playlist))
 			{
-				LOGGER.Debug($"Adding a new playlist, title: '{playlist.Title}'");
+				Logger.Debug($"Adding a new playlist, title: '{playlist.Title}'");
 				Playlists.Add(playlist);
 			}
 		}
@@ -28,14 +28,14 @@ namespace STFU.Lib.Youtube
 		{
 			if (!RegisteredPlaylists.Any(p => p == playlist))
 			{
-				LOGGER.Debug($"Adding a new playlist, title: '{playlist.Title}' on position {newPosition}");
+				Logger.Debug($"Adding a new playlist, title: '{playlist.Title}' on position {newPosition}");
 				Playlists.Insert(newPosition, playlist);
 			}
 		}
 
 		public void UnregisterAllPlaylists()
 		{
-			LOGGER.Debug($"Removing all playlists");
+			Logger.Debug($"Removing all playlists");
 			Playlists.Clear();
 		}
 
@@ -43,7 +43,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Playlists.Contains(playlist))
 			{
-				LOGGER.Debug($"Removing playlist, title: '{playlist.Title}'");
+				Logger.Debug($"Removing playlist, title: '{playlist.Title}'");
 				Playlists.Remove(playlist);
 			}
 		}
@@ -52,7 +52,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Playlists.Count > index)
 			{
-				LOGGER.Debug($"Removing playlist at index {index}, title: '{Playlists[index].Title}'");
+				Logger.Debug($"Removing playlist at index {index}, title: '{Playlists[index].Title}'");
 				Playlists.RemoveAt(index);
 			}
 		}

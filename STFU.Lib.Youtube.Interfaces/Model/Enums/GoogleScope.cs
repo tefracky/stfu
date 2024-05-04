@@ -11,7 +11,7 @@ namespace STFU.Lib.Youtube.Interfaces.Enums
 
 		[JsonProperty(PropertyName = "https://www.googleapis.com/auth/youtube.force-ssl")]
 		[EnumMember(Value = "https://www.googleapis.com/auth/youtube.force-ssl")]
-		ManageSSL = 2,
+		ManageSsl = 2,
 
 		[JsonProperty(PropertyName = "https://www.googleapis.com/auth/youtube.readonly")]
 		[EnumMember(Value = "https://www.googleapis.com/auth/youtube.readonly")]

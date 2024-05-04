@@ -139,7 +139,7 @@
 			this.useExternalLinkLabel.TabIndex = 2;
 			this.useExternalLinkLabel.TabStop = true;
 			this.useExternalLinkLabel.Text = "Link im Browser öffnen";
-			this.useExternalLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.useExternalLinkLabelLinkClicked);
+			this.useExternalLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.UseExternalLinkLabelLinkClicked);
 			// 
 			// useExternalLinkTextbox
 			// 
@@ -175,7 +175,7 @@
 			this.signInButton.TabIndex = 4;
 			this.signInButton.Text = "Anmelden!";
 			this.signInButton.UseVisualStyleBackColor = true;
-			this.signInButton.Click += new System.EventHandler(this.signInButtonClick);
+			this.signInButton.Click += new System.EventHandler(this.SignInButtonClick);
 			// 
 			// AddTwitterAccountForm
 			// 

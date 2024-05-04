@@ -148,8 +148,8 @@
 			this.videosListView.TabIndex = 0;
 			this.videosListView.UseCompatibleStateImageBehavior = false;
 			this.videosListView.View = System.Windows.Forms.View.Details;
-			this.videosListView.SelectedIndexChanged += new System.EventHandler(this.videosListView_SelectedIndexChanged);
-			this.videosListView.Resize += new System.EventHandler(this.videosListView_Resize);
+			this.videosListView.SelectedIndexChanged += new System.EventHandler(this.VideosListView_SelectedIndexChanged);
+			this.videosListView.Resize += new System.EventHandler(this.VideosListView_Resize);
 			// 
 			// dateiNameColumnHeader
 			// 
@@ -170,7 +170,7 @@
 			this.addVideosButton.TabIndex = 3;
 			this.addVideosButton.Text = "+";
 			this.addVideosButton.UseVisualStyleBackColor = true;
-			this.addVideosButton.Click += new System.EventHandler(this.addVideosButton_Click);
+			this.addVideosButton.Click += new System.EventHandler(this.AddVideosButton_Click);
 			// 
 			// moveVideosUpButton
 			// 
@@ -186,7 +186,7 @@
 			this.moveVideosUpButton.TabIndex = 4;
 			this.moveVideosUpButton.Text = "↑";
 			this.moveVideosUpButton.UseVisualStyleBackColor = true;
-			this.moveVideosUpButton.Click += new System.EventHandler(this.moveVideosUpButton_Click);
+			this.moveVideosUpButton.Click += new System.EventHandler(this.MoveVideosUpButton_Click);
 			// 
 			// moveVideosDownButton
 			// 
@@ -202,7 +202,7 @@
 			this.moveVideosDownButton.TabIndex = 5;
 			this.moveVideosDownButton.Text = "↓";
 			this.moveVideosDownButton.UseVisualStyleBackColor = true;
-			this.moveVideosDownButton.Click += new System.EventHandler(this.moveVideosDownButton_Click);
+			this.moveVideosDownButton.Click += new System.EventHandler(this.MoveVideosDownButton_Click);
 			// 
 			// removeVideoButton
 			// 
@@ -219,7 +219,7 @@
 			this.removeVideoButton.TabIndex = 6;
 			this.removeVideoButton.Text = "-";
 			this.removeVideoButton.UseVisualStyleBackColor = true;
-			this.removeVideoButton.Click += new System.EventHandler(this.removeVideoButton_Click);
+			this.removeVideoButton.Click += new System.EventHandler(this.RemoveVideoButton_Click);
 			// 
 			// clearVideosButton
 			// 
@@ -235,7 +235,7 @@
 			this.clearVideosButton.TabIndex = 7;
 			this.clearVideosButton.Text = "x";
 			this.clearVideosButton.UseVisualStyleBackColor = true;
-			this.clearVideosButton.Click += new System.EventHandler(this.clearVideosButton_Click);
+			this.clearVideosButton.Click += new System.EventHandler(this.ClearVideosButton_Click);
 			// 
 			// insertTemplatesButton
 			// 
@@ -251,7 +251,7 @@
 			this.insertTemplatesButton.TabIndex = 3;
 			this.insertTemplatesButton.Text = "T";
 			this.insertTemplatesButton.UseVisualStyleBackColor = true;
-			this.insertTemplatesButton.Click += new System.EventHandler(this.insertTemplatesButton_Click);
+			this.insertTemplatesButton.Click += new System.EventHandler(this.InsertTemplatesButton_Click);
 			// 
 			// editVideoInformationGrid
 			// 
@@ -277,7 +277,7 @@
 			this.acceptButton.TabIndex = 1;
 			this.acceptButton.Text = "Hinzufügen";
 			this.acceptButton.UseVisualStyleBackColor = true;
-			this.acceptButton.Click += new System.EventHandler(this.acceptButton_Click);
+			this.acceptButton.Click += new System.EventHandler(this.AcceptButton_Click);
 			// 
 			// cancelButton
 			// 
@@ -292,16 +292,16 @@
 			this.cancelButton.TabIndex = 2;
 			this.cancelButton.Text = "Abbrechen";
 			this.cancelButton.UseVisualStyleBackColor = true;
-			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+			this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
 			// 
 			// loadWorker
 			// 
-			this.loadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.loadWorker_DoWork);
+			this.loadWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.LoadWorker_DoWork);
 			this.loadWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.Worker_RunWorkerCompleted);
 			// 
 			// addVideosWorker
 			// 
-			this.addVideosWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.addVideosWorker_DoWork);
+			this.addVideosWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.AddVideosWorker_DoWork);
 			this.addVideosWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.Worker_RunWorkerCompleted);
 			// 
 			// addVideosDialog

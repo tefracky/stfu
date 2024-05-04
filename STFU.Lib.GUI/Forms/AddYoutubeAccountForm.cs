@@ -24,7 +24,7 @@ namespace STFU.Lib.GUI.Forms
 
 		public AddYoutubeAccountForm() : this(true) { }
 
-		Thread thread;
+        readonly Thread thread;
 
 		public AddYoutubeAccountForm(bool showMailCheckbox)
 		{
@@ -44,18 +44,18 @@ namespace STFU.Lib.GUI.Forms
 			useExternalLinkTextbox.Text = BrowseUrl;
 		}
 
-		private void useExternalLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void UseExternalLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			Process.Start(BrowseUrl);
 		}
 
-		private void allowMailingCheckbox_CheckedChanged(object sender, EventArgs e)
+		private void AllowMailingCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			useExternalLinkTextbox.Text = BrowseUrl;
 			MailsRequested = allowMailingCheckbox.Checked;
 		}
 
-		private void checkLoginTimer_Tick(object sender, EventArgs e)
+		private void CheckLoginTimer_Tick(object sender, EventArgs e)
 		{
 			if (finished)
 			{

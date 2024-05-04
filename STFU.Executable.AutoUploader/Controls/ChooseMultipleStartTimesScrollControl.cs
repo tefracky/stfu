@@ -8,7 +8,7 @@ namespace STFU.Executable.AutoUploader.Controls
 {
 	public partial class ChooseMultipleStartTimesScrollControl : UserControl
 	{
-		private IList<IObservationConfiguration> publishSettings = new List<IObservationConfiguration>();
+		private readonly IList<IObservationConfiguration> publishSettings = new List<IObservationConfiguration>();
 
 		public ChooseMultipleStartTimesScrollControl()
 		{
@@ -37,11 +37,13 @@ namespace STFU.Executable.AutoUploader.Controls
 		{
 			for (int i = 0; i < publishSettings.Count; i++)
 			{
-				var control = new ChooseSingleStartTimeControl(publishSettings[i]);
-				control.Margin = new Padding(0, 0, 0, 10);
-				control.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                var control = new ChooseSingleStartTimeControl(publishSettings[i])
+                {
+                    Margin = new Padding(0, 0, 0, 10),
+                    Anchor = AnchorStyles.Left | AnchorStyles.Right
+                };
 
-				mainTlp.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+                mainTlp.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 				mainTlp.RowCount++;
 				mainTlp.RowStyles[mainTlp.RowCount - 2].SizeType = SizeType.AutoSize;
 				mainTlp.RowStyles[mainTlp.RowCount - 2].Height = 0;

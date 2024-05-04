@@ -26,14 +26,14 @@ namespace STFU.Lib.GUI.Forms
 			uploadGrid.Fill(video, notificationSettings, hasMailPrivilegue, catContainer, langContainer, plContainer, pscContainer);
 		}
 
-		private void submitButton_Click(object sender, System.EventArgs e)
+		private void SubmitButton_Click(object sender, System.EventArgs e)
 		{
 			Video.FillFields(uploadGrid.Video);
 			DialogResult = DialogResult.OK;
 			Close();
 		}
 
-		private void cancelButton_Click(object sender, System.EventArgs e)
+		private void CancelButton_Click(object sender, System.EventArgs e)
 		{
 			Close();
 		}

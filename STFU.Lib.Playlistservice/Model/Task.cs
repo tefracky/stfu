@@ -5,14 +5,14 @@ namespace STFU.Lib.Playlistservice.Model
 {
 	public class Task
 	{
-		public long id { get; set; }
-		public string videoId { get; set; }
-		public string playlistId { get; set; }
-		public string videoTitle { get; set; }
-		public string playlistTitle { get; set; }
-		public DateTime addAt { get; set; }
-		public TaskState state { get; set; }
-		public int attemptCount { get; set; }
+		public long Id { get; set; }
+		public string VideoId { get; set; }
+		public string PlaylistId { get; set; }
+		public string VideoTitle { get; set; }
+		public string PlaylistTitle { get; set; }
+		public DateTime AddAt { get; set; }
+		public TaskState State { get; set; }
+		public int AttemptCount { get; set; }
 
 		public override string ToString()
 		{

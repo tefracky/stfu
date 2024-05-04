@@ -114,7 +114,7 @@
 			this.saveButton.TabIndex = 2;
 			this.saveButton.Text = "OK";
 			this.saveButton.UseVisualStyleBackColor = true;
-			this.saveButton.Click += new System.EventHandler(this.saveButtonClick);
+			this.saveButton.Click += new System.EventHandler(this.SaveButtonClick);
 			// 
 			// cancelButton
 			// 
@@ -130,7 +130,7 @@
 			this.cancelButton.TabIndex = 3;
 			this.cancelButton.Text = "Abbrechen";
 			this.cancelButton.UseVisualStyleBackColor = true;
-			this.cancelButton.Click += new System.EventHandler(this.cancelButtonClick);
+			this.cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
 			// 
 			// AddPlannedVideoForm
 			// 

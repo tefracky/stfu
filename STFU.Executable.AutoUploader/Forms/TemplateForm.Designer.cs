@@ -272,7 +272,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.addTemplateButton.Text = "+";
 			this.tooltip.SetToolTip(this.addTemplateButton, "Neues Template hinzufügen");
 			this.addTemplateButton.UseVisualStyleBackColor = true;
-			this.addTemplateButton.Click += new System.EventHandler(this.addTemplateButtonClick);
+			this.addTemplateButton.Click += new System.EventHandler(this.AddTemplateButtonClick);
 			// 
 			// moveTemplateUpButton
 			// 
@@ -288,7 +288,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.moveTemplateUpButton.Text = "↑";
 			this.tooltip.SetToolTip(this.moveTemplateUpButton, "Markiertes Template um eine Position nach oben verschieben");
 			this.moveTemplateUpButton.UseVisualStyleBackColor = true;
-			this.moveTemplateUpButton.Click += new System.EventHandler(this.moveTemplateUpButtonClick);
+			this.moveTemplateUpButton.Click += new System.EventHandler(this.MoveTemplateUpButtonClick);
 			// 
 			// moveTemplateDownButton
 			// 
@@ -304,7 +304,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.moveTemplateDownButton.Text = "↓";
 			this.tooltip.SetToolTip(this.moveTemplateDownButton, "Markiertes Template um eine Position nach unten verschieben");
 			this.moveTemplateDownButton.UseVisualStyleBackColor = true;
-			this.moveTemplateDownButton.Click += new System.EventHandler(this.moveTemplateDownButtonClick);
+			this.moveTemplateDownButton.Click += new System.EventHandler(this.MoveTemplateDownButtonClick);
 			// 
 			// deleteTemplateButton
 			// 
@@ -321,7 +321,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.deleteTemplateButton.Text = "-";
 			this.tooltip.SetToolTip(this.deleteTemplateButton, "Markiertes Template löschen");
 			this.deleteTemplateButton.UseVisualStyleBackColor = true;
-			this.deleteTemplateButton.Click += new System.EventHandler(this.deleteTemplateButtonClick);
+			this.deleteTemplateButton.Click += new System.EventHandler(this.DeleteTemplateButtonClick);
 			// 
 			// clearTemplatesButton
 			// 
@@ -338,7 +338,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.clearTemplatesButton.Text = "x";
 			this.tooltip.SetToolTip(this.clearTemplatesButton, "Alle Templates löschen");
 			this.clearTemplatesButton.UseVisualStyleBackColor = true;
-			this.clearTemplatesButton.Click += new System.EventHandler(this.clearTemplatesButtonClick);
+			this.clearTemplatesButton.Click += new System.EventHandler(this.ClearTemplatesButtonClick);
 			// 
 			// templateListView
 			// 
@@ -359,7 +359,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.templateListView.TabIndex = 7;
 			this.templateListView.UseCompatibleStateImageBehavior = false;
 			this.templateListView.View = System.Windows.Forms.View.Details;
-			this.templateListView.SelectedIndexChanged += new System.EventHandler(this.templateListViewSelectedIndexChanged);
+			this.templateListView.SelectedIndexChanged += new System.EventHandler(this.TemplateListViewSelectedIndexChanged);
 			// 
 			// templatesColumnHeader
 			// 
@@ -381,7 +381,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.duplicateTemplateButton.Text = "⁂";
 			this.tooltip.SetToolTip(this.duplicateTemplateButton, "Erstellt eine Kopie des ausgewählten Templates");
 			this.duplicateTemplateButton.UseVisualStyleBackColor = true;
-			this.duplicateTemplateButton.Click += new System.EventHandler(this.duplicateTemplateButtonClick);
+			this.duplicateTemplateButton.Click += new System.EventHandler(this.DuplicateTemplateButtonClick);
 			// 
 			// editTemplateTableLayoutPanel
 			// 
@@ -441,7 +441,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.templateNameTextbox.Name = "templateNameTextbox";
 			this.templateNameTextbox.Size = new System.Drawing.Size(786, 26);
 			this.templateNameTextbox.TabIndex = 1;
-			this.templateNameTextbox.TextChanged += new System.EventHandler(this.templateNameTextboxTextChanged);
+			this.templateNameTextbox.TextChanged += new System.EventHandler(this.TemplateNameTextboxTextChanged);
 			// 
 			// saveTemplateButton
 			// 
@@ -457,7 +457,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.saveTemplateButton.TabIndex = 2;
 			this.saveTemplateButton.Text = "Speichern";
 			this.saveTemplateButton.UseVisualStyleBackColor = true;
-			this.saveTemplateButton.Click += new System.EventHandler(this.saveTemplateButtonClick);
+			this.saveTemplateButton.Click += new System.EventHandler(this.SaveTemplateButtonClick);
 			// 
 			// resetTemplateButton
 			// 
@@ -473,7 +473,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.resetTemplateButton.TabIndex = 3;
 			this.resetTemplateButton.Text = "Verwerfen";
 			this.resetTemplateButton.UseVisualStyleBackColor = true;
-			this.resetTemplateButton.Click += new System.EventHandler(this.resetTemplateButtonClick);
+			this.resetTemplateButton.Click += new System.EventHandler(this.ResetTemplateButtonClick);
 			// 
 			// templateValuesTabControl
 			// 
@@ -591,7 +591,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.templateTitleTextbox.Name = "templateTitleTextbox";
 			this.templateTitleTextbox.Size = new System.Drawing.Size(956, 26);
 			this.templateTitleTextbox.TabIndex = 3;
-			this.templateTitleTextbox.TextChanged += new System.EventHandler(this.templateTitleTextboxTextChanged);
+			this.templateTitleTextbox.TextChanged += new System.EventHandler(this.TemplateTitleTextboxTextChanged);
 			// 
 			// templateDescriptionTextbox
 			// 
@@ -608,7 +608,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.templateDescriptionTextbox.Name = "templateDescriptionTextbox";
 			this.templateDescriptionTextbox.Size = new System.Drawing.Size(999, 340);
 			this.templateDescriptionTextbox.TabIndex = 4;
-			this.templateDescriptionTextbox.TextChanged += new System.EventHandler(this.templateDescriptionTextboxTextChanged);
+			this.templateDescriptionTextbox.TextChanged += new System.EventHandler(this.TemplateDescriptionTextboxTextChanged);
 			// 
 			// templateTagsTextbox
 			// 
@@ -623,7 +623,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.templateTagsTextbox.Name = "templateTagsTextbox";
 			this.templateTagsTextbox.Size = new System.Drawing.Size(999, 136);
 			this.templateTagsTextbox.TabIndex = 5;
-			this.templateTagsTextbox.TextChanged += new System.EventHandler(this.templateTagsTextboxTextChanged);
+			this.templateTagsTextbox.TextChanged += new System.EventHandler(this.TemplateTagsTextboxTextChanged);
 			// 
 			// maxTitleLengthLabel
 			// 
@@ -729,7 +729,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.publishAtCheckbox.TabIndex = 13;
 			this.publishAtCheckbox.Text = "Video geplant veröffentlichen";
 			this.publishAtCheckbox.UseVisualStyleBackColor = true;
-			this.publishAtCheckbox.CheckedChanged += new System.EventHandler(this.publishAtCheckboxCheckedChanged);
+			this.publishAtCheckbox.CheckedChanged += new System.EventHandler(this.PublishAtCheckboxCheckedChanged);
 			// 
 			// privacyComboBox
 			// 
@@ -746,7 +746,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.privacyComboBox.Name = "privacyComboBox";
 			this.privacyComboBox.Size = new System.Drawing.Size(920, 26);
 			this.privacyComboBox.TabIndex = 12;
-			this.privacyComboBox.SelectedIndexChanged += new System.EventHandler(this.privacyComboBoxSelectedIndexChanged);
+			this.privacyComboBox.SelectedIndexChanged += new System.EventHandler(this.PrivacyComboBoxSelectedIndexChanged);
 			// 
 			// publishGroupbox
 			// 
@@ -886,7 +886,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.moveTimeUpButton.Text = "↑";
 			this.tooltip.SetToolTip(this.moveTimeUpButton, "Markierte Zeiten um eine Position nach oben verschieben");
 			this.moveTimeUpButton.UseVisualStyleBackColor = true;
-			this.moveTimeUpButton.Click += new System.EventHandler(this.moveTimeUpButtonClick);
+			this.moveTimeUpButton.Click += new System.EventHandler(this.MoveTimeUpButtonClick);
 			// 
 			// moveTimeDownButton
 			// 
@@ -904,7 +904,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.moveTimeDownButton.Text = "↓";
 			this.tooltip.SetToolTip(this.moveTimeDownButton, "Markierte Zeiten um eine Position nach unten verschieben");
 			this.moveTimeDownButton.UseVisualStyleBackColor = true;
-			this.moveTimeDownButton.Click += new System.EventHandler(this.moveTimeDownButtonClick);
+			this.moveTimeDownButton.Click += new System.EventHandler(this.MoveTimeDownButtonClick);
 			// 
 			// addOneDayButton
 			// 
@@ -924,7 +924,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.tooltip.SetToolTip(this.addOneDayButton, "Nach Veröffentlichung zu markierten Zeiten einen Tag mehr vor der nächsen Veröffe" +
         "ntlichung warten");
 			this.addOneDayButton.UseVisualStyleBackColor = true;
-			this.addOneDayButton.Click += new System.EventHandler(this.addOneDayButtonClick);
+			this.addOneDayButton.Click += new System.EventHandler(this.AddOneDayButtonClick);
 			// 
 			// substractOneDayButton
 			// 
@@ -944,7 +944,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.tooltip.SetToolTip(this.substractOneDayButton, "Nach Veröffentlichung zu markierten Zeiten einen Tag weniger vor der nächsen Verö" +
         "ffentlichung warten");
 			this.substractOneDayButton.UseVisualStyleBackColor = true;
-			this.substractOneDayButton.Click += new System.EventHandler(this.substractOneDayButtonClick);
+			this.substractOneDayButton.Click += new System.EventHandler(this.SubstractOneDayButtonClick);
 			// 
 			// clearTimesButton
 			// 
@@ -963,7 +963,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.clearTimesButton.Text = "x";
 			this.tooltip.SetToolTip(this.clearTimesButton, "Alle Zeiten löschen");
 			this.clearTimesButton.UseVisualStyleBackColor = true;
-			this.clearTimesButton.Click += new System.EventHandler(this.clearTimesButtonClick);
+			this.clearTimesButton.Click += new System.EventHandler(this.ClearTimesButtonClick);
 			// 
 			// deleteTimeButton
 			// 
@@ -982,7 +982,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.deleteTimeButton.Text = "-";
 			this.tooltip.SetToolTip(this.deleteTimeButton, "Markierte Zeiten löschen");
 			this.deleteTimeButton.UseVisualStyleBackColor = true;
-			this.deleteTimeButton.Click += new System.EventHandler(this.deleteTimeButtonClick);
+			this.deleteTimeButton.Click += new System.EventHandler(this.DeleteTimeButtonClick);
 			// 
 			// addOneWeekButton
 			// 
@@ -1002,7 +1002,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.tooltip.SetToolTip(this.addOneWeekButton, "Nach Veröffentlichung zu markierten Zeiten eine Woche mehr vor der nächsen Veröff" +
         "entlichung warten");
 			this.addOneWeekButton.UseVisualStyleBackColor = true;
-			this.addOneWeekButton.Click += new System.EventHandler(this.addOneWeekButtonClick);
+			this.addOneWeekButton.Click += new System.EventHandler(this.AddOneWeekButtonClick);
 			// 
 			// substractOneWeekButton
 			// 
@@ -1022,7 +1022,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.tooltip.SetToolTip(this.substractOneWeekButton, "Nach Veröffentlichung zu markierten Zeiten eine Woche weniger vor der nächsen Ver" +
         "öffentlichung warten");
 			this.substractOneWeekButton.UseVisualStyleBackColor = true;
-			this.substractOneWeekButton.Click += new System.EventHandler(this.substractOneWeekButtonClick);
+			this.substractOneWeekButton.Click += new System.EventHandler(this.SubstractOneWeekButtonClick);
 			// 
 			// addTimeLabel
 			// 
@@ -1048,7 +1048,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.addTimeButton.TabIndex = 11;
 			this.addTimeButton.Text = "Hinzufügen";
 			this.addTimeButton.UseVisualStyleBackColor = true;
-			this.addTimeButton.Click += new System.EventHandler(this.addTimeButtonClick);
+			this.addTimeButton.Click += new System.EventHandler(this.AddTimeButtonClick);
 			// 
 			// addWeekdayCombobox
 			// 
@@ -1120,7 +1120,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.nextPublishTimeDtp.Name = "nextPublishTimeDtp";
 			this.nextPublishTimeDtp.Size = new System.Drawing.Size(218, 26);
 			this.nextPublishTimeDtp.TabIndex = 14;
-			this.nextPublishTimeDtp.ValueChanged += new System.EventHandler(this.nextPublishTimeDtp_ValueChanged);
+			this.nextPublishTimeDtp.ValueChanged += new System.EventHandler(this.NextPublishTimeDtp_ValueChanged);
 			// 
 			// otherTabPage
 			// 
@@ -1231,7 +1231,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.isEmbeddableCheckbox.TabIndex = 3;
 			this.isEmbeddableCheckbox.Text = "Einbetten zulassen";
 			this.isEmbeddableCheckbox.UseVisualStyleBackColor = true;
-			this.isEmbeddableCheckbox.CheckedChanged += new System.EventHandler(this.isEmbeddableCheckboxCheckedChanged);
+			this.isEmbeddableCheckbox.CheckedChanged += new System.EventHandler(this.IsEmbeddableCheckboxCheckedChanged);
 			// 
 			// publicStatsViewableCheckbox
 			// 
@@ -1245,7 +1245,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.publicStatsViewableCheckbox.TabIndex = 4;
 			this.publicStatsViewableCheckbox.Text = "Videostatistik auf der Wiedergabeseite öffentlich sichtbar machen";
 			this.publicStatsViewableCheckbox.UseVisualStyleBackColor = true;
-			this.publicStatsViewableCheckbox.CheckedChanged += new System.EventHandler(this.publicStatsViewableCheckboxCheckedChanged);
+			this.publicStatsViewableCheckbox.CheckedChanged += new System.EventHandler(this.PublicStatsViewableCheckboxCheckedChanged);
 			// 
 			// categoryCombobox
 			// 
@@ -1259,7 +1259,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.categoryCombobox.Name = "categoryCombobox";
 			this.categoryCombobox.Size = new System.Drawing.Size(825, 26);
 			this.categoryCombobox.TabIndex = 5;
-			this.categoryCombobox.SelectedIndexChanged += new System.EventHandler(this.categoryComboboxSelectedIndexChanged);
+			this.categoryCombobox.SelectedIndexChanged += new System.EventHandler(this.CategoryComboboxSelectedIndexChanged);
 			// 
 			// defaultLanguageCombobox
 			// 
@@ -1273,7 +1273,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.defaultLanguageCombobox.Name = "defaultLanguageCombobox";
 			this.defaultLanguageCombobox.Size = new System.Drawing.Size(825, 26);
 			this.defaultLanguageCombobox.TabIndex = 6;
-			this.defaultLanguageCombobox.SelectedIndexChanged += new System.EventHandler(this.defaultLanguageComboboxSelectedIndexChanged);
+			this.defaultLanguageCombobox.SelectedIndexChanged += new System.EventHandler(this.DefaultLanguageComboboxSelectedIndexChanged);
 			// 
 			// licenseCombobox
 			// 
@@ -1290,7 +1290,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.licenseCombobox.Name = "licenseCombobox";
 			this.licenseCombobox.Size = new System.Drawing.Size(825, 26);
 			this.licenseCombobox.TabIndex = 7;
-			this.licenseCombobox.SelectedIndexChanged += new System.EventHandler(this.licenseComboboxSelectedIndexChanged);
+			this.licenseCombobox.SelectedIndexChanged += new System.EventHandler(this.LicenseComboboxSelectedIndexChanged);
 			// 
 			// thumbnailLabel
 			// 
@@ -1314,7 +1314,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.thumbnailTextbox.Name = "thumbnailTextbox";
 			this.thumbnailTextbox.Size = new System.Drawing.Size(794, 26);
 			this.thumbnailTextbox.TabIndex = 9;
-			this.thumbnailTextbox.TextChanged += new System.EventHandler(this.thumbnailTextboxTextChanged);
+			this.thumbnailTextbox.TextChanged += new System.EventHandler(this.ThumbnailTextboxTextChanged);
 			// 
 			// chooseThumbnailPathButton
 			// 
@@ -1330,7 +1330,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.chooseThumbnailPathButton.TabIndex = 10;
 			this.chooseThumbnailPathButton.Text = "...";
 			this.chooseThumbnailPathButton.UseVisualStyleBackColor = true;
-			this.chooseThumbnailPathButton.Click += new System.EventHandler(this.chooseThumbnailPathButtonClick);
+			this.chooseThumbnailPathButton.Click += new System.EventHandler(this.ChooseThumbnailPathButtonClick);
 			// 
 			// notifySubscribersCheckbox
 			// 
@@ -1344,7 +1344,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.notifySubscribersCheckbox.TabIndex = 3;
 			this.notifySubscribersCheckbox.Text = "Im Abofeed veröffentlichen und Abonnenten benachrichtigen";
 			this.notifySubscribersCheckbox.UseVisualStyleBackColor = true;
-			this.notifySubscribersCheckbox.CheckedChanged += new System.EventHandler(this.notifySubscribersCheckboxCheckedChanged);
+			this.notifySubscribersCheckbox.CheckedChanged += new System.EventHandler(this.NotifySubscribersCheckboxCheckedChanged);
 			// 
 			// autoLevelsCheckbox
 			// 
@@ -1358,7 +1358,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.autoLevelsCheckbox.TabIndex = 3;
 			this.autoLevelsCheckbox.Text = "Helligkeit und Farben automatisch von Youtube verbessern lassen";
 			this.autoLevelsCheckbox.UseVisualStyleBackColor = true;
-			this.autoLevelsCheckbox.CheckedChanged += new System.EventHandler(this.autoLevelsCheckboxCheckedChanged);
+			this.autoLevelsCheckbox.CheckedChanged += new System.EventHandler(this.AutoLevelsCheckboxCheckedChanged);
 			// 
 			// stabilizeCheckbox
 			// 
@@ -1372,7 +1372,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.stabilizeCheckbox.TabIndex = 3;
 			this.stabilizeCheckbox.Text = "Bildstabilisierung automatisch von Youtube durchführen lassen";
 			this.stabilizeCheckbox.UseVisualStyleBackColor = true;
-			this.stabilizeCheckbox.CheckedChanged += new System.EventHandler(this.stabilizeCheckboxCheckedChanged);
+			this.stabilizeCheckbox.CheckedChanged += new System.EventHandler(this.StabilizeCheckboxCheckedChanged);
 			// 
 			// playlistsTabPage
 			// 
@@ -1455,7 +1455,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.addToPlaylistCheckbox.TabIndex = 4;
 			this.addToPlaylistCheckbox.Text = "Nach Upload in Playlist einfügen: ";
 			this.addToPlaylistCheckbox.UseVisualStyleBackColor = true;
-			this.addToPlaylistCheckbox.CheckedChanged += new System.EventHandler(this.addToPlaylistCheckbox_CheckedChanged);
+			this.addToPlaylistCheckbox.CheckedChanged += new System.EventHandler(this.AddToPlaylistCheckbox_CheckedChanged);
 			// 
 			// playlistCombobox
 			// 
@@ -1469,7 +1469,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.playlistCombobox.Name = "playlistCombobox";
 			this.playlistCombobox.Size = new System.Drawing.Size(766, 26);
 			this.playlistCombobox.TabIndex = 8;
-			this.playlistCombobox.SelectedIndexChanged += new System.EventHandler(this.playlistCombobox_SelectedIndexChanged);
+			this.playlistCombobox.SelectedIndexChanged += new System.EventHandler(this.PlaylistCombobox_SelectedIndexChanged);
 			// 
 			// addPlaylistViaServiceGroupbox
 			// 
@@ -1532,7 +1532,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.sendToPlaylistserviceCheckbox.TabIndex = 0;
 			this.sendToPlaylistserviceCheckbox.Text = "Nach Upload an Playlistservice zu diesem Account senden:";
 			this.sendToPlaylistserviceCheckbox.UseVisualStyleBackColor = true;
-			this.sendToPlaylistserviceCheckbox.CheckedChanged += new System.EventHandler(this.sendToPlaylistserviceCheckbox_CheckedChanged);
+			this.sendToPlaylistserviceCheckbox.CheckedChanged += new System.EventHandler(this.SendToPlaylistserviceCheckbox_CheckedChanged);
 			// 
 			// chooseAccountCombobox
 			// 
@@ -1546,7 +1546,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.chooseAccountCombobox.Name = "chooseAccountCombobox";
 			this.chooseAccountCombobox.Size = new System.Drawing.Size(644, 26);
 			this.chooseAccountCombobox.TabIndex = 8;
-			this.chooseAccountCombobox.SelectedIndexChanged += new System.EventHandler(this.chooseAccountCombobox_SelectedIndexChanged);
+			this.chooseAccountCombobox.SelectedIndexChanged += new System.EventHandler(this.ChooseAccountCombobox_SelectedIndexChanged);
 			// 
 			// useCustomPlaylistIdTextbox
 			// 
@@ -1559,7 +1559,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.useCustomPlaylistIdTextbox.Name = "useCustomPlaylistIdTextbox";
 			this.useCustomPlaylistIdTextbox.Size = new System.Drawing.Size(644, 26);
 			this.useCustomPlaylistIdTextbox.TabIndex = 1;
-			this.useCustomPlaylistIdTextbox.TextChanged += new System.EventHandler(this.useCustomPlaylistIdTextbox_TextChanged);
+			this.useCustomPlaylistIdTextbox.TextChanged += new System.EventHandler(this.UseCustomPlaylistIdTextbox_TextChanged);
 			// 
 			// enterPlaylistIdManuallyRadiobutton
 			// 
@@ -1575,7 +1575,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.enterPlaylistIdManuallyRadiobutton.TabStop = true;
 			this.enterPlaylistIdManuallyRadiobutton.Text = "Playlist-Id oder -Link selbst eingeben:";
 			this.enterPlaylistIdManuallyRadiobutton.UseVisualStyleBackColor = true;
-			this.enterPlaylistIdManuallyRadiobutton.CheckedChanged += new System.EventHandler(this.enterPlaylistIdManuallyRadiobutton_CheckedChanged);
+			this.enterPlaylistIdManuallyRadiobutton.CheckedChanged += new System.EventHandler(this.EnterPlaylistIdManuallyRadiobutton_CheckedChanged);
 			// 
 			// usePlaylistFromAccountRadiobutton
 			// 
@@ -1588,7 +1588,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.usePlaylistFromAccountRadiobutton.TabIndex = 1;
 			this.usePlaylistFromAccountRadiobutton.Text = "Geladene Playlist verwenden:";
 			this.usePlaylistFromAccountRadiobutton.UseVisualStyleBackColor = true;
-			this.usePlaylistFromAccountRadiobutton.CheckedChanged += new System.EventHandler(this.usePlaylistFromAccountRadiobutton_CheckedChanged);
+			this.usePlaylistFromAccountRadiobutton.CheckedChanged += new System.EventHandler(this.UsePlaylistFromAccountRadiobutton_CheckedChanged);
 			// 
 			// label5
 			// 
@@ -1612,7 +1612,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.useCustomPlaylistTitleTextbox.Name = "useCustomPlaylistTitleTextbox";
 			this.useCustomPlaylistTitleTextbox.Size = new System.Drawing.Size(644, 26);
 			this.useCustomPlaylistTitleTextbox.TabIndex = 1;
-			this.useCustomPlaylistTitleTextbox.TextChanged += new System.EventHandler(this.useCustomPlaylistTitleTextbox_TextChanged);
+			this.useCustomPlaylistTitleTextbox.TextChanged += new System.EventHandler(this.UseCustomPlaylistTitleTextbox_TextChanged);
 			// 
 			// choosePlaylistCombobox
 			// 
@@ -1626,7 +1626,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.choosePlaylistCombobox.Name = "choosePlaylistCombobox";
 			this.choosePlaylistCombobox.Size = new System.Drawing.Size(644, 26);
 			this.choosePlaylistCombobox.TabIndex = 8;
-			this.choosePlaylistCombobox.SelectedIndexChanged += new System.EventHandler(this.choosePlaylistCombobox_SelectedIndexChanged);
+			this.choosePlaylistCombobox.SelectedIndexChanged += new System.EventHandler(this.ChoosePlaylistCombobox_SelectedIndexChanged);
 			// 
 			// planVideosTabpage
 			// 
@@ -1639,7 +1639,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.planVideosTabpage.Size = new System.Drawing.Size(1013, 620);
 			this.planVideosTabpage.TabIndex = 3;
 			this.planVideosTabpage.Text = "Videos planen";
-			this.planVideosTabpage.Enter += new System.EventHandler(this.planVideosTabpageEntered);
+			this.planVideosTabpage.Enter += new System.EventHandler(this.PlanVideosTabpageEntered);
 			// 
 			// planVideosTlp
 			// 
@@ -1689,7 +1689,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.addFilenameButton.TabIndex = 2;
 			this.addFilenameButton.Text = "+";
 			this.addFilenameButton.UseVisualStyleBackColor = true;
-			this.addFilenameButton.Click += new System.EventHandler(this.addFilenameButtonClick);
+			this.addFilenameButton.Click += new System.EventHandler(this.AddFilenameButtonClick);
 			// 
 			// removeFilenameButton
 			// 
@@ -1706,7 +1706,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.removeFilenameButton.TabIndex = 5;
 			this.removeFilenameButton.Text = "-";
 			this.removeFilenameButton.UseVisualStyleBackColor = true;
-			this.removeFilenameButton.Click += new System.EventHandler(this.removeFilenameButtonClick);
+			this.removeFilenameButton.Click += new System.EventHandler(this.RemoveFilenameButtonClick);
 			// 
 			// clearFilenamesButton
 			// 
@@ -1722,7 +1722,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.clearFilenamesButton.TabIndex = 6;
 			this.clearFilenamesButton.Text = "x";
 			this.clearFilenamesButton.UseVisualStyleBackColor = true;
-			this.clearFilenamesButton.Click += new System.EventHandler(this.clearFilenamesButtonClick);
+			this.clearFilenamesButton.Click += new System.EventHandler(this.ClearFilenamesButtonClick);
 			// 
 			// filenamesListView
 			// 
@@ -1745,7 +1745,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.filenamesListView.TabIndex = 9;
 			this.filenamesListView.UseCompatibleStateImageBehavior = false;
 			this.filenamesListView.View = System.Windows.Forms.View.Details;
-			this.filenamesListView.SelectedIndexChanged += new System.EventHandler(this.filenamesListViewSelectedIndexChanged);
+			this.filenamesListView.SelectedIndexChanged += new System.EventHandler(this.FilenamesListViewSelectedIndexChanged);
 			// 
 			// varNameColumnHeader
 			// 
@@ -1830,7 +1830,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.fillFieldsListView.TabIndex = 9;
 			this.fillFieldsListView.UseCompatibleStateImageBehavior = false;
 			this.fillFieldsListView.View = System.Windows.Forms.View.Details;
-			this.fillFieldsListView.SelectedIndexChanged += new System.EventHandler(this.fillFieldsListViewSelectedIndexChanged);
+			this.fillFieldsListView.SelectedIndexChanged += new System.EventHandler(this.FillFieldsListViewSelectedIndexChanged);
 			// 
 			// columnHeader1
 			// 
@@ -1891,7 +1891,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.fieldValueTxbx.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
 			this.fieldValueTxbx.Size = new System.Drawing.Size(858, 26);
 			this.fieldValueTxbx.TabIndex = 11;
-			this.fieldValueTxbx.TextChanged += new System.EventHandler(this.fieldValueTxbxTextChanged);
+			this.fieldValueTxbx.TextChanged += new System.EventHandler(this.FieldValueTxbxTextChanged);
 			// 
 			// sendMailTabPage
 			// 
@@ -1954,7 +1954,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.mailRecipientTextbox.Name = "mailRecipientTextbox";
 			this.mailRecipientTextbox.Size = new System.Drawing.Size(783, 26);
 			this.mailRecipientTextbox.TabIndex = 3;
-			this.mailRecipientTextbox.TextChanged += new System.EventHandler(this.mailRecipientTextbox_TextChanged);
+			this.mailRecipientTextbox.TextChanged += new System.EventHandler(this.MailRecipientTextbox_TextChanged);
 			// 
 			// notificationsGroupBox
 			// 
@@ -2065,7 +2065,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.newVideoDNCheckbox.TabIndex = 1;
 			this.newVideoDNCheckbox.Text = "Desktop-Benachrichtigung";
 			this.newVideoDNCheckbox.UseVisualStyleBackColor = true;
-			this.newVideoDNCheckbox.CheckedChanged += new System.EventHandler(this.newVideoDNCheckbox_CheckedChanged);
+			this.newVideoDNCheckbox.CheckedChanged += new System.EventHandler(this.NewVideoDNCheckbox_CheckedChanged);
 			// 
 			// uploadFailedDNCheckbox
 			// 
@@ -2079,7 +2079,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.uploadFailedDNCheckbox.TabIndex = 1;
 			this.uploadFailedDNCheckbox.Text = "Desktop-Benachrichtigung";
 			this.uploadFailedDNCheckbox.UseVisualStyleBackColor = true;
-			this.uploadFailedDNCheckbox.CheckedChanged += new System.EventHandler(this.uploadFailedDNCheckbox_CheckedChanged);
+			this.uploadFailedDNCheckbox.CheckedChanged += new System.EventHandler(this.UploadFailedDNCheckbox_CheckedChanged);
 			// 
 			// newVideoMNCheckbox
 			// 
@@ -2093,7 +2093,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.newVideoMNCheckbox.TabIndex = 1;
 			this.newVideoMNCheckbox.Text = "E-Mail-Benachrichtigung";
 			this.newVideoMNCheckbox.UseVisualStyleBackColor = true;
-			this.newVideoMNCheckbox.CheckedChanged += new System.EventHandler(this.newVideoMNCheckbox_CheckedChanged);
+			this.newVideoMNCheckbox.CheckedChanged += new System.EventHandler(this.NewVideoMNCheckbox_CheckedChanged);
 			// 
 			// uploadStartedMNCheckbox
 			// 
@@ -2107,7 +2107,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.uploadStartedMNCheckbox.TabIndex = 1;
 			this.uploadStartedMNCheckbox.Text = "E-Mail-Benachrichtigung";
 			this.uploadStartedMNCheckbox.UseVisualStyleBackColor = true;
-			this.uploadStartedMNCheckbox.CheckedChanged += new System.EventHandler(this.uploadStartedMNCheckbox_CheckedChanged);
+			this.uploadStartedMNCheckbox.CheckedChanged += new System.EventHandler(this.UploadStartedMNCheckbox_CheckedChanged);
 			// 
 			// uploadFinishedMNCheckbox
 			// 
@@ -2121,7 +2121,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.uploadFinishedMNCheckbox.TabIndex = 1;
 			this.uploadFinishedMNCheckbox.Text = "E-Mail-Benachrichtigung";
 			this.uploadFinishedMNCheckbox.UseVisualStyleBackColor = true;
-			this.uploadFinishedMNCheckbox.CheckedChanged += new System.EventHandler(this.uploadFinishedMNCheckbox_CheckedChanged);
+			this.uploadFinishedMNCheckbox.CheckedChanged += new System.EventHandler(this.UploadFinishedMNCheckbox_CheckedChanged);
 			// 
 			// uploadFailedMNCheckbox
 			// 
@@ -2135,7 +2135,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.uploadFailedMNCheckbox.TabIndex = 1;
 			this.uploadFailedMNCheckbox.Text = "E-Mail-Benachrichtigung";
 			this.uploadFailedMNCheckbox.UseVisualStyleBackColor = true;
-			this.uploadFailedMNCheckbox.CheckedChanged += new System.EventHandler(this.uploadFailedMNCheckbox_CheckedChanged);
+			this.uploadFailedMNCheckbox.CheckedChanged += new System.EventHandler(this.UploadFailedMNCheckbox_CheckedChanged);
 			// 
 			// uploadStartedDNCheckbox
 			// 
@@ -2149,7 +2149,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.uploadStartedDNCheckbox.TabIndex = 1;
 			this.uploadStartedDNCheckbox.Text = "Desktop-Benachrichtigung";
 			this.uploadStartedDNCheckbox.UseVisualStyleBackColor = true;
-			this.uploadStartedDNCheckbox.CheckedChanged += new System.EventHandler(this.uploadStartedDNCheckbox_CheckedChanged);
+			this.uploadStartedDNCheckbox.CheckedChanged += new System.EventHandler(this.UploadStartedDNCheckbox_CheckedChanged);
 			// 
 			// uploadFinishedDNCheckbox
 			// 
@@ -2163,7 +2163,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.uploadFinishedDNCheckbox.TabIndex = 1;
 			this.uploadFinishedDNCheckbox.Text = "Desktop-Benachrichtigung";
 			this.uploadFinishedDNCheckbox.UseVisualStyleBackColor = true;
-			this.uploadFinishedDNCheckbox.CheckedChanged += new System.EventHandler(this.uploadFinishedDNCheckbox_CheckedChanged);
+			this.uploadFinishedDNCheckbox.CheckedChanged += new System.EventHandler(this.UploadFinishedDNCheckbox_CheckedChanged);
 			// 
 			// mailRecipientLabel
 			// 
@@ -2417,7 +2417,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.assemblyReferencesFctb.WordWrap = true;
 			this.assemblyReferencesFctb.WordWrapIndent = 6;
 			this.assemblyReferencesFctb.Zoom = 100;
-			this.assemblyReferencesFctb.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.assemblyReferencesFctb_TextChanged);
+			this.assemblyReferencesFctb.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.AssemblyReferencesFctb_TextChanged);
 			// 
 			// preparationScriptTabPage
 			// 
@@ -2474,7 +2474,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.cSharpPrepareFctb.WordWrap = true;
 			this.cSharpPrepareFctb.WordWrapIndent = 6;
 			this.cSharpPrepareFctb.Zoom = 100;
-			this.cSharpPrepareFctb.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.cSharpPrepareFctbTextChanged);
+			this.cSharpPrepareFctb.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.CSharpPrepareFctbTextChanged);
 			// 
 			// cleanUpScriptTabPage
 			// 
@@ -2531,7 +2531,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.cSharpCleanupFctb.WordWrap = true;
 			this.cSharpCleanupFctb.WordWrapIndent = 6;
 			this.cSharpCleanupFctb.Zoom = 100;
-			this.cSharpCleanupFctb.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.cSharpCleanupFctbTextChanged);
+			this.cSharpCleanupFctb.TextChanged += new System.EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(this.CSharpCleanupFctbTextChanged);
 			// 
 			// editTemplateLabel
 			// 
@@ -2558,7 +2558,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.useExpertmodeCheckbox.TabIndex = 5;
 			this.useExpertmodeCheckbox.Text = "Expertenmodus anzeigen";
 			this.useExpertmodeCheckbox.UseVisualStyleBackColor = true;
-			this.useExpertmodeCheckbox.CheckedChanged += new System.EventHandler(this.useExpertmodeCheckbox_CheckedChanged);
+			this.useExpertmodeCheckbox.CheckedChanged += new System.EventHandler(this.UseExpertmodeCheckbox_CheckedChanged);
 			// 
 			// splitContainer
 			// 
@@ -2579,7 +2579,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.splitContainer.SplitterDistance = 295;
 			this.splitContainer.SplitterWidth = 11;
 			this.splitContainer.TabIndex = 1;
-			this.splitContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainerPaint);
+			this.splitContainer.Paint += new System.Windows.Forms.PaintEventHandler(this.SplitContainerPaint);
 			// 
 			// openThumbnailDialog
 			// 

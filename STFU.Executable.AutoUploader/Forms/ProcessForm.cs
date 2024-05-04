@@ -10,18 +10,18 @@ namespace STFU.Executable.AutoUploader.Forms
 {
 	public partial class ProcessForm : Form
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(ProcessForm));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(ProcessForm));
 
 		public IReadOnlyCollection<Process> Selected { get { return selectedProcesses; } }
 
-		private List<Process> selectedProcesses = new List<Process>();
+		private readonly List<Process> selectedProcesses = new List<Process>();
 		private Process[] AllProcesses { get; set; }
 		private bool reactToCheckedEvents = true;
 
 
 		public ProcessForm(IReadOnlyCollection<Process> selected)
 		{
-			LOGGER.Info($"Initializing new instance of ProcessForm with {selected.Count} already selected procs");
+			Logger.Info($"Initializing new instance of ProcessForm with {selected.Count} already selected procs");
 
 			InitializeComponent();
 
@@ -30,12 +30,12 @@ namespace STFU.Executable.AutoUploader.Forms
 
 		private void ProcessFormLoad(object sender, EventArgs e)
 		{
-			LOGGER.Info($"Loading process form");
+			Logger.Info($"Loading process form");
 
 			RefreshAllProcsAsync();
 		}
 
-		List<string> titles = new List<string>();
+        readonly List<string> titles = new List<string>();
 
 		private async void RefreshAllProcsAsync()
 		{
@@ -48,27 +48,27 @@ namespace STFU.Executable.AutoUploader.Forms
 
 			await Task.Run(() =>
 			{
-				var currentSessionID = Process.GetCurrentProcess().SessionId;
+				var currentSessionId = Process.GetCurrentProcess().SessionId;
 
-				LOGGER.Debug($"Current session id: {currentSessionID}");
+				Logger.Debug($"Current session id: {currentSessionId}");
 
 				AllProcesses = Process.GetProcesses()
 					.OrderBy(item => item.ProcessName)
-					.Where(p => HasAccess(p) && p.SessionId == currentSessionID && p.Id != Process.GetCurrentProcess().Id)
+					.Where(p => HasAccess(p) && p.SessionId == currentSessionId && p.Id != Process.GetCurrentProcess().Id)
 					.ToArray();
 
-				LOGGER.Info($"Found {AllProcesses.Length} processes");
+				Logger.Info($"Found {AllProcesses.Length} processes");
 
 				foreach (var item in AllProcesses)
 				{
-					LOGGER.Info($"Adding process '{item.ProcessName}' to the list");
+					Logger.Info($"Adding process '{item.ProcessName}' to the list");
 
 					ListViewItem newItem = new ListViewItem(string.Empty);
 					newItem.SubItems.Add(item.ProcessName);
 
 					if (selectedProcesses.Any(proc => item.Id == proc.Id))
 					{
-						LOGGER.Info($"Process was already selected => marking checkbox");
+						Logger.Info($"Process was already selected => marking checkbox");
 						newItem.Checked = true;
 					}
 
@@ -78,7 +78,7 @@ namespace STFU.Executable.AutoUploader.Forms
 					}
 					catch (Exception ex)
 					{
-						LOGGER.Debug($"Couldn't add process file description to list view item", ex);
+						Logger.Debug($"Couldn't add process file description to list view item", ex);
 					}
 
 					items.Add(newItem);
@@ -101,28 +101,28 @@ namespace STFU.Executable.AutoUploader.Forms
 
 			try
 			{
-				LOGGER.Debug($"Checking access status for process '{p.ProcessName}'");
+				Logger.Debug($"Checking access status for process '{p.ProcessName}'");
 
 				// let it go true only if the process is accessable
 				result = p.HasExited || true;
 
-				LOGGER.Debug($"Does the uploader has access to the status: {result}");
+				Logger.Debug($"Does the uploader has access to the status: {result}");
 			}
 			catch (Exception ex)
 			{
-				LOGGER.Debug($"Couldn't access the processes has exitec status", ex);
+				Logger.Debug($"Couldn't access the processes has exitec status", ex);
 			}
 
 			return result;
 		}
 
-		private void btnRefreshClick(object sender, EventArgs e)
+		private void BtnRefreshClick(object sender, EventArgs e)
 		{
-			LOGGER.Debug($"User wants to refresh the process list");
+			Logger.Debug($"User wants to refresh the process list");
 			RefreshAllProcsAsync();
 		}
 
-		private void lvProcsItemChecked(object sender, ItemCheckedEventArgs e)
+		private void LvProcsItemChecked(object sender, ItemCheckedEventArgs e)
 		{
 			if (!reactToCheckedEvents)
 			{
@@ -133,19 +133,19 @@ namespace STFU.Executable.AutoUploader.Forms
 
 			if (selectedProcesses.Any(proc => proc.Id == item.Id))
 			{
-				LOGGER.Info($"User removed process '{item.ProcessName}' from the process list");
+				Logger.Info($"User removed process '{item.ProcessName}' from the process list");
 				selectedProcesses.RemoveAll(proc => proc.Id == item.Id);
 			}
 			else
 			{
-				LOGGER.Info($"User added process '{item.ProcessName}' to the process list");
+				Logger.Info($"User added process '{item.ProcessName}' to the process list");
 				selectedProcesses.Add(item);
 			}
 		}
 
-		private void btnSubmitClick(object sender, EventArgs e)
+		private void BtnSubmitClick(object sender, EventArgs e)
 		{
-			LOGGER.Info($"User accepted the dialog, {Selected.Count} processes should be watched");
+			Logger.Info($"User accepted the dialog, {Selected.Count} processes should be watched");
 			DialogResult = DialogResult.OK;
 			Close();
 		}

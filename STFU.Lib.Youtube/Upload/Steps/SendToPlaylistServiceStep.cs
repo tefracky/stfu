@@ -30,28 +30,28 @@ namespace STFU.Lib.Youtube.Upload.Steps
 				{
 					Task task = taskClient.CreateTask(Video.PlaylistServiceSettings.AccountId, new Task()
 					{
-						addAt = (Video.Privacy == PrivacyStatus.Private && Video.PublishAt.HasValue) ? Video.PublishAt.Value : DateTime.Now.AddMinutes(5),
-						playlistId = Video.PlaylistServiceSettings.PlaylistId,
-						playlistTitle = Video.PlaylistServiceSettings.PlaylistTitle,
-						videoId = Video.Id,
-						videoTitle = Video.Title
+						AddAt = (Video.Privacy == PrivacyStatus.Private && Video.PublishAt.HasValue) ? Video.PublishAt.Value : DateTime.Now.AddMinutes(5),
+						PlaylistId = Video.PlaylistServiceSettings.PlaylistId,
+						PlaylistTitle = Video.PlaylistServiceSettings.PlaylistTitle,
+						VideoId = Video.Id,
+						VideoTitle = Video.Title
 					});
 
-					Video.PlaylistServiceSettings.TaskId = task.id;
+					Video.PlaylistServiceSettings.TaskId = task.Id;
 				}
 				else
 				{
 					Task task = taskClient.UpdateTask(Video.PlaylistServiceSettings.AccountId, new Task()
 					{
-						id = Video.PlaylistServiceSettings.TaskId.Value,
-						addAt = (Video.Privacy == PrivacyStatus.Private && Video.PublishAt.HasValue) ? Video.PublishAt.Value : DateTime.Now.AddMinutes(5),
-						playlistId = Video.PlaylistServiceSettings.PlaylistId,
-						playlistTitle = Video.PlaylistServiceSettings.PlaylistTitle,
-						videoId = Video.Id,
-						videoTitle = Video.Title
+						Id = Video.PlaylistServiceSettings.TaskId.Value,
+						AddAt = (Video.Privacy == PrivacyStatus.Private && Video.PublishAt.HasValue) ? Video.PublishAt.Value : DateTime.Now.AddMinutes(5),
+						PlaylistId = Video.PlaylistServiceSettings.PlaylistId,
+						PlaylistTitle = Video.PlaylistServiceSettings.PlaylistTitle,
+						VideoId = Video.Id,
+						VideoTitle = Video.Title
 					});
 
-					Video.PlaylistServiceSettings.TaskId = task.id;
+					Video.PlaylistServiceSettings.TaskId = task.Id;
 				}
 			}
 
@@ -71,7 +71,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 		public override void Cancel()
 		{
 			// Höhö, das kann man nicht abbrechen lol
-			LOGGER.Warn($"Called cancel but it is not possible on this type of step");
+			Logger.Warn($"Called cancel but it is not possible on this type of step");
 		}
 	}
 }

@@ -154,11 +154,11 @@
 			this.queueStatusButton.TabIndex = 21;
 			this.queueStatusButton.Text = "Start!";
 			this.queueStatusButton.UseVisualStyleBackColor = true;
-			this.queueStatusButton.Click += new System.EventHandler(this.queueStatusButton_Click);
+			this.queueStatusButton.Click += new System.EventHandler(this.QueueStatusButton_Click);
 			// 
 			// refreshTimer
 			// 
-			this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+			this.refreshTimer.Tick += new System.EventHandler(this.RefreshTimer_Tick);
 			// 
 			// startAutouploaderbutton
 			// 
@@ -174,7 +174,7 @@
 			this.startAutouploaderbutton.TabIndex = 22;
 			this.startAutouploaderbutton.Text = "Start!";
 			this.startAutouploaderbutton.UseVisualStyleBackColor = true;
-			this.startAutouploaderbutton.Click += new System.EventHandler(this.startAutouploaderbutton_Click);
+			this.startAutouploaderbutton.Click += new System.EventHandler(this.StartAutouploaderbutton_Click);
 			// 
 			// autoUploaderStateLabel
 			// 

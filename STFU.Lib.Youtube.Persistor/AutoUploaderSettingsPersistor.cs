@@ -8,7 +8,7 @@ namespace STFU.Lib.Youtube.Persistor
 {
 	public class AutoUploaderSettingsPersistor
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(AutoUploaderSettingsPersistor));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(AutoUploaderSettingsPersistor));
 
 		public string Path { get; private set; } = null;
 		public AutoUploaderSettings Settings { get; private set; } = null;
@@ -16,7 +16,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public AutoUploaderSettingsPersistor(AutoUploaderSettings settings, string path)
 		{
-			LOGGER.Debug($"Creating autouploader settings persistor for path '{path}'");
+			Logger.Debug($"Creating autouploader settings persistor for path '{path}'");
 
 			Path = path;
 			Settings = settings;
@@ -24,7 +24,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public bool Load()
 		{
-			LOGGER.Info($"Loading autouploader settings from path '{Path}'");
+			Logger.Info($"Loading autouploader settings from path '{Path}'");
 			Settings.Reset();
 
 			bool worked = true;
@@ -36,12 +36,12 @@ namespace STFU.Lib.Youtube.Persistor
 					using (StreamReader reader = new StreamReader(Path))
 					{
 						var json = reader.ReadToEnd();
-						LOGGER.Debug($"Json from loaded path: '{json}'");
+						Logger.Debug($"Json from loaded path: '{json}'");
 
 						var settings = JsonConvert.DeserializeObject<AutoUploaderSettings>(json);
 						Settings.ShowReleaseNotes = settings.ShowReleaseNotes;
 
-						LOGGER.Info($"Loaded autouploader settings");
+						Logger.Info($"Loaded autouploader settings");
 					}
 				}
 
@@ -55,7 +55,7 @@ namespace STFU.Lib.Youtube.Persistor
 			|| e is PathTooLongException
 			|| e is IOException)
 			{
-				LOGGER.Error($"Could not load autouploader settings, exception occured!", e);
+				Logger.Error($"Could not load autouploader settings, exception occured!", e);
 				worked = false;
 			}
 
@@ -64,7 +64,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public bool Save()
 		{
-			LOGGER.Info($"Saving autouploader settings to file '{Path}'");
+			Logger.Info($"Saving autouploader settings to file '{Path}'");
 			var json = JsonConvert.SerializeObject(Settings);
 
 			var worked = true;
@@ -74,7 +74,7 @@ namespace STFU.Lib.Youtube.Persistor
 				{
 					writer.Write(json);
 				}
-				LOGGER.Info($"Autouploader settings saved");
+				Logger.Info($"Autouploader settings saved");
 
 				RecreateSaved();
 			}
@@ -86,7 +86,7 @@ namespace STFU.Lib.Youtube.Persistor
 			|| e is PathTooLongException
 			|| e is IOException)
 			{
-				LOGGER.Error($"Could not save autouploader settings, exception occured!", e);
+				Logger.Error($"Could not save autouploader settings, exception occured!", e);
 				worked = false;
 			}
 
@@ -95,9 +95,11 @@ namespace STFU.Lib.Youtube.Persistor
 
 		private void RecreateSaved()
 		{
-			LOGGER.Debug($"Recreating cache of saved autouploader settings");
-			Saved = new AutoUploaderSettings();
-			Saved.ShowReleaseNotes = Settings.ShowReleaseNotes;
-		}
+			Logger.Debug($"Recreating cache of saved autouploader settings");
+			Saved = new AutoUploaderSettings
+            {
+                ShowReleaseNotes = Settings.ShowReleaseNotes
+            };
+        }
 	}
 }

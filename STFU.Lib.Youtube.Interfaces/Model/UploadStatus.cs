@@ -10,21 +10,21 @@ namespace STFU.Lib.Youtube.Interfaces.Model
 		private double progress = 0.0;
 		private long currentSpeed = 0;
 
-		private DateTime started = default(DateTime);
-		private DateTime finished = default(DateTime);
-		private TimeSpan uploadedDuration = default(TimeSpan);
-		private TimeSpan remainingDuration = default(TimeSpan);
+		private DateTime started = default;
+		private DateTime finished = default;
+		private TimeSpan uploadedDuration = default;
+		private TimeSpan remainingDuration = default;
 
 		private Uri uploadAddress;
 		private long lastByte = 0;
 
-		private IUploadStep currentStep = default(IUploadStep);
+		private IUploadStep currentStep = default;
 		private Type currentStepType = typeof(IUploadStep);
 
 		private JobState state = JobState.NotStarted;
 
 		private bool quotaReached = false;
-		private TimeSpan waitTime = default(TimeSpan);
+		private TimeSpan waitTime = default;
 
 		public double Progress
 		{
@@ -174,10 +174,10 @@ namespace STFU.Lib.Youtube.Interfaces.Model
 			CurrentSpeed = 0;
 			State = JobState.NotStarted;
 			QuotaReached = false;
-			WaitTime = default(TimeSpan);
+			WaitTime = default;
 			LastByte = 0;
-			UploadedDuration = RemainingDuration = default(TimeSpan);
-			Started = Finished = default(DateTime);
+			UploadedDuration = RemainingDuration = default;
+			Started = Finished = default;
 			UploadAddress = null;
 		}
 

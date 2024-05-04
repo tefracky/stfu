@@ -22,7 +22,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 			if (Video.AddToPlaylist && !string.IsNullOrWhiteSpace(Video.PlaylistId))
 			{
-				LOGGER.Info($"Adding video '{Video.Title}' to playlist with id '{Video.PlaylistId}'");
+				Logger.Info($"Adding video '{Video.Title}' to playlist with id '{Video.PlaylistId}'");
 
 				var request = HttpWebRequestCreator.CreateWithAuthHeader("https://www.googleapis.com/youtube/v3/playlistItems?part=snippet", "POST", Account.GetActiveToken());
 				request.ContentType = "application/json";
@@ -35,7 +35,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 				if (!Status.QuotaReached)
 				{
-					LOGGER.Info($"Video '{Video.Title}' was successfully added to playlist with id '{Video.PlaylistId}'");
+					Logger.Info($"Video '{Video.Title}' was successfully added to playlist with id '{Video.PlaylistId}'");
 
 					FinishedSuccessful = true;
 					progress = 100;
@@ -43,7 +43,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 			}
 			else
 			{
-				LOGGER.Info($"Skipping playlist add since it is either not wanted or there is no playlist id");
+				Logger.Info($"Skipping playlist add since it is either not wanted or there is no playlist id");
 
 				FinishedSuccessful = true;
 				progress = 100;
@@ -62,7 +62,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 		public override void Cancel()
 		{
 			// Höhö, das kann man nicht abbrechen lol
-			LOGGER.Warn($"Called cancel but it is not possible on this type of step");
+			Logger.Warn($"Called cancel but it is not possible on this type of step");
 		}
 	}
 }

@@ -9,7 +9,7 @@ namespace STFU.Lib.Youtube
 {
 	public class YoutubeAccountContainer : IYoutubeAccountContainer
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubeAccountContainer));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubeAccountContainer));
 
 		IList<IYoutubeAccount> Accounts { get; } = new List<IYoutubeAccount>();
 
@@ -19,7 +19,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (!RegisteredAccounts.Any(r => r.Id == account.Id))
 			{
-				LOGGER.Debug($"Adding a new account, title: '{account.Title}'");
+				Logger.Debug($"Adding a new account, title: '{account.Title}'");
 				Accounts.Add(account);
 			}
 		}
@@ -28,7 +28,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Accounts.Contains(account))
 			{
-				LOGGER.Debug($"Removing account, title: '{account.Title}'");
+				Logger.Debug($"Removing account, title: '{account.Title}'");
 				Accounts.Remove(account);
 			}
 		}
@@ -37,14 +37,14 @@ namespace STFU.Lib.Youtube
 		{
 			if (Accounts.Count > index)
 			{
-				LOGGER.Debug($"Removing account at index {index}, title: '{Accounts[index].Title}'");
+				Logger.Debug($"Removing account at index {index}, title: '{Accounts[index].Title}'");
 				Accounts.RemoveAt(index);
 			}
 		}
 
 		public void UnregisterAllAccounts()
 		{
-			LOGGER.Debug($"Removing all accounts");
+			Logger.Debug($"Removing all accounts");
 			Accounts.Clear();
 		}
 	}

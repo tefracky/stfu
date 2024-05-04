@@ -17,7 +17,7 @@ namespace STFU.Lib.Youtube.Automation
 {
 	public class PathContainer : IPathContainer
 	{
-		private static ILog LOGGER { get; set; } = LogManager.GetLogger(nameof(PathContainer));
+		private static ILog Logger { get; set; } = LogManager.GetLogger(nameof(PathContainer));
 
 		public PathContainer() { }
 
@@ -30,7 +30,7 @@ namespace STFU.Lib.Youtube.Automation
 		{
 			var alreadyRegistered = RegisteredPaths.Any(p => SamePathUsed(path, p));
 
-			LOGGER.Info($"Is path '{path.Fullname}' already registrered => {alreadyRegistered}");
+			Logger.Info($"Is path '{path.Fullname}' already registrered => {alreadyRegistered}");
 
 			return alreadyRegistered;
 		}
@@ -39,7 +39,7 @@ namespace STFU.Lib.Youtube.Automation
 		{
 			var samePathUsed = Path.GetFullPath(path.Fullname).ToLower() == Path.GetFullPath(p.Fullname).ToLower();
 
-			LOGGER.Info($"Are paths '{path.Fullname}' and '{p.Fullname}' the same => {samePathUsed}");
+			Logger.Info($"Are paths '{path.Fullname}' and '{p.Fullname}' the same => {samePathUsed}");
 
 			return samePathUsed;
 		}
@@ -48,7 +48,7 @@ namespace STFU.Lib.Youtube.Automation
 		{
 			if (!PathIsAlreadyRegistered(path))
 			{
-				LOGGER.Info($"Adding path '{path.Fullname}'");
+				Logger.Info($"Adding path '{path.Fullname}'");
 
 				Paths.Add(path);
 			}
@@ -58,7 +58,7 @@ namespace STFU.Lib.Youtube.Automation
 		{
 			if (RegisteredPaths.Contains(path))
 			{
-				LOGGER.Info($"Removing path '{path.Fullname}'");
+				Logger.Info($"Removing path '{path.Fullname}'");
 
 				Paths.Remove(path);
 			}
@@ -67,7 +67,7 @@ namespace STFU.Lib.Youtube.Automation
 		{
 			if (RegisteredPaths.Count > index)
 			{
-				LOGGER.Info($"Removing path '{RegisteredPaths.ElementAt(index).Fullname}' at index {index}");
+				Logger.Info($"Removing path '{RegisteredPaths.ElementAt(index).Fullname}' at index {index}");
 
 				Paths.RemoveAt(index);
 			}
@@ -75,7 +75,7 @@ namespace STFU.Lib.Youtube.Automation
 
 		public void UnregisterAllPaths()
 		{
-			LOGGER.Info($"Removing all paths");
+			Logger.Info($"Removing all paths");
 
 			Paths.Clear();
 		}
@@ -89,7 +89,7 @@ namespace STFU.Lib.Youtube.Automation
 				&& (firstToChange = Paths.FirstOrDefault(p => p == first)) != null
 				&& (secondToChange = Paths.FirstOrDefault(p => p == second)) != null)
 			{
-				LOGGER.Info($"Switching positions of paths '{first.Fullname}' and '{second.Fullname}'");
+				Logger.Info($"Switching positions of paths '{first.Fullname}' and '{second.Fullname}'");
 
 				ShiftPathPositionsAt(Paths.IndexOf(firstToChange), Paths.IndexOf(secondToChange));
 			}
@@ -99,12 +99,10 @@ namespace STFU.Lib.Youtube.Automation
 		{
 			if (firstIndex >= 0 && secondIndex >= 0 && firstIndex < Paths.Count && secondIndex < Paths.Count)
 			{
-				LOGGER.Info($"Switching positions of paths at position '{firstIndex}' and '{secondIndex}'");
+				Logger.Info($"Switching positions of paths at position '{firstIndex}' and '{secondIndex}'");
 
-				var save = Paths[firstIndex];
-				Paths[firstIndex] = Paths[secondIndex];
-				Paths[secondIndex] = save;
-			}
+				(Paths[firstIndex], Paths[secondIndex]) = (Paths[secondIndex], Paths[firstIndex]);
+            }
 		}
 
 		private IYoutubeJobContainer queueContainer = null;
@@ -113,7 +111,7 @@ namespace STFU.Lib.Youtube.Automation
 
 		public void MarkAllFilesAsRead(IPath path, IYoutubeJobContainer queueContainer, IYoutubeJobContainer archiveContainer, IYoutubeAccountContainer accountContainer)
 		{
-			LOGGER.Info($"Marking all files from path '{path.Fullname}' as read");
+			Logger.Info($"Marking all files from path '{path.Fullname}' as read");
 
 			this.archiveContainer = archiveContainer;
 			this.accountContainer = accountContainer;
@@ -129,17 +127,21 @@ namespace STFU.Lib.Youtube.Automation
 				Thread.Sleep(5);
 			}
 
-			LOGGER.Info($"Finished marking all files from path '{path.Fullname}' as read");
+			Logger.Info($"Finished marking all files from path '{path.Fullname}' as read");
 		}
 
 		private void SearcherFileFound(FileSystemEventArgs e)
 		{
 			if (queueContainer.RegisteredJobs.All(job => Path.GetFullPath(job.Video.Path).ToLower() != Path.GetFullPath(e.FullPath).ToLower()))
 			{
-				LOGGER.Info($"Adding file '{e.FullPath}' to archive container");
+				Logger.Info($"Adding file '{e.FullPath}' to archive container");
 
-				archiveContainer.RegisterJob(
-					new YoutubeJob(new YoutubeVideo(e.FullPath) { Title = e.Name }, accountContainer.RegisteredAccounts.FirstOrDefault(), new UploadStatus())
+                var video = new YoutubeVideo(e.FullPath)
+                {
+                    Title = e.Name
+                };
+                archiveContainer.RegisterJob(
+					new YoutubeJob(video, accountContainer.RegisteredAccounts.FirstOrDefault(), new UploadStatus())
 				);
 			}
 		}

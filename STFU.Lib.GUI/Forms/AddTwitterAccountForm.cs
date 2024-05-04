@@ -7,7 +7,7 @@ namespace STFU.Lib.GUI.Forms
 {
 	public partial class AddTwitterAccountForm : Form
 	{
-		public string AuthPIN { get; private set; }
+		public string AuthPin { get; private set; }
 
 		public TwitterAccountConnector Communicator { get; set; }
 
@@ -24,14 +24,14 @@ namespace STFU.Lib.GUI.Forms
 			useExternalLinkTextbox.Text = BrowseUrl;
 		}
 
-		private void useExternalLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+		private void UseExternalLinkLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
 		{
 			Process.Start(BrowseUrl);
 		}
 
-		private void signInButtonClick(object sender, EventArgs e)
+		private void SignInButtonClick(object sender, EventArgs e)
 		{
-			AuthPIN = useExternalCodeTextbox.Text;
+			AuthPin = useExternalCodeTextbox.Text;
 			DialogResult = DialogResult.OK;
 			Close();
 		}

@@ -274,7 +274,7 @@
 			this.titleTextbox.Name = "titleTextbox";
 			this.titleTextbox.Size = new System.Drawing.Size(904, 26);
 			this.titleTextbox.TabIndex = 6;
-			this.titleTextbox.TextChanged += new System.EventHandler(this.titleTextbox_TextChanged);
+			this.titleTextbox.TextChanged += new System.EventHandler(this.TitleTextbox_TextChanged);
 			// 
 			// descriptionTextbox
 			// 
@@ -288,7 +288,7 @@
 			this.descriptionTextbox.Name = "descriptionTextbox";
 			this.descriptionTextbox.Size = new System.Drawing.Size(1090, 102);
 			this.descriptionTextbox.TabIndex = 7;
-			this.descriptionTextbox.TextChanged += new System.EventHandler(this.descriptionTextbox_TextChanged);
+			this.descriptionTextbox.TextChanged += new System.EventHandler(this.DescriptionTextbox_TextChanged);
 			// 
 			// tagsTextbox
 			// 
@@ -302,7 +302,7 @@
 			this.tagsTextbox.Name = "tagsTextbox";
 			this.tagsTextbox.Size = new System.Drawing.Size(1090, 102);
 			this.tagsTextbox.TabIndex = 8;
-			this.tagsTextbox.TextChanged += new System.EventHandler(this.tagsTextbox_TextChanged);
+			this.tagsTextbox.TextChanged += new System.EventHandler(this.TagsTextbox_TextChanged);
 			// 
 			// thumbnailTextbox
 			// 
@@ -313,7 +313,7 @@
 			this.thumbnailTextbox.Name = "thumbnailTextbox";
 			this.thumbnailTextbox.Size = new System.Drawing.Size(832, 26);
 			this.thumbnailTextbox.TabIndex = 9;
-			this.thumbnailTextbox.TextChanged += new System.EventHandler(this.thumbnailTextbox_TextChanged);
+			this.thumbnailTextbox.TextChanged += new System.EventHandler(this.ThumbnailTextbox_TextChanged);
 			// 
 			// thumbnailButton
 			// 
@@ -328,7 +328,7 @@
 			this.thumbnailButton.TabIndex = 10;
 			this.thumbnailButton.Text = "[...]";
 			this.thumbnailButton.UseVisualStyleBackColor = true;
-			this.thumbnailButton.Click += new System.EventHandler(this.thumbnailButton_Click);
+			this.thumbnailButton.Click += new System.EventHandler(this.ThumbnailButton_Click);
 			// 
 			// publishAtDatetimepicker
 			// 
@@ -343,7 +343,7 @@
 			this.publishAtDatetimepicker.Name = "publishAtDatetimepicker";
 			this.publishAtDatetimepicker.Size = new System.Drawing.Size(904, 26);
 			this.publishAtDatetimepicker.TabIndex = 12;
-			this.publishAtDatetimepicker.ValueChanged += new System.EventHandler(this.publishAtDatetimepicker_ValueChanged);
+			this.publishAtDatetimepicker.ValueChanged += new System.EventHandler(this.PublishAtDatetimepicker_ValueChanged);
 			// 
 			// publishAtCheckbox
 			// 
@@ -356,7 +356,7 @@
 			this.publishAtCheckbox.TabIndex = 13;
 			this.publishAtCheckbox.Text = "Video geplant veröffentlichen: ";
 			this.publishAtCheckbox.UseVisualStyleBackColor = true;
-			this.publishAtCheckbox.CheckedChanged += new System.EventHandler(this.publishAtCheckbox_CheckedChanged);
+			this.publishAtCheckbox.CheckedChanged += new System.EventHandler(this.PublishAtCheckbox_CheckedChanged);
 			// 
 			// privacyCombobox
 			// 
@@ -374,7 +374,7 @@
 			this.privacyCombobox.Name = "privacyCombobox";
 			this.privacyCombobox.Size = new System.Drawing.Size(904, 26);
 			this.privacyCombobox.TabIndex = 11;
-			this.privacyCombobox.SelectedIndexChanged += new System.EventHandler(this.privacyCombobox_SelectedIndexChanged);
+			this.privacyCombobox.SelectedIndexChanged += new System.EventHandler(this.PrivacyCombobox_SelectedIndexChanged);
 			// 
 			// titleCharacterCountLabel
 			// 
@@ -481,7 +481,7 @@
 			this.licenseCombobox.Name = "licenseCombobox";
 			this.licenseCombobox.Size = new System.Drawing.Size(922, 26);
 			this.licenseCombobox.TabIndex = 18;
-			this.licenseCombobox.SelectedIndexChanged += new System.EventHandler(this.licenseCombobox_SelectedIndexChanged);
+			this.licenseCombobox.SelectedIndexChanged += new System.EventHandler(this.LicenseCombobox_SelectedIndexChanged);
 			// 
 			// licenseLabel
 			// 
@@ -506,7 +506,7 @@
 			this.isEmbeddableCheckbox.TabIndex = 11;
 			this.isEmbeddableCheckbox.Text = "Einbetten zulassen";
 			this.isEmbeddableCheckbox.UseVisualStyleBackColor = true;
-			this.isEmbeddableCheckbox.CheckedChanged += new System.EventHandler(this.isEmbeddableCheckbox_CheckedChanged);
+			this.isEmbeddableCheckbox.CheckedChanged += new System.EventHandler(this.IsEmbeddableCheckbox_CheckedChanged);
 			// 
 			// publicStatsViewableCheckbox
 			// 
@@ -520,7 +520,7 @@
 			this.publicStatsViewableCheckbox.TabIndex = 15;
 			this.publicStatsViewableCheckbox.Text = "Videostatistik auf der Wiedergabeseite öffentlich sichtbar machen";
 			this.publicStatsViewableCheckbox.UseVisualStyleBackColor = true;
-			this.publicStatsViewableCheckbox.CheckedChanged += new System.EventHandler(this.publicStatsViewableCheckbox_CheckedChanged);
+			this.publicStatsViewableCheckbox.CheckedChanged += new System.EventHandler(this.PublicStatsViewableCheckbox_CheckedChanged);
 			// 
 			// defaultLanguageLabel
 			// 
@@ -555,7 +555,7 @@
 			this.categoryCombobox.Name = "categoryCombobox";
 			this.categoryCombobox.Size = new System.Drawing.Size(922, 26);
 			this.categoryCombobox.TabIndex = 16;
-			this.categoryCombobox.SelectedIndexChanged += new System.EventHandler(this.categoryCombobox_SelectedIndexChanged);
+			this.categoryCombobox.SelectedIndexChanged += new System.EventHandler(this.CategoryCombobox_SelectedIndexChanged);
 			// 
 			// defaultLanguageCombobox
 			// 
@@ -568,7 +568,7 @@
 			this.defaultLanguageCombobox.Name = "defaultLanguageCombobox";
 			this.defaultLanguageCombobox.Size = new System.Drawing.Size(922, 26);
 			this.defaultLanguageCombobox.TabIndex = 17;
-			this.defaultLanguageCombobox.SelectedIndexChanged += new System.EventHandler(this.defaultLanguageCombobox_SelectedIndexChanged);
+			this.defaultLanguageCombobox.SelectedIndexChanged += new System.EventHandler(this.DefaultLanguageCombobox_SelectedIndexChanged);
 			// 
 			// autoLevelsCheckbox
 			// 
@@ -583,7 +583,7 @@
 			this.autoLevelsCheckbox.Text = "Helligkeit und Farben automatisch von Youtube verbessern lassen";
 			this.autoLevelsCheckbox.UseVisualStyleBackColor = true;
 			this.autoLevelsCheckbox.Visible = false;
-			this.autoLevelsCheckbox.CheckedChanged += new System.EventHandler(this.autoLevelsCheckbox_CheckedChanged);
+			this.autoLevelsCheckbox.CheckedChanged += new System.EventHandler(this.AutoLevelsCheckbox_CheckedChanged);
 			// 
 			// stabilizeCheckbox
 			// 
@@ -598,7 +598,7 @@
 			this.stabilizeCheckbox.Text = "Bildstabilisierung automatisch von Youtube durchführen lassen";
 			this.stabilizeCheckbox.UseVisualStyleBackColor = true;
 			this.stabilizeCheckbox.Visible = false;
-			this.stabilizeCheckbox.CheckedChanged += new System.EventHandler(this.stabilizeCheckbox_CheckedChanged);
+			this.stabilizeCheckbox.CheckedChanged += new System.EventHandler(this.StabilizeCheckbox_CheckedChanged);
 			// 
 			// notifySubscribersCheckbox
 			// 
@@ -613,7 +613,7 @@
 			this.notifySubscribersCheckbox.Text = "Im Abofeed veröffentlichen und Abonnenten benachrichtigen";
 			this.notifySubscribersCheckbox.UseVisualStyleBackColor = true;
 			this.notifySubscribersCheckbox.Visible = false;
-			this.notifySubscribersCheckbox.CheckedChanged += new System.EventHandler(this.notifySubscribersCheckbox_CheckedChanged);
+			this.notifySubscribersCheckbox.CheckedChanged += new System.EventHandler(this.NotifySubscribersCheckbox_CheckedChanged);
 			// 
 			// selectThumbnailDialog
 			// 
@@ -993,7 +993,7 @@
 			this.addToPlaylistCheckbox.TabIndex = 20;
 			this.addToPlaylistCheckbox.Text = "Nach Upload zur Playlist hinzufügen:";
 			this.addToPlaylistCheckbox.UseVisualStyleBackColor = true;
-			this.addToPlaylistCheckbox.CheckedChanged += new System.EventHandler(this.addToPlaylistCheckbox_CheckedChanged);
+			this.addToPlaylistCheckbox.CheckedChanged += new System.EventHandler(this.AddToPlaylistCheckbox_CheckedChanged);
 			// 
 			// playlistsCombobox
 			// 
@@ -1006,7 +1006,7 @@
 			this.playlistsCombobox.Name = "playlistsCombobox";
 			this.playlistsCombobox.Size = new System.Drawing.Size(887, 26);
 			this.playlistsCombobox.TabIndex = 21;
-			this.playlistsCombobox.SelectedIndexChanged += new System.EventHandler(this.playlistsCombobox_SelectedIndexChanged);
+			this.playlistsCombobox.SelectedIndexChanged += new System.EventHandler(this.PlaylistsCombobox_SelectedIndexChanged);
 			// 
 			// addPlaylistViaServiceGroupbox
 			// 
@@ -1069,7 +1069,7 @@
 			this.sendToPlaylistserviceCheckbox.TabIndex = 0;
 			this.sendToPlaylistserviceCheckbox.Text = "Nach Upload an Playlistservice zu diesem Account senden:";
 			this.sendToPlaylistserviceCheckbox.UseVisualStyleBackColor = true;
-			this.sendToPlaylistserviceCheckbox.CheckedChanged += new System.EventHandler(this.sendToPlaylistserviceCheckbox_CheckedChanged);
+			this.sendToPlaylistserviceCheckbox.CheckedChanged += new System.EventHandler(this.SendToPlaylistserviceCheckbox_CheckedChanged);
 			// 
 			// chooseAccountCombobox
 			// 
@@ -1083,7 +1083,7 @@
 			this.chooseAccountCombobox.Name = "chooseAccountCombobox";
 			this.chooseAccountCombobox.Size = new System.Drawing.Size(779, 26);
 			this.chooseAccountCombobox.TabIndex = 8;
-			this.chooseAccountCombobox.SelectedIndexChanged += new System.EventHandler(this.chooseAccountCombobox_SelectedIndexChanged);
+			this.chooseAccountCombobox.SelectedIndexChanged += new System.EventHandler(this.ChooseAccountCombobox_SelectedIndexChanged);
 			// 
 			// useCustomPlaylistIdTextbox
 			// 
@@ -1096,7 +1096,7 @@
 			this.useCustomPlaylistIdTextbox.Name = "useCustomPlaylistIdTextbox";
 			this.useCustomPlaylistIdTextbox.Size = new System.Drawing.Size(779, 26);
 			this.useCustomPlaylistIdTextbox.TabIndex = 1;
-			this.useCustomPlaylistIdTextbox.TextChanged += new System.EventHandler(this.useCustomPlaylistIdTextbox_TextChanged);
+			this.useCustomPlaylistIdTextbox.TextChanged += new System.EventHandler(this.UseCustomPlaylistIdTextbox_TextChanged);
 			// 
 			// enterPlaylistIdManuallyRadiobutton
 			// 
@@ -1111,7 +1111,7 @@
 			this.enterPlaylistIdManuallyRadiobutton.TabStop = true;
 			this.enterPlaylistIdManuallyRadiobutton.Text = "Playlist-Id oder -Link selbst eingeben:";
 			this.enterPlaylistIdManuallyRadiobutton.UseVisualStyleBackColor = true;
-			this.enterPlaylistIdManuallyRadiobutton.CheckedChanged += new System.EventHandler(this.enterPlaylistIdManuallyRadiobutton_CheckedChanged);
+			this.enterPlaylistIdManuallyRadiobutton.CheckedChanged += new System.EventHandler(this.EnterPlaylistIdManuallyRadiobutton_CheckedChanged);
 			// 
 			// usePlaylistFromAccountRadiobutton
 			// 
@@ -1126,7 +1126,7 @@
 			this.usePlaylistFromAccountRadiobutton.TabStop = true;
 			this.usePlaylistFromAccountRadiobutton.Text = "Geladene Playlist verwenden:";
 			this.usePlaylistFromAccountRadiobutton.UseVisualStyleBackColor = true;
-			this.usePlaylistFromAccountRadiobutton.CheckedChanged += new System.EventHandler(this.usePlaylistFromAccountRadiobutton_CheckedChanged);
+			this.usePlaylistFromAccountRadiobutton.CheckedChanged += new System.EventHandler(this.UsePlaylistFromAccountRadiobutton_CheckedChanged);
 			// 
 			// label5
 			// 
@@ -1150,7 +1150,7 @@
 			this.useCustomPlaylistTitleTextbox.Name = "useCustomPlaylistTitleTextbox";
 			this.useCustomPlaylistTitleTextbox.Size = new System.Drawing.Size(779, 26);
 			this.useCustomPlaylistTitleTextbox.TabIndex = 1;
-			this.useCustomPlaylistTitleTextbox.TextChanged += new System.EventHandler(this.useCustomPlaylistTitleTextbox_TextChanged);
+			this.useCustomPlaylistTitleTextbox.TextChanged += new System.EventHandler(this.UseCustomPlaylistTitleTextbox_TextChanged);
 			// 
 			// choosePlaylistCombobox
 			// 
@@ -1164,7 +1164,7 @@
 			this.choosePlaylistCombobox.Name = "choosePlaylistCombobox";
 			this.choosePlaylistCombobox.Size = new System.Drawing.Size(779, 26);
 			this.choosePlaylistCombobox.TabIndex = 8;
-			this.choosePlaylistCombobox.SelectedIndexChanged += new System.EventHandler(this.choosePlaylistCombobox_SelectedIndexChanged);
+			this.choosePlaylistCombobox.SelectedIndexChanged += new System.EventHandler(this.ChoosePlaylistCombobox_SelectedIndexChanged);
 			// 
 			// EditVideoGrid
 			// 

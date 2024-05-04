@@ -125,7 +125,7 @@
 			this.useExternalLinkLabel.TabIndex = 2;
 			this.useExternalLinkLabel.TabStop = true;
 			this.useExternalLinkLabel.Text = "Anmelden mit Google (Link im Browser öffnen)";
-			this.useExternalLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.useExternalLinkLabelLinkClicked);
+			this.useExternalLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.UseExternalLinkLabelLinkClicked);
 			// 
 			// useExternalLinkTextbox
 			// 
@@ -151,12 +151,12 @@
 			this.allowMailingCheckbox.TabIndex = 5;
 			this.allowMailingCheckbox.Text = "Mailversand aktivieren (=> NUR Mailversand, Postfach NICHT lesbar)";
 			this.allowMailingCheckbox.UseVisualStyleBackColor = true;
-			this.allowMailingCheckbox.CheckedChanged += new System.EventHandler(this.allowMailingCheckbox_CheckedChanged);
+			this.allowMailingCheckbox.CheckedChanged += new System.EventHandler(this.AllowMailingCheckbox_CheckedChanged);
 			// 
 			// checkLoginTimer
 			// 
 			this.checkLoginTimer.Enabled = true;
-			this.checkLoginTimer.Tick += new System.EventHandler(this.checkLoginTimer_Tick);
+			this.checkLoginTimer.Tick += new System.EventHandler(this.CheckLoginTimer_Tick);
 			// 
 			// AddYoutubeAccountForm
 			// 

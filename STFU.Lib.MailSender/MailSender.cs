@@ -13,18 +13,18 @@ namespace STFU.Lib.MailSender
 {
 	public static class MailSender
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(MailSender));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(MailSender));
 
 		public static void Send(IYoutubeAccount from, string to, string title, string message)
 		{
-			LOGGER.Info($"Sending mail from youtube account {from.Title} to recipient {to} with title {title}");
-			LOGGER.Debug($"Message content: {message}");
+			Logger.Info($"Sending mail from youtube account {from.Title} to recipient {to} with title {title}");
+			Logger.Debug($"Message content: {message}");
 
 			var token = YoutubeAccountService.GetAccessToken(from.Access, ac => ac.HasSendMailPrivilegue);
 
 			if (!string.IsNullOrWhiteSpace(token) && !string.IsNullOrWhiteSpace(to))
 			{
-				LOGGER.Debug($"Access token found. Sending mail");
+				Logger.Debug($"Access token found. Sending mail");
 
 				// Wir können senden!
 				HttpWebRequest request = HttpWebRequestCreator.CreateWithAuthHeader(
@@ -36,14 +36,14 @@ namespace STFU.Lib.MailSender
 
 				string content = GenerateMail(to, title, message, true);
 
-				RawMail mail = new RawMail()
-				{
-					raw = Encode(content)
-				};
+				RawMail mail = new RawMail
+                {
+                    Raw = Encode(content)
+                };
 
-				var rfcMail = JsonConvert.SerializeObject(mail);
+                var rfcMail = JsonConvert.SerializeObject(mail);
 
-				LOGGER.Debug($"rfc mail json: {rfcMail}");
+				Logger.Debug($"rfc mail json: {rfcMail}");
 
 				string result = null;
 				SendResult sendResult = null;
@@ -51,22 +51,22 @@ namespace STFU.Lib.MailSender
 				try
 				{
 					result = WebService.Communicate(request, Encoding.UTF8.GetBytes(rfcMail));
-					LOGGER.Debug($"response from mail service: {result}");
+					Logger.Debug($"response from mail service: {result}");
 
 					sendResult = JsonConvert.DeserializeObject<SendResult>(result);
 				}
 				catch (Exception ex)
 				{
-					LOGGER.Error($"Exception occured while sending the mail", ex);
+					Logger.Error($"Exception occured while sending the mail", ex);
 				}
 
-				if (sendResult == null || !sendResult.labelIds.Any(label => label.ToUpper() == "SENT"))
+				if (sendResult == null || !sendResult.LabelIds.Any(label => label.ToUpper() == "SENT"))
 				{
-					LOGGER.Error($"Could not send the mail. Result: {result}");
+					Logger.Error($"Could not send the mail. Result: {result}");
 				}
 				else
 				{
-					LOGGER.Error($"Mail was sent successfully");
+					Logger.Error($"Mail was sent successfully");
 				}
 			}
 		}
@@ -97,14 +97,14 @@ namespace STFU.Lib.MailSender
 
 		private class SendResult
 		{
-			public string id { get; set; } = string.Empty;
-			public string threadId { get; set; } = string.Empty;
-			public string[] labelIds { get; set; } = new string[0];
+			public string Id { get; set; } = string.Empty;
+			public string ThreadId { get; set; } = string.Empty;
+			public string[] LabelIds { get; set; } = new string[0];
 		}
 	}
 
 	internal class RawMail
 	{
-		public string raw { get; set; }
+		public string Raw { get; set; }
 	}
 }

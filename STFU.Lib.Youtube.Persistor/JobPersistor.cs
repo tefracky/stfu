@@ -11,7 +11,7 @@ namespace STFU.Lib.Youtube.Persistor
 {
 	public class JobPersistor
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(JobPersistor));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(JobPersistor));
 
 		public string Path { get; private set; } = null;
 		public IYoutubeJobContainer Container { get; private set; } = null;
@@ -19,7 +19,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public JobPersistor(IYoutubeJobContainer container, string path)
 		{
-			LOGGER.Debug($"Creating job persistor for path '{path}'");
+			Logger.Debug($"Creating job persistor for path '{path}'");
 
 			Path = path;
 			Container = container;
@@ -27,7 +27,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public bool Load()
 		{
-			LOGGER.Info($"Loading jobs from path '{Path}'");
+			Logger.Info($"Loading jobs from path '{Path}'");
 			Container.UnregisterAllJobs();
 
 			bool worked = true;
@@ -39,14 +39,14 @@ namespace STFU.Lib.Youtube.Persistor
 					using (StreamReader reader = new StreamReader(Path))
 					{
 						var json = reader.ReadToEnd();
-						LOGGER.Debug($"Json from loaded path: '{json}'");
+						Logger.Debug($"Json from loaded path: '{json}'");
 
 						var jobs = JsonConvert.DeserializeObject<YoutubeJob[]>(json);
-						LOGGER.Info($"Loaded {jobs.Length} jobs");
+						Logger.Info($"Loaded {jobs.Length} jobs");
 
 						foreach (var loaded in jobs)
 						{
-							LOGGER.Info($"Adding job for video '{loaded.Video.Title}'");
+							Logger.Info($"Adding job for video '{loaded.Video.Title}'");
 							Container.RegisterJob(loaded);
 						}
 					}
@@ -62,7 +62,7 @@ namespace STFU.Lib.Youtube.Persistor
 			|| e is PathTooLongException
 			|| e is IOException)
 			{
-				LOGGER.Error($"Could not load paths, exception occured!", e);
+				Logger.Error($"Could not load paths, exception occured!", e);
 				worked = false;
 			}
 
@@ -72,7 +72,7 @@ namespace STFU.Lib.Youtube.Persistor
 		public bool Save()
 		{
 			IYoutubeJob[] jobs = Container.RegisteredJobs.ToArray();
-			LOGGER.Info($"Saving {jobs.Length} jobs to file '{Path}'");
+			Logger.Info($"Saving {jobs.Length} jobs to file '{Path}'");
 
 			var json = JsonConvert.SerializeObject(jobs);
 
@@ -83,7 +83,7 @@ namespace STFU.Lib.Youtube.Persistor
 				{
 					writer.Write(json);
 				}
-				LOGGER.Info($"Jobs saved");
+				Logger.Info($"Jobs saved");
 
 				RecreateSaved();
 			}
@@ -95,7 +95,7 @@ namespace STFU.Lib.Youtube.Persistor
 			|| e is PathTooLongException
 			|| e is IOException)
 			{
-				LOGGER.Error($"Could not save jobs, exception occured!", e);
+				Logger.Error($"Could not save jobs, exception occured!", e);
 				worked = false;
 			}
 
@@ -104,17 +104,17 @@ namespace STFU.Lib.Youtube.Persistor
 
 		private void RecreateSaved()
 		{
-			LOGGER.Debug($"Recreating cache of saved jobs");
+			Logger.Debug($"Recreating cache of saved jobs");
 			Saved = new YoutubeJobContainer();
 			foreach (var job in Container.RegisteredJobs)
 			{
-				LOGGER.Debug($"Recreating cache for job with video '{job.Video.Title}'");
+				Logger.Debug($"Recreating cache for job with video '{job.Video.Title}'");
 				var newJob = new YoutubeJob(job.Video.CreateCopy(), job.Account, job.UploadStatus)
-				{
-					State = job.State
-				};
+                {
+                    State = job.State
+                };
 
-				Saved.RegisterJob(newJob);
+                Saved.RegisterJob(newJob);
 			}
 		}
 	}

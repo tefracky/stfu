@@ -11,7 +11,7 @@ namespace STFU.Lib.Playlistservice
 {
 	public class TaskClient : AbstractClient
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(TaskClient));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(TaskClient));
 
 		public TaskClient(Uri host) : base(host) { }
 		public TaskClient(Uri host, string user, string pass) : base(host, user, pass) { }
@@ -19,8 +19,8 @@ namespace STFU.Lib.Playlistservice
 		public Task[] GetTasks(long accountId, long[] ids, DateTime? after, DateTime? before, int? attemptCount, int? minAttemptCount, int? maxAttemptCount,
 			string playlistId, string playlistTitle, string videoId, string videoTitle, TaskState[] states, TaskOrder? order, TaskOrderDirection? direction)
 		{
-			LOGGER.Info($"Getting a list of tasks for accountId: {accountId}");
-			LOGGER.Info($"Selected filters: after: {after}, before: {before}, ids: {(ids != null ? JsonConvert.SerializeObject(ids) : null)}, " +
+			Logger.Info($"Getting a list of tasks for accountId: {accountId}");
+			Logger.Info($"Selected filters: after: {after}, before: {before}, ids: {(ids != null ? JsonConvert.SerializeObject(ids) : null)}, " +
 				$"attemptCount: {attemptCount}, minAttemptCount: {minAttemptCount}, maxAttemptCount: {maxAttemptCount}, " +
 				$"playlistId: {playlistId}, playlistTitle: {playlistTitle}, videoId: {videoId}, videoTitle: {videoTitle}, " +
 				$"states: {states}, order: {order}, direction: {direction}");
@@ -37,26 +37,26 @@ namespace STFU.Lib.Playlistservice
 
 			string json = WebService.Communicate(request);
 
-			LOGGER.Info($"Got a result, returning task");
+			Logger.Info($"Got a result, returning task");
 			return JsonConvert.DeserializeObject<Task[]>(json)?.Select(t => GetTaskWithLocalTime(t)).ToArray();
 		}
 
 		private Task GetTaskWithLocalTime(Task task)
 		{
-			task.addAt = task.addAt.ToLocalTime();
+			task.AddAt = task.AddAt.ToLocalTime();
 			return task;
 		}
 
 		public Task CreateTask(long accountId, Task task)
 		{
-			LOGGER.Info($"Creating a new task for accountId: {accountId}");
+			Logger.Info($"Creating a new task for accountId: {accountId}");
 
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Host, $"/accounts/{accountId}/tasks"));
 			request.Method = "POST";
 			request.Accept = "application/json";
 			request.ContentType = "application/json";
 
-			task.addAt = task.addAt.ToUniversalTime();
+			task.AddAt = task.AddAt.ToUniversalTime();
 
 			if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
 			{
@@ -66,20 +66,20 @@ namespace STFU.Lib.Playlistservice
 			var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(task));
 			string json = WebService.Communicate(request, bytes);
 
-			LOGGER.Info($"Got a result, returning task");
+			Logger.Info($"Got a result, returning task");
 			return JsonConvert.DeserializeObject<Task>(json);
 		}
 
 		public Task UpdateTask(long accountId, Task task)
 		{
-			LOGGER.Info($"Updating task with id: {task.id} for accountId: {accountId}");
+			Logger.Info($"Updating task with id: {task.Id} for accountId: {accountId}");
 
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Host, $"/accounts/{accountId}/tasks/{task.id}"));
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Host, $"/accounts/{accountId}/tasks/{task.Id}"));
 			request.Method = "PUT";
 			request.Accept = "application/json";
 			request.ContentType = "application/json";
 
-			task.addAt = task.addAt.ToUniversalTime();
+			task.AddAt = task.AddAt.ToUniversalTime();
 
 			if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
 			{
@@ -89,13 +89,13 @@ namespace STFU.Lib.Playlistservice
 			var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(task));
 			string json = WebService.Communicate(request, bytes);
 
-			LOGGER.Info($"Got a result, returning task");
+			Logger.Info($"Got a result, returning task");
 			return JsonConvert.DeserializeObject<Task>(json);
 		}
 
 		public bool DeleteTask(long accountId, long taskId)
 		{
-			LOGGER.Info($"Deleting task with id: {taskId} for accountId: {accountId}");
+			Logger.Info($"Deleting task with id: {taskId} for accountId: {accountId}");
 
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Host, $"/accounts/{accountId}/tasks/{taskId}"));
 			request.Method = "DELETE";
@@ -108,7 +108,7 @@ namespace STFU.Lib.Playlistservice
 
 			string json = WebService.Communicate(request);
 
-			LOGGER.Info($"Deletion was successful: {!json.ToLower().Contains("error")}");
+			Logger.Info($"Deletion was successful: {!json.ToLower().Contains("error")}");
 
 			return !json.ToLower().Contains("error");
 		}
@@ -128,12 +128,12 @@ namespace STFU.Lib.Playlistservice
 
 			if (after != null)
 			{
-				basePath = $"{basePath}addAtAfter={after.Value.ToString("yyyy-MM-ddTHH\\:mm")}&";
+				basePath = $"{basePath}addAtAfter={after.Value:yyyy-MM-ddTHH\\:mm}&";
 			}
 
 			if (before != null)
 			{
-				basePath = $"{basePath}addAtBefore={before.Value.ToString("yyyy-MM-ddTHH\\:mm")}&";
+				basePath = $"{basePath}addAtBefore={before.Value:yyyy-MM-ddTHH\\:mm}&";
 			}
 
 			if (attemptCount != null)

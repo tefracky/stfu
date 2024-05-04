@@ -18,12 +18,14 @@ namespace STFU.Lib.Youtube.Automation.Programming
 				throw new ArgumentNullException("name");
 
 			string finalName = name;
-			AssemblyInfo aInfo = new AssemblyInfo();
-			aInfo.cchBuf = 1024; // should be fine...
-			aInfo.currentAssemblyPath = new string('\0', aInfo.cchBuf);
+			AssemblyInfo aInfo = new AssemblyInfo
+            {
+                cchBuf = 1024
+            };
+            // should be fine...
+            aInfo.currentAssemblyPath = new string('\0', aInfo.cchBuf);
 
-			IAssemblyCache ac;
-			int hr = CreateAssemblyCache(out ac, 0);
+            int hr = CreateAssemblyCache(out var ac, 0);
 			if (hr >= 0)
 			{
 				hr = ac.QueryAssemblyInfo(0, finalName, ref aInfo);

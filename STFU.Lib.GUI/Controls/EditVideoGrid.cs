@@ -225,7 +225,7 @@ namespace STFU.Lib.GUI.Controls
 			mailNotificationUploadFailedCheckbox.Checked = NotificationSettings.NotifyOnVideoUploadFailedMail;
 		}
 
-		private void titleTextbox_TextChanged(object sender, EventArgs e)
+		private void TitleTextbox_TextChanged(object sender, EventArgs e)
 		{
 			var maxLength = YoutubeVideo.MaxTitleLength;
 			titleCharacterCountLabel.Text = $"Zeichen vergeben: {titleTextbox.Text.Length} von {maxLength}. Übrig: {maxLength - titleTextbox.Text.Length} Zeichen";
@@ -234,7 +234,7 @@ namespace STFU.Lib.GUI.Controls
 			Video.Title = titleTextbox.Text;
 		}
 
-		private void descriptionTextbox_TextChanged(object sender, EventArgs e)
+		private void DescriptionTextbox_TextChanged(object sender, EventArgs e)
 		{
 			var maxLength = YoutubeVideo.MaxDescriptionLength;
 			descriptionCharacterCountLabel.Text = $"Zeichen vergeben: {descriptionTextbox.Text.Length} von {maxLength}. Übrig: {maxLength - descriptionTextbox.Text.Length} Zeichen";
@@ -243,7 +243,7 @@ namespace STFU.Lib.GUI.Controls
 			Video.Description = descriptionTextbox.Text;
 		}
 
-		private void tagsTextbox_TextChanged(object sender, EventArgs e)
+		private void TagsTextbox_TextChanged(object sender, EventArgs e)
 		{
 			var tags = tagsTextbox.Text
 				.Replace(Environment.NewLine, string.Empty)
@@ -301,12 +301,12 @@ namespace STFU.Lib.GUI.Controls
 			return aggregated;
 		}
 
-		private void thumbnailTextbox_TextChanged(object sender, EventArgs e)
+		private void ThumbnailTextbox_TextChanged(object sender, EventArgs e)
 		{
 			Video.ThumbnailPath = thumbnailTextbox.Text;
 		}
 
-		private void privacyCombobox_SelectedIndexChanged(object sender, EventArgs e)
+		private void PrivacyCombobox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			publishAtCheckbox.Enabled = privacyCombobox.SelectedIndex == 2;
 
@@ -329,58 +329,58 @@ namespace STFU.Lib.GUI.Controls
 			}
 		}
 
-		private void publishAtCheckbox_CheckedChanged(object sender, EventArgs e)
+		private void PublishAtCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			publishAtDatetimepicker.Enabled = publishAtCheckbox.Checked;
 			Video.PublishAt = publishAtCheckbox.Checked ? (DateTime?)publishAtDatetimepicker.Value : null;
 		}
 
-		private void publishAtDatetimepicker_ValueChanged(object sender, EventArgs e)
+		private void PublishAtDatetimepicker_ValueChanged(object sender, EventArgs e)
 		{
 			Video.PublishAt = (DateTime?)publishAtDatetimepicker.Value;
 		}
 
-		private void categoryCombobox_SelectedIndexChanged(object sender, EventArgs e)
+		private void CategoryCombobox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			Video.Category = categoryContainer.RegisteredCategories.ElementAt(categoryCombobox.SelectedIndex);
 		}
 
-		private void defaultLanguageCombobox_SelectedIndexChanged(object sender, EventArgs e)
+		private void DefaultLanguageCombobox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			Video.DefaultLanguage = languageContainer.RegisteredLanguages.ElementAt(defaultLanguageCombobox.SelectedIndex);
 		}
 
-		private void licenseCombobox_SelectedIndexChanged(object sender, EventArgs e)
+		private void LicenseCombobox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			Video.License = (License)licenseCombobox.SelectedIndex;
 		}
 
-		private void isEmbeddableCheckbox_CheckedChanged(object sender, EventArgs e)
+		private void IsEmbeddableCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			Video.IsEmbeddable = isEmbeddableCheckbox.Checked;
 		}
 
-		private void publicStatsViewableCheckbox_CheckedChanged(object sender, EventArgs e)
+		private void PublicStatsViewableCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			Video.PublicStatsViewable = publicStatsViewableCheckbox.Checked;
 		}
 
-		private void notifySubscribersCheckbox_CheckedChanged(object sender, EventArgs e)
+		private void NotifySubscribersCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			Video.NotifySubscribers = notifySubscribersCheckbox.Checked;
 		}
 
-		private void autoLevelsCheckbox_CheckedChanged(object sender, EventArgs e)
+		private void AutoLevelsCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			Video.AutoLevels = autoLevelsCheckbox.Checked;
 		}
 
-		private void stabilizeCheckbox_CheckedChanged(object sender, EventArgs e)
+		private void StabilizeCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			Video.Stabilize = stabilizeCheckbox.Checked;
 		}
 
-		private void thumbnailButton_Click(object sender, EventArgs e)
+		private void ThumbnailButton_Click(object sender, EventArgs e)
 		{
 			if (selectThumbnailDialog.ShowDialog(this) == DialogResult.OK)
 			{
@@ -388,12 +388,12 @@ namespace STFU.Lib.GUI.Controls
 			}
 		}
 
-		private void addToPlaylistCheckbox_CheckedChanged(object sender, EventArgs e)
+		private void AddToPlaylistCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			Video.AddToPlaylist = playlistsCombobox.Enabled = addToPlaylistCheckbox.Checked;
 		}
 
-		private void playlistsCombobox_SelectedIndexChanged(object sender, EventArgs e)
+		private void PlaylistsCombobox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			Video.PlaylistId = playlistContainer.RegisteredPlaylists.ElementAt(playlistsCombobox.SelectedIndex).Id;
 		}
@@ -416,13 +416,13 @@ namespace STFU.Lib.GUI.Controls
 					addPlaylistViaServiceGroupbox.Enabled = true;
 					foreach (var account in pscContainer.Connection.Accounts)
 					{
-						chooseAccountCombobox.Items.Add($"{account.id}: {account.title}, {account.channelId}");
+						chooseAccountCombobox.Items.Add($"{account.Id}: {account.Title}, {account.ChannelId}");
 					}
 
-					if (pscContainer.Connection.Accounts.Any(a => a.id == Video.PlaylistServiceSettings.AccountId))
+					if (pscContainer.Connection.Accounts.Any(a => a.Id == Video.PlaylistServiceSettings.AccountId))
 					{
 						chooseAccountCombobox.SelectedIndex = pscContainer.Connection.Accounts.ToList()
-							.IndexOf(pscContainer.Connection.Accounts.First(a => a.id == Video.PlaylistServiceSettings.AccountId));
+							.IndexOf(pscContainer.Connection.Accounts.First(a => a.Id == Video.PlaylistServiceSettings.AccountId));
 					}
 					else if (pscContainer.Connection.Accounts.Length > 0)
 					{
@@ -458,7 +458,7 @@ namespace STFU.Lib.GUI.Controls
 			}
 		}
 
-		private void sendToPlaylistserviceCheckbox_CheckedChanged(object sender, EventArgs e)
+		private void SendToPlaylistserviceCheckbox_CheckedChanged(object sender, EventArgs e)
 		{
 			Video.PlaylistServiceSettings.ShouldSend
 				= chooseAccountCombobox.Enabled
@@ -478,12 +478,12 @@ namespace STFU.Lib.GUI.Controls
 			choosePlaylistCombobox.Enabled &= usePlaylistFromAccountRadiobutton.Checked;
 		}
 
-		private void chooseAccountCombobox_SelectedIndexChanged(object sender, EventArgs e)
+		private void ChooseAccountCombobox_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			Video.PlaylistServiceSettings.AccountId = pscContainer.Connection.Accounts[chooseAccountCombobox.SelectedIndex].id;
+			Video.PlaylistServiceSettings.AccountId = pscContainer.Connection.Accounts[chooseAccountCombobox.SelectedIndex].Id;
 		}
 
-		private void enterPlaylistIdManuallyRadiobutton_CheckedChanged(object sender, EventArgs e)
+		private void EnterPlaylistIdManuallyRadiobutton_CheckedChanged(object sender, EventArgs e)
 		{
 			useCustomPlaylistIdTextbox.Enabled = useCustomPlaylistTitleTextbox.Enabled = enterPlaylistIdManuallyRadiobutton.Checked && sendToPlaylistserviceCheckbox.Checked;
 
@@ -494,17 +494,17 @@ namespace STFU.Lib.GUI.Controls
 			}
 		}
 
-		private void useCustomPlaylistIdTextbox_TextChanged(object sender, EventArgs e)
+		private void UseCustomPlaylistIdTextbox_TextChanged(object sender, EventArgs e)
 		{
 			Video.PlaylistServiceSettings.PlaylistId = useCustomPlaylistIdTextbox.Text;
 		}
 
-		private void useCustomPlaylistTitleTextbox_TextChanged(object sender, EventArgs e)
+		private void UseCustomPlaylistTitleTextbox_TextChanged(object sender, EventArgs e)
 		{
 			Video.PlaylistServiceSettings.PlaylistTitle = useCustomPlaylistTitleTextbox.Text;
 		}
 
-		private void usePlaylistFromAccountRadiobutton_CheckedChanged(object sender, EventArgs e)
+		private void UsePlaylistFromAccountRadiobutton_CheckedChanged(object sender, EventArgs e)
 		{
 			choosePlaylistCombobox.Enabled = usePlaylistFromAccountRadiobutton.Checked && sendToPlaylistserviceCheckbox.Checked;
 
@@ -515,7 +515,7 @@ namespace STFU.Lib.GUI.Controls
 			}
 		}
 
-		private void choosePlaylistCombobox_SelectedIndexChanged(object sender, EventArgs e)
+		private void ChoosePlaylistCombobox_SelectedIndexChanged(object sender, EventArgs e)
 		{
 			Video.PlaylistServiceSettings.PlaylistId = playlistContainer.RegisteredPlaylists.ElementAt(choosePlaylistCombobox.SelectedIndex).Id;
 			Video.PlaylistServiceSettings.PlaylistTitle = playlistContainer.RegisteredPlaylists.ElementAt(choosePlaylistCombobox.SelectedIndex).Title;

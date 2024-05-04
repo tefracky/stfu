@@ -9,7 +9,7 @@ namespace STFU.Lib.Youtube
 {
 	public class YoutubeLanguageContainer : IYoutubeLanguageContainer
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubeLanguageContainer));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubeLanguageContainer));
 
 		private IList<ILanguage> Languages { get; } = new List<ILanguage>();
 
@@ -19,14 +19,14 @@ namespace STFU.Lib.Youtube
 		{
 			if (!RegisteredLanguages.Any(c => c.Id == language.Id))
 			{
-				LOGGER.Debug($"Adding a new language, name: '{language.Name}'");
+				Logger.Debug($"Adding a new language, name: '{language.Name}'");
 				Languages.Add(language);
 			}
 		}
 
 		public void UnregisterAllLanguages()
 		{
-			LOGGER.Debug($"Removing all languages");
+			Logger.Debug($"Removing all languages");
 			Languages.Clear();
 		}
 
@@ -34,7 +34,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Languages.Contains(language))
 			{
-				LOGGER.Debug($"Removing language, name: '{language.Name}'");
+				Logger.Debug($"Removing language, name: '{language.Name}'");
 				Languages.Remove(language);
 			}
 		}
@@ -43,7 +43,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Languages.Count > index)
 			{
-				LOGGER.Debug($"Removing language at index {index}, name: '{Languages[index].Name}'");
+				Logger.Debug($"Removing language at index {index}, name: '{Languages[index].Name}'");
 				Languages.RemoveAt(index);
 			}
 		}

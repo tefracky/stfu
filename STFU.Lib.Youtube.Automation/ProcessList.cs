@@ -9,7 +9,7 @@ namespace STFU.Lib.Youtube.Automation
 {
 	public class ProcessList : List<Process>, IProcessList
 	{
-		private static ILog LOGGER { get; set; } = LogManager.GetLogger(nameof(ProcessList));
+		private static ILog Logger { get; set; } = LogManager.GetLogger(nameof(ProcessList));
 
 		public ProcessList() : base() { }
 
@@ -27,11 +27,11 @@ namespace STFU.Lib.Youtube.Automation
 			try
 			{
 				var proc = (Process)sender;
-				LOGGER.Info($"Process with id: {proc.Id} and name: '{proc.ProcessName}' exited");
+				Logger.Info($"Process with id: {proc.Id} and name: '{proc.ProcessName}' exited");
 			}
 			catch (Exception ex)
 			{
-				LOGGER.Error($"Could not retrieve process id or name to log its exit!", ex);
+				Logger.Error($"Could not retrieve process id or name to log its exit!", ex);
 			}
 
 			((Process)sender).Exited -= ProcessExited;
@@ -39,7 +39,7 @@ namespace STFU.Lib.Youtube.Automation
 
 		public new void Add(Process item)
 		{
-			LOGGER.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' added");
+			Logger.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' added");
 
 			item.Exited += ProcessExited;
 
@@ -50,7 +50,7 @@ namespace STFU.Lib.Youtube.Automation
 		{
 			foreach (var item in items)
 			{
-				LOGGER.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' added");
+				Logger.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' added");
 
 				item.EnableRaisingEvents = true;
 				item.Exited += ProcessExited;
@@ -61,7 +61,7 @@ namespace STFU.Lib.Youtube.Automation
 
 		public new void Clear()
 		{
-			LOGGER.Info($"Clearling process list");
+			Logger.Info($"Clearling process list");
 
 			foreach (var item in this)
 			{
@@ -73,7 +73,7 @@ namespace STFU.Lib.Youtube.Automation
 
 		public new void Insert(int index, Process item)
 		{
-			LOGGER.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' inserted into position {index}");
+			Logger.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' inserted into position {index}");
 
 			item.Exited += ProcessExited;
 
@@ -82,11 +82,11 @@ namespace STFU.Lib.Youtube.Automation
 
 		public new void InsertRange(int index, IEnumerable<Process> items)
 		{
-			LOGGER.Info($"Several processes are being inserted from index {index} onwards");
+			Logger.Info($"Several processes are being inserted from index {index} onwards");
 
 			foreach (var item in items)
 			{
-				LOGGER.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' inserted");
+				Logger.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' inserted");
 
 				item.Exited += ProcessExited;
 			}
@@ -96,7 +96,7 @@ namespace STFU.Lib.Youtube.Automation
 
 		public new void Remove(Process item)
 		{
-			LOGGER.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' removed");
+			Logger.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' removed");
 
 			item.Exited -= ProcessExited;
 			base.Remove(item);
@@ -104,11 +104,11 @@ namespace STFU.Lib.Youtube.Automation
 
 		public new void RemoveAll(Predicate<Process> match)
 		{
-			LOGGER.Info($"Removing processes that match a certain predicate");
+			Logger.Info($"Removing processes that match a certain predicate");
 
 			foreach (var item in FindAll(match))
 			{
-				LOGGER.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' removed");
+				Logger.Info($"Process with id: {item.Id} and name: '{item.ProcessName}' removed");
 
 				item.Exited -= ProcessExited;
 			}
@@ -118,7 +118,7 @@ namespace STFU.Lib.Youtube.Automation
 
 		public new void RemoveAt(int index)
 		{
-			LOGGER.Info($"Process with id: {this[index].Id} and name: '{this[index].ProcessName}' removed from index {index}");
+			Logger.Info($"Process with id: {this[index].Id} and name: '{this[index].ProcessName}' removed from index {index}");
 
 			this[index].Exited -= ProcessExited;
 			base.RemoveAt(index);
@@ -126,11 +126,11 @@ namespace STFU.Lib.Youtube.Automation
 
 		public new void RemoveRange(int index, int count)
 		{
-			LOGGER.Info($"Removing {count} processes from index {index} onwards");
+			Logger.Info($"Removing {count} processes from index {index} onwards");
 
 			for (int i = index; i < index + count; i++)
 			{
-				LOGGER.Info($"Process with id: {this[i].Id} and name: '{this[i].ProcessName}' removed");
+				Logger.Info($"Process with id: {this[i].Id} and name: '{this[i].ProcessName}' removed");
 
 				this[index].Exited -= ProcessExited;
 			}

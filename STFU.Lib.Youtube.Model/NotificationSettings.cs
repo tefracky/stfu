@@ -16,19 +16,20 @@ namespace STFU.Lib.Youtube.Model
 		public string MailReceiver { get; set; }
 
 		public INotificationSettings CreateCopy()
-		{
-			return new NotificationSettings()
-			{
-				MailReceiver = MailReceiver,
-				NotifyOnVideoFoundDesktop = NotifyOnVideoFoundDesktop,
-				NotifyOnVideoFoundMail = NotifyOnVideoFoundMail,
-				NotifyOnVideoUploadFailedDesktop = NotifyOnVideoUploadFailedDesktop,
-				NotifyOnVideoUploadFailedMail = NotifyOnVideoUploadFailedMail,
-				NotifyOnVideoUploadFinishedDesktop = NotifyOnVideoUploadFinishedDesktop,
-				NotifyOnVideoUploadFinishedMail = NotifyOnVideoUploadFinishedMail,
-				NotifyOnVideoUploadStartedDesktop = NotifyOnVideoUploadStartedDesktop,
-				NotifyOnVideoUploadStartedMail = NotifyOnVideoUploadStartedMail
-			};
-		}
+        {
+            var copy = new NotificationSettings
+            {
+                MailReceiver = MailReceiver,
+                NotifyOnVideoFoundDesktop = NotifyOnVideoFoundDesktop,
+                NotifyOnVideoFoundMail = NotifyOnVideoFoundMail,
+                NotifyOnVideoUploadFailedDesktop = NotifyOnVideoUploadFailedDesktop,
+                NotifyOnVideoUploadFailedMail = NotifyOnVideoUploadFailedMail,
+                NotifyOnVideoUploadFinishedDesktop = NotifyOnVideoUploadFinishedDesktop,
+                NotifyOnVideoUploadFinishedMail = NotifyOnVideoUploadFinishedMail,
+                NotifyOnVideoUploadStartedDesktop = NotifyOnVideoUploadStartedDesktop,
+                NotifyOnVideoUploadStartedMail = NotifyOnVideoUploadStartedMail
+            };
+            return copy;
+        }
 	}
 }

@@ -11,7 +11,7 @@ namespace STFU.Lib.Youtube.Persistor
 {
 	public class PathPersistor
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(PathPersistor));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(PathPersistor));
 
 		public string Path { get; private set; } = null;
 		public IPathContainer Container { get; private set; } = null;
@@ -19,7 +19,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public PathPersistor(IPathContainer container, string path)
 		{
-			LOGGER.Debug($"Creating path persistor for path '{path}'");
+			Logger.Debug($"Creating path persistor for path '{path}'");
 
 			Path = path;
 			Container = container;
@@ -27,7 +27,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public bool Load()
 		{
-			LOGGER.Info($"Loading paths from path '{Path}'");
+			Logger.Info($"Loading paths from path '{Path}'");
 			Container.UnregisterAllPaths();
 
 			bool worked = true;
@@ -39,17 +39,17 @@ namespace STFU.Lib.Youtube.Persistor
 					using (StreamReader reader = new StreamReader(Path))
 					{
 						var json = reader.ReadToEnd();
-						LOGGER.Debug($"Json from loaded path: '{json}'");
+						Logger.Debug($"Json from loaded path: '{json}'");
 
 						var paths = JsonConvert.DeserializeObject<Automation.Paths.Path[]>(json);
-						LOGGER.Info($"Loaded {paths.Length} paths");
+						Logger.Info($"Loaded {paths.Length} paths");
 
 						foreach (var loaded in paths)
 						{
-							LOGGER.Info($"Adding path '{loaded.Fullname}'");
+							Logger.Info($"Adding path '{loaded.Fullname}'");
 							if (!Directory.Exists(loaded.Fullname))
 							{
-								LOGGER.Warn($"Loaded path '{loaded.Fullname}' does not exist - it will be marked as inactive");
+								Logger.Warn($"Loaded path '{loaded.Fullname}' does not exist - it will be marked as inactive");
 								loaded.Inactive = true;
 							}
 
@@ -68,7 +68,7 @@ namespace STFU.Lib.Youtube.Persistor
 			|| e is PathTooLongException
 			|| e is IOException)
 			{
-				LOGGER.Error($"Could not load paths, exception occured!", e);
+				Logger.Error($"Could not load paths, exception occured!", e);
 				worked = false;
 			}
 
@@ -78,7 +78,7 @@ namespace STFU.Lib.Youtube.Persistor
 		public bool Save()
 		{
 			IPath[] paths = Container.RegisteredPaths.ToArray();
-			LOGGER.Info($"Saving {paths.Length} paths to file '{Path}'");
+			Logger.Info($"Saving {paths.Length} paths to file '{Path}'");
 
 			var json = JsonConvert.SerializeObject(paths);
 
@@ -89,7 +89,7 @@ namespace STFU.Lib.Youtube.Persistor
 				{
 					writer.Write(json);
 				}
-				LOGGER.Info($"Paths saved");
+				Logger.Info($"Paths saved");
 
 				RecreateSaved();
 			}
@@ -101,7 +101,7 @@ namespace STFU.Lib.Youtube.Persistor
 			|| e is PathTooLongException
 			|| e is IOException)
 			{
-				LOGGER.Error($"Could not save paths, exception occured!", e);
+				Logger.Error($"Could not save paths, exception occured!", e);
 				worked = false;
 			}
 
@@ -110,25 +110,25 @@ namespace STFU.Lib.Youtube.Persistor
 
 		private void RecreateSaved()
 		{
-			LOGGER.Debug($"Recreating cache of saved paths");
+			Logger.Debug($"Recreating cache of saved paths");
 			Saved = new PathContainer();
 			foreach (var path in Container.RegisteredPaths)
 			{
-				LOGGER.Debug($"Recreating cache for path '{path.Fullname}'");
-				var newPath = new Automation.Paths.Path()
-				{
-					Filter = path.Filter,
-					Fullname = path.Fullname,
-					Inactive = path.Inactive,
-					SearchHidden = path.SearchHidden,
-					SearchRecursively = path.SearchRecursively,
-					SelectedTemplateId = path.SelectedTemplateId,
-					MoveAfterUpload = path.MoveAfterUpload,
-					MoveDirectoryPath = path.MoveDirectoryPath,
-					SearchOrder = path.SearchOrder
-				};
+				Logger.Debug($"Recreating cache for path '{path.Fullname}'");
+				var newPath = new Automation.Paths.Path
+                {
+                    Filter = path.Filter,
+                    Fullname = path.Fullname,
+                    Inactive = path.Inactive,
+                    SearchHidden = path.SearchHidden,
+                    SearchRecursively = path.SearchRecursively,
+                    SelectedTemplateId = path.SelectedTemplateId,
+                    MoveAfterUpload = path.MoveAfterUpload,
+                    MoveDirectoryPath = path.MoveDirectoryPath,
+                    SearchOrder = path.SearchOrder
+                };
 
-				Saved.RegisterPath(newPath);
+                Saved.RegisterPath(newPath);
 			}
 		}
 	}

@@ -13,7 +13,7 @@ namespace STFU.Lib.Youtube.Automation.Templates
 
 		public override string ToString()
 		{
-			return $"{DayOfWeek} {Time.ToString(@"hh\:mm")} +{SkipDays}";
+			return $"{DayOfWeek} {Time:hh\\:mm} +{SkipDays}";
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 		internal override void Run()
 		{
-			LOGGER.Info($"Changing video details for video '{Video.Title}'");
+			Logger.Info($"Changing video details for video '{Video.Title}'");
 
 			progress = 0;
 
@@ -33,7 +33,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 			if (!Status.QuotaReached)
 			{
-				LOGGER.Info($"Video details for video '{Video.Title}' were successfully changed");
+				Logger.Info($"Video details for video '{Video.Title}' were successfully changed");
 
 				FinishedSuccessful = true;
 				progress = 100;
@@ -52,7 +52,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 		public override void Cancel()
 		{
 			// Höhö, das kann man nicht abbrechen lol
-			LOGGER.Warn($"Called cancel but it is not possible on this type of step");
+			Logger.Warn($"Called cancel but it is not possible on this type of step");
 		}
 	}
 }

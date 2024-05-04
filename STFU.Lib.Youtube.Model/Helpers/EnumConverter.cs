@@ -21,8 +21,6 @@ namespace STFU.Lib.Youtube.Model.Helpers
 			{
 				foreach (PrivacyStatus value in typeof(PrivacyStatus).GetEnumValues())
 				{
-					var s = value.GetAttribute<EnumMemberAttribute>();
-
 					if (jValue == value.GetAttribute<EnumMemberAttribute>().Value)
 					{
 						return value;
@@ -45,16 +43,14 @@ namespace STFU.Lib.Youtube.Model.Helpers
 
 		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
 		{
-			if (value is PrivacyStatus)
+			if (value is PrivacyStatus status)
 			{
-				PrivacyStatus status = (PrivacyStatus)value;
-				writer.WriteValue(status.GetAttribute<EnumMemberAttribute>().Value);
+                writer.WriteValue(status.GetAttribute<EnumMemberAttribute>().Value);
 			}
 
-			if (value is License)
+			if (value is License lic)
 			{
-				License lic = (License)value;
-				writer.WriteValue(lic.GetAttribute<EnumMemberAttribute>().Value);
+                writer.WriteValue(lic.GetAttribute<EnumMemberAttribute>().Value);
 			}
 		}
 	}

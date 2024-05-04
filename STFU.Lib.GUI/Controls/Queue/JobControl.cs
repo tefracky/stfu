@@ -324,18 +324,18 @@ namespace STFU.Lib.GUI.Controls.Queue
 			InitializeComponent();
 		}
 
-		private void actionsButton_Click(object sender, EventArgs e)
+		private void ActionsButton_Click(object sender, EventArgs e)
 		{
 			actionsContextMenuStrip.Show(actionsButton, 0, 0);
 		}
 
-		private void startenToolStripMenuItem_Click(object sender, EventArgs e)
+		private void StartToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Job.Reset();
 			Job.Run();
 		}
 
-		private void pausierenToolStripMenuItem_Click(object sender, EventArgs e)
+		private void PauseToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			RefreshDetailLabel($"Upload wird pausiert...", string.Empty);
 			RefreshBackColor(Color.FromArgb(224, 224, 224));
@@ -343,12 +343,12 @@ namespace STFU.Lib.GUI.Controls.Queue
 			Job.Pause();
 		}
 
-		private void fortsetzenToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ResumeToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Job.Resume();
 		}
 
-		private void abbrechenToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CancelToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			RefreshDetailLabel($"Upload wird abgebrochen...", string.Empty);
 			RefreshBackColor(Color.FromArgb(255, 255, 192));
@@ -356,22 +356,22 @@ namespace STFU.Lib.GUI.Controls.Queue
 			Job.Cancel();
 		}
 
-		private void überspringenToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
+		private void SkipToolStripMenuItem_CheckedChanged(object sender, EventArgs e)
 		{
 			Job.ShouldBeSkipped = überspringenToolStripMenuItem.Checked;
 		}
 
-		private void löschenToolStripMenuItem_Click(object sender, EventArgs e)
+		private void DeleteToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Job.Delete();
 		}
 
-		private void nachObenSchiebenToolStripMenuItem_Click(object sender, EventArgs e)
+		private void MoveUpToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			MoveUpRequested?.Invoke(this);
 		}
 
-		private void nachUntenSchiebenToolStripMenuItem_Click(object sender, EventArgs e)
+		private void MoveDownToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			MoveDownRequested?.Invoke(this);
 		}
@@ -381,7 +381,7 @@ namespace STFU.Lib.GUI.Controls.Queue
 			return Job.ToString();
 		}
 
-		private void detailsBearbeitenToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ModifyDetailsToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			EditVideoForm form = new EditVideoForm(Job.Video.CreateCopy(), Job.NotificationSettings.CreateCopy(), Job.Account.Access.First().HasSendMailPrivilegue, categoryContainer, languageContainer, playlistContainer, pscContainer);
 
@@ -395,15 +395,15 @@ namespace STFU.Lib.GUI.Controls.Queue
 			}
 		}
 
-		private void refreshUploadBrokenTimer_Tick(object sender, EventArgs e)
+		private void RefreshUploadBrokenTimer_Tick(object sender, EventArgs e)
 		{
 			if (job.UploadStatus.QuotaReached)
 			{
-				RefreshDetailLabel($"Der Uploader darf von Youtube aus heute nicht weiter Videos hochladen.", $"Warte bis morgen ({(nextUploadStart - DateTime.Now).ToString("h\\:mm\\:ss")} Stunden) und versuche es dann erneut...");
+				RefreshDetailLabel($"Der Uploader darf von Youtube aus heute nicht weiter Videos hochladen.", $"Warte bis morgen ({nextUploadStart - DateTime.Now:h\\:mm\\:ss} Stunden) und versuche es dann erneut...");
 			}
 			else
 			{
-				RefreshDetailLabel($"Upload wurde unerwartet unterbrochen (z. B. fehlende Internetverbindung).", $"Warte {(nextUploadStart - DateTime.Now).ToString("mm\\:ss")} Minuten und versuche es dann erneut...");
+				RefreshDetailLabel($"Upload wurde unerwartet unterbrochen (z. B. fehlende Internetverbindung).", $"Warte {nextUploadStart - DateTime.Now:mm\\:ss} Minuten und versuche es dann erneut...");
 			}
 			RefreshBackColor(Color.FromArgb(224, 224, 224));
 		}
@@ -423,11 +423,11 @@ namespace STFU.Lib.GUI.Controls.Queue
 				{
 					RefreshDetailFirstLineLabel($"Lade {currentUploadObject} hoch: {Job.UploadStatus.Progress:0.00} %");
 				}
-				RefreshDetailSecondLineLabel($"Bisher benötigt: {Job.UploadStatus.UploadedDuration.ToString("hh\\:mm\\:ss")}, verbleibende Zeit: {Job.UploadStatus.RemainingDuration.ToString("hh\\:mm\\:ss")}, Geschwindigkeit: {CalculateAverageSpeed(Job.UploadStatus.CurrentSpeed)}");
+				RefreshDetailSecondLineLabel($"Bisher benötigt: {Job.UploadStatus.UploadedDuration:hh\\:mm\\:ss}, verbleibende Zeit: {Job.UploadStatus.RemainingDuration:hh\\:mm\\:ss}, Geschwindigkeit: {CalculateAverageSpeed(Job.UploadStatus.CurrentSpeed)}");
 			}
 		}
 
-		string[] dataUnits = new[] { "B/s", "kB/s", "MB/s", "GB/s", "TB/s" };
+        readonly string[] dataUnits = new[] { "B/s", "kB/s", "MB/s", "GB/s", "TB/s" };
 		private string CalculateAverageSpeed(double size)
 		{
 			int unitIndex = 0;
@@ -461,7 +461,7 @@ namespace STFU.Lib.GUI.Controls.Queue
 			}
 		}
 
-		private void zurücksetzenToolStripMenuItem_Click(object sender, EventArgs e)
+		private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			Job.Reset(true);
 		}

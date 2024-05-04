@@ -10,9 +10,9 @@ namespace STFU.Executable.Updater
 {
 	internal class Updater
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(Updater));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(Updater));
 
-		private string oldDir = "stfu.old";
+		private readonly string oldDir = "stfu.old";
 
 		public string Message { get; private set; } = $"";
 
@@ -26,39 +26,39 @@ namespace STFU.Executable.Updater
 
 				if (Directory.Exists(oldDir))
 				{
-					LOGGER.Info($"Removing old recovery directory '{oldDir}'");
+					Logger.Info($"Removing old recovery directory '{oldDir}'");
 					Directory.Delete(oldDir, true);
 				}
 
 				Message = $"Erstelle neues Sicherungsverzeichnis.{Environment.NewLine}Bitte Warten...";
-				LOGGER.Info($"Creating recovery directory '{oldDir}'");
+				Logger.Info($"Creating recovery directory '{oldDir}'");
 				Directory.CreateDirectory(oldDir);
 
 				Message = $"Sicherungkopie der alten Anwendung wird in den Ordner 'stfu.old' verschoben.{Environment.NewLine}Bitte Warten...";
 				string currentDir = Path.GetFullPath(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 				DirectoryInfo directory = new DirectoryInfo(currentDir);
 
-				LOGGER.Info($"Moving old directories recursively into recovery directory '{oldDir}'");
+				Logger.Info($"Moving old directories recursively into recovery directory '{oldDir}'");
 				foreach (var folder in directory.EnumerateDirectories().Where(d => d.Name != oldDir && d.Name != "updaterlogs"))
 				{
-					LOGGER.Info($"Moving directory '{folder.Name}'");
+					Logger.Info($"Moving directory '{folder.Name}'");
 					Message = $"Sichere Ordner {folder.Name}.{Environment.NewLine}Bitte Warten...";
 					DirectoryCopy(folder, Path.Combine(oldDir, folder.Name), true);
 
 					if (folder.Name != "settings")
 					{
-						LOGGER.Info($"Removing directory '{folder.Name}'");
+						Logger.Info($"Removing directory '{folder.Name}'");
 						Directory.Delete(folder.FullName, true);
 					}
 				}
 
-				LOGGER.Info($"Moving old files into recovery directory '{oldDir}'");
+				Logger.Info($"Moving old files into recovery directory '{oldDir}'");
 				foreach (var file in directory.EnumerateFiles())
 				{
 					if (file.Name != Path.GetFileName(Assembly.GetExecutingAssembly().Location)
 						&& file.Name != Path.GetFileName(zipFile))
 					{
-						LOGGER.Info($"Moving old file '{file.Name}' into recovery directory");
+						Logger.Info($"Moving old file '{file.Name}' into recovery directory");
 						Message = $"Sichere Datei {file.Name}.{Environment.NewLine}Bitte Warten...";
 						file.MoveTo(Path.Combine(oldDir, file.Name));
 					}
@@ -80,19 +80,19 @@ namespace STFU.Executable.Updater
 
 		private void ExtractNewVersion(string zipFile)
 		{
-			LOGGER.Info($"Extracting new version from zip file '{zipFile}'");
+			Logger.Info($"Extracting new version from zip file '{zipFile}'");
 			string extractPath = Path.GetFullPath(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
 
-			var UpdateFile = new FileInfo(zipFile);
-			if (UpdateFile != null)
+			var updateFile = new FileInfo(zipFile);
+			if (updateFile != null)
 			{
-				using (ZipArchive archive = ZipFile.OpenRead(UpdateFile.FullName))
+				using (ZipArchive archive = ZipFile.OpenRead(updateFile.FullName))
 				{
 					foreach (ZipArchiveEntry entry in archive.Entries)
 					{
 						if (!entry.Name.StartsWith("stfu-updater", StringComparison.OrdinalIgnoreCase))
 						{
-							LOGGER.Info($"Extracting file '{entry.Name}' from zip");
+							Logger.Info($"Extracting file '{entry.Name}' from zip");
 							Message = $"Installiere Datei {entry.Name} in den Ordner {entry.FullName}.{Environment.NewLine}Bitte Warten...";
 							// Gets the full path to ensure that relative segments are removed.
 							string destinationPath = Path.GetFullPath(Path.Combine(extractPath, entry.FullName));
@@ -103,7 +103,7 @@ namespace STFU.Executable.Updater
 							{
 								CreateDirsRecursively(Path.GetDirectoryName(destinationPath));
 								entry.ExtractToFile(destinationPath, true);
-								LOGGER.Info($"File was extracted");
+								Logger.Info($"File was extracted");
 							}
 						}
 					}
@@ -111,7 +111,7 @@ namespace STFU.Executable.Updater
 			} 
 			else
 			{
-				LOGGER.Error($"Zip file '{zipFile}' could not be found!!");
+				Logger.Error($"Zip file '{zipFile}' could not be found!!");
 			}
 		}
 
@@ -124,7 +124,7 @@ namespace STFU.Executable.Updater
 				CreateDirsRecursively(parentFolder);
 			}
 
-			LOGGER.Debug($"Creating directory '{destinationFolderPath}'");
+			Logger.Debug($"Creating directory '{destinationFolderPath}'");
 			Directory.CreateDirectory(destinationFolderPath);
 		}
 
@@ -134,7 +134,7 @@ namespace STFU.Executable.Updater
 			// If the destination directory doesn't exist, create it.
 			if (!Directory.Exists(destDirName))
 			{
-				LOGGER.Info($"Creating destination directory '{destDirName}'");
+				Logger.Info($"Creating destination directory '{destDirName}'");
 				Directory.CreateDirectory(destDirName);
 			}
 
@@ -142,7 +142,7 @@ namespace STFU.Executable.Updater
 			FileInfo[] files = dir.GetFiles();
 			foreach (FileInfo file in files)
 			{
-				LOGGER.Info($"Moving file '{file.Name}'");
+				Logger.Info($"Moving file '{file.Name}'");
 				bool stop = false;
 				int tries = 0;
 
@@ -157,7 +157,7 @@ namespace STFU.Executable.Updater
 					}
 					catch (Exception) when (tries <= 12)
 					{
-						LOGGER.Warn($"Couldn't move file '{file.Name}' -> retrying in 5 seconds");
+						Logger.Warn($"Couldn't move file '{file.Name}' -> retrying in 5 seconds");
 						Message = $"Konnte Datei nicht extrahieren...{Environment.NewLine}Versuche es gleich erneut...";
 						Thread.Sleep(5000);
 					}
@@ -168,10 +168,10 @@ namespace STFU.Executable.Updater
 			// If copying subdirectories, copy them and their contents to new location.
 			if (copySubDirs)
 			{
-				LOGGER.Info($"Moving subdirectories of this directory");
+				Logger.Info($"Moving subdirectories of this directory");
 				foreach (DirectoryInfo subdir in dirs)
 				{
-					LOGGER.Info($"Moving subdirectory '{subdir.Name}'");
+					Logger.Info($"Moving subdirectory '{subdir.Name}'");
 					string temppath = Path.Combine(destDirName, subdir.Name);
 					DirectoryCopy(subdir, temppath, true);
 				}

@@ -7,14 +7,14 @@ namespace STFU.Lib.Playlistservice
 {
 	public class VersionClient : AbstractClient
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(VersionClient));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(VersionClient));
 
 		public VersionClient(Uri host) : base(host) { }
 		public VersionClient(Uri host, string user, string pass) : base(host, user, pass) { }
 
 		public bool IsAvailable()
 		{
-			LOGGER.Info($"Checking if the service is available");
+			Logger.Info($"Checking if the service is available");
 
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Host, "/version"));
 			request.Method = "GET";
@@ -25,11 +25,10 @@ namespace STFU.Lib.Playlistservice
 				Utils.AddBasicAuth(request, Username, Password);
 			}
 
-			WebException ex = null;
-			string answer = WebService.Communicate(request, out ex);
+            string answer = WebService.Communicate(request, out var ex);
 			bool available = ex == null && !string.IsNullOrWhiteSpace(answer);
 
-			LOGGER.Info($"Service is available: {available}");
+			Logger.Info($"Service is available: {available}");
 
 			return available;
 		}

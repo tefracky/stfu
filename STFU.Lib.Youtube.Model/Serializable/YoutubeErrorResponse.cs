@@ -2,22 +2,22 @@
 {
 	public class YoutubeErrorResponse
 	{
-		public YoutubeErrorArray error { get; set; }
+		public YoutubeErrorArray Error { get; set; }
 
-		public int code { get; set; }
+		public int Code { get; set; }
 
-		public string message { get; set; }
+		public string Message { get; set; }
 	}
 
 	public class YoutubeErrorArray
 	{
-		public YoutubeErrorDetail[] errors { get; set; }
+		public YoutubeErrorDetail[] Errors { get; set; }
 	}
 
 	public class YoutubeErrorDetail
 	{
-		public string domain { get; set; }
-		public string reason { get; set; }
-		public string message { get; set; }
+		public string Domain { get; set; }
+		public string Reason { get; set; }
+		public string Message { get; set; }
 	}
 }

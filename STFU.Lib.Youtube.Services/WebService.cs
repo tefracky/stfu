@@ -8,18 +8,18 @@ namespace STFU.Lib.Youtube.Services
 {
 	public static class WebService
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(WebService));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(WebService));
 
 		public static string Communicate(WebRequest request, out WebException exception, byte[] bytes = null, string headerName = null)
 		{
 			string result = null;
 			exception = null;
 
-			LOGGER.Info($"Sending a request to '{request.Method} {request.RequestUri}'");
+			Logger.Info($"Sending a request to '{request.Method} {request.RequestUri}'");
 
 			if (bytes != null && bytes.Length != 0)
 			{
-				LOGGER.Info($"Sending bytes: '{Encoding.UTF8.GetString(bytes)}'");
+				Logger.Info($"Sending bytes: '{Encoding.UTF8.GetString(bytes)}'");
 
 				// Senden
 				var requestStream = request.GetRequestStream();
@@ -35,7 +35,7 @@ namespace STFU.Lib.Youtube.Services
 
 				if (string.IsNullOrWhiteSpace(headerName))
 				{
-					LOGGER.Info($"Reading response...");
+					Logger.Info($"Reading response...");
 
 					// Lesen
 					StreamReader responseReader = new StreamReader(responseStream);
@@ -43,7 +43,7 @@ namespace STFU.Lib.Youtube.Services
 				}
 				else
 				{
-					LOGGER.Info($"Reading header '{headerName}'...");
+					Logger.Info($"Reading header '{headerName}'...");
 
 					// Wert eines Headers (bisher nur Url zum Upload) erhalten
 					result = response.Headers.Get(headerName);
@@ -59,29 +59,27 @@ namespace STFU.Lib.Youtube.Services
 					if ((int)response.StatusCode == 308)
 					{
 						var range = response.Headers.Get("range");
-						LOGGER.Info($"Returning bytes to continue upload: '{range}'");
+						Logger.Info($"Returning bytes to continue upload: '{range}'");
 						result = range;
 					}
 				}
 				else
 				{
-					LOGGER.Error("A web exception occured and we did not expect it. D:", ex);
+					Logger.Error("A web exception occured and we did not expect it. D:", ex);
 				}
 			}
 			catch (Exception ex)
 			{
-				LOGGER.Error("An exception occured and we did not expect it. D:", ex);
+				Logger.Error("An exception occured and we did not expect it. D:", ex);
 			}
 
-			LOGGER.Info($"Response: '{result}'");
+			Logger.Info($"Response: '{result}'");
 			return result;
 		}
 
 		public static string Communicate(WebRequest request, byte[] bytes = null, string headerName = null)
 		{
-			WebException ex = null;
-
-			string result = Communicate(request, out ex, bytes, headerName);
+            string result = Communicate(request, out var ex, bytes, headerName);
 
 			if (ex != null)
 			{
@@ -92,13 +90,13 @@ namespace STFU.Lib.Youtube.Services
 						using (var reader = new StreamReader(stream))
 						{
 							result = reader.ReadToEnd();
-							LOGGER.Warn($"Returning Exception response: '{result}'");
+							Logger.Warn($"Returning Exception response: '{result}'");
 						}
 					}
 				}
 				else
 				{
-					LOGGER.Warn($"Exception had no response, returning null!");
+					Logger.Warn($"Exception had no response, returning null!");
 					result = null;
 				}
 			}

@@ -9,14 +9,14 @@ namespace STFU.Executable.AutoUploader.Forms
 {
 	public partial class ReleaseNotesForm : Form
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(ReleaseNotesForm));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(ReleaseNotesForm));
 
-		private string filename = "ReleaseNotes.rtf";
-		private AutoUploaderSettings settings = null;
+		private readonly string filename = "ReleaseNotes.rtf";
+		private readonly AutoUploaderSettings settings = null;
 
 		public ReleaseNotesForm(AutoUploaderSettings settings)
 		{
-			LOGGER.Info("Initializing release notes form");
+			Logger.Info("Initializing release notes form");
 
 			InitializeComponent();
 			this.settings = settings;
@@ -28,35 +28,35 @@ namespace STFU.Executable.AutoUploader.Forms
 		{
 			if (File.Exists(filename))
 			{
-				LOGGER.Info("Loading and showing release notes");
+				Logger.Info("Loading and showing release notes");
 
 				releaseNotesBox.LoadFile(filename);
 			}
 			else
 			{
-				LOGGER.Warn("No release notes found -> close the window immediately");
+				Logger.Warn("No release notes found -> close the window immediately");
 
 				Close();
 			}
 		}
 
-		private void closeButtonClick(object sender, EventArgs e)
+		private void CloseButtonClick(object sender, EventArgs e)
 		{
-			LOGGER.Info("Closing release notes");
-			LOGGER.Info($"Should the release notes be showed again next program start: {settings.ShowReleaseNotes}");
+			Logger.Info("Closing release notes");
+			Logger.Info($"Should the release notes be showed again next program start: {settings.ShowReleaseNotes}");
 
 			Close();
 		}
 
-		private void disableNotesCheckboxCheckedChanged(object sender, EventArgs e)
+		private void DisableNotesCheckboxCheckedChanged(object sender, EventArgs e)
 		{
 			settings.ShowReleaseNotes = disableNotesCheckbox.Checked;
-			LOGGER.Debug($"Changed show release notes setting to: {settings.ShowReleaseNotes}");
+			Logger.Debug($"Changed show release notes setting to: {settings.ShowReleaseNotes}");
 		}
 
-		private void releaseNotesBoxLinkClicked(object sender, LinkClickedEventArgs e)
+		private void ReleaseNotesBoxLinkClicked(object sender, LinkClickedEventArgs e)
 		{
-			LOGGER.Debug($"Link to: '{settings.ShowReleaseNotes}' was clicked");
+			Logger.Debug($"Link to: '{settings.ShowReleaseNotes}' was clicked");
 			Process.Start(e.LinkText);
 		}
 	}

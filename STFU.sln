@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27428.2002
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STFU.Executable.AutoUploader", "STFU.Executable.AutoUploader\STFU.Executable.AutoUploader.csproj", "{E78EE90C-15E6-49C3-A166-5EFC933E7F21}"
 EndProject
@@ -28,8 +28,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STFU.Lib.Common", "STFU.Lib.Common\STFU.Lib.Common.csproj", "{76BA1289-9C9E-40DD-B2DE-FD906BA5E500}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STFU.Lib.Youtube.Services", "STFU.Lib.Youtube.Services\STFU.Lib.Youtube.Services.csproj", "{28B6561B-2090-4D83-95BA-345BF70CA022}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STFU.Lib.Twitter", "STFU.Lib.Twitter\STFU.Lib.Twitter.csproj", "{00A77E89-637A-442E-B9EA-B39971BF8C82}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STFU.Lib.Playlistservice", "STFU.Lib.Playlistservice\STFU.Lib.Playlistservice.csproj", "{9232266D-65A1-4345-83EC-05344E5D2B27}"
 EndProject
@@ -199,18 +197,6 @@ Global
 		{28B6561B-2090-4D83-95BA-345BF70CA022}.Release|x64.Build.0 = Release|Any CPU
 		{28B6561B-2090-4D83-95BA-345BF70CA022}.Release|x86.ActiveCfg = Release|Any CPU
 		{28B6561B-2090-4D83-95BA-345BF70CA022}.Release|x86.Build.0 = Release|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Debug|x64.Build.0 = Debug|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Debug|x86.Build.0 = Debug|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Release|x64.ActiveCfg = Release|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Release|x64.Build.0 = Release|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Release|x86.ActiveCfg = Release|Any CPU
-		{00A77E89-637A-442E-B9EA-B39971BF8C82}.Release|x86.Build.0 = Release|Any CPU
 		{9232266D-65A1-4345-83EC-05344E5D2B27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9232266D-65A1-4345-83EC-05344E5D2B27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9232266D-65A1-4345-83EC-05344E5D2B27}.Debug|x64.ActiveCfg = Debug|Any CPU

@@ -10,13 +10,13 @@ namespace STFU.Lib.Youtube.Services
 {
 	public class YoutubePlaylistCommunicator
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubePlaylistCommunicator));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubePlaylistCommunicator));
 
 		public YoutubePlaylistCommunicator() { }
 
 		public IList<IYoutubePlaylist> LoadPlaylists(IYoutubeAccount account)
 		{
-			LOGGER.Info($"Loading playlists of account with id: '{account.Id}' and title: '{account.Title}' from youtube");
+			Logger.Info($"Loading playlists of account with id: '{account.Id}' and title: '{account.Title}' from youtube");
 
 			var list = new List<IYoutubePlaylist>();
 
@@ -40,21 +40,22 @@ namespace STFU.Lib.Youtube.Services
 
 				Response response = JsonConvert.DeserializeObject<Response>(result);
 
-				nextPageToken = response.nextPageToken;
-				foreach (var serializedPlaylist in response.items)
-				{
-					list.Add(new YoutubePlaylist()
-					{
-						Title = serializedPlaylist.snippet.title,
-						Id = serializedPlaylist.id,
-						PublishedAt = serializedPlaylist.snippet.publishedAt
-					});
-				}
+				nextPageToken = response.NextPageToken;
+				foreach (var serializedPlaylist in response.Items)
+                {
+                    var item = new YoutubePlaylist
+                    {
+                        Title = serializedPlaylist.Snippet.Title,
+                        Id = serializedPlaylist.Id,
+                        PublishedAt = serializedPlaylist.Snippet.PublishedAt
+                    };
+                    list.Add(item);
+                }
 			} while (!string.IsNullOrWhiteSpace(nextPageToken));
 
 			foreach (var playlist in list)
 			{
-				LOGGER.Info($"Loaded playlist with id: {playlist.Id} and title: '{playlist.Title}'. Playlist has been published at: '{playlist.PublishedAt}'");
+				Logger.Info($"Loaded playlist with id: {playlist.Id} and title: '{playlist.Title}'. Playlist has been published at: '{playlist.PublishedAt}'");
 			}
 
 			return list;

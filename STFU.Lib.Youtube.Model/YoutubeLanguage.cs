@@ -14,9 +14,21 @@ namespace STFU.Lib.Youtube.Model
 			return $"{Hl} - {Name}";
 		}
 
-		public static YoutubeLanguage Default => new YoutubeLanguage() { Hl = "de", Id = "de", Name = "Deutsch" };
+		public static YoutubeLanguage Default
+        {
+            get
+            {
+                var @default = new YoutubeLanguage
+                {
+                    Hl = "de",
+                    Id = "de",
+                    Name = "Deutsch"
+                };
+                return @default;
+            }
+        }
 
-		public static YoutubeLanguage Parse(JToken property)
+        public static YoutubeLanguage Parse(JToken property)
 		{
 			YoutubeLanguage lang = new YoutubeLanguage();
 

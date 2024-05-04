@@ -11,7 +11,7 @@ namespace STFU.Lib.Youtube.Upload.Steps
 {
 	public abstract class AbstractUploadStep : IUploadStep
 	{
-		protected ILog LOGGER { get; set; } = LogManager.GetLogger(nameof(AbstractUploadStep));
+		protected ILog Logger { get; set; } = LogManager.GetLogger(nameof(AbstractUploadStep));
 
 		protected Task RunningTask { get; set; }
 
@@ -33,8 +33,8 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 		public AbstractUploadStep(IYoutubeJob job)
 		{
-			LOGGER = LogManager.GetLogger(TypeName);
-			LOGGER.Info($"Creating new Step {TypeName} for Job '{job.Video.Title}'");
+			Logger = LogManager.GetLogger(TypeName);
+			Logger.Info($"Creating new Step {TypeName} for Job '{job.Video.Title}'");
 			Job = job;
 		}
 
@@ -61,10 +61,10 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 		public async void RunAsync()
 		{
-			LOGGER.Info($"Running Step async...");
+			Logger.Info($"Running Step async...");
 			RunningTask = Task.Run(() => Run());
 			await RunningTask;
-			LOGGER.Info($"Finished async step");
+			Logger.Info($"Finished async step");
 		}
 
 		internal abstract void Run();
@@ -73,13 +73,13 @@ namespace STFU.Lib.Youtube.Upload.Steps
 
 		protected void OnStepFinished()
 		{
-			LOGGER.Info($"{TypeName} finished for Job '{Job.Video.Title}'");
+			Logger.Info($"{TypeName} finished for Job '{Job.Video.Title}'");
 			StepStateChanged?.Invoke(this, new UploadStepStateChangedEventArgs(UploadStepState.Running, UploadStepState.Successful));
 		}
 
 		protected void OnStepStateChanged(UploadStepState oldState, UploadStepState newState)
 		{
-			LOGGER.Info($"{TypeName} state changed from '{oldState}' to '{newState}' for Job '{Job.Video.Title}'");
+			Logger.Info($"{TypeName} state changed from '{oldState}' to '{newState}' for Job '{Job.Video.Title}'");
 			StepStateChanged?.Invoke(this, new UploadStepStateChangedEventArgs(oldState, newState));
 		}
 

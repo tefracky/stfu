@@ -17,7 +17,7 @@ namespace STFU.Lib.GUI.Controls.Queue
 		private IYoutubePlaylistContainer playlistContainer;
 		private IPlaylistServiceConnectionContainer pscContainer;
 
-		private List<JobControl> jobControls = new List<JobControl>();
+		private readonly List<JobControl> jobControls = new List<JobControl>();
 
 		private BlockingCollection<JobChangedArgs> Actions { get; } = new BlockingCollection<JobChangedArgs>();
 
@@ -109,8 +109,12 @@ namespace STFU.Lib.GUI.Controls.Queue
 
 		private void OnJobQueued(JobQueuedEventArgs e)
 		{
-			var control = new JobControl() { Job = e.Job, ActionsButtonsVisible = ShowActionsButtons };
-			control.Fill(categoryContainer, languageContainer, playlistContainer, pscContainer);
+            var control = new JobControl
+            {
+                Job = e.Job,
+                ActionsButtonsVisible = ShowActionsButtons
+            };
+            control.Fill(categoryContainer, languageContainer, playlistContainer, pscContainer);
 
 			AddItem(control, e.Position);
 		}
@@ -171,12 +175,7 @@ namespace STFU.Lib.GUI.Controls.Queue
 			mainTlp.RowStyles.RemoveAt(position);
 		}
 
-		private void AddItem(JobControl control, bool refreshButtons = true)
-		{
-			AddItem(control, int.MaxValue, refreshButtons);
-		}
-
-		private void AddItem(JobControl control, int position, bool refreshButtons = true)
+        private void AddItem(JobControl control, int position, bool refreshButtons = true)
 		{
 			if (position < 0)
 			{
@@ -261,7 +260,7 @@ namespace STFU.Lib.GUI.Controls.Queue
 			}
 		}
 
-		private void refreshControlsTimerTick(object sender, EventArgs e)
+		private void RefreshControlsTimerTick(object sender, EventArgs e)
 		{
 			foreach (var control in jobControls)
 			{
@@ -269,7 +268,7 @@ namespace STFU.Lib.GUI.Controls.Queue
 			}
 		}
 
-		private void handleActionsTimer_Tick(object sender, EventArgs e)
+		private void HandleActionsTimer_Tick(object sender, EventArgs e)
 		{
 			while (Actions.Count > 0)
 			{

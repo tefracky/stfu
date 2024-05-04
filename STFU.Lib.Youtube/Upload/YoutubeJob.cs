@@ -13,7 +13,7 @@ namespace STFU.Lib.Youtube.Upload
 {
 	public class YoutubeJob : IYoutubeJob
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubeJob));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubeJob));
 		public static bool SimplifyLogging { get; set; } = false;
 
 		public IYoutubeVideo Video { get; set; }
@@ -35,7 +35,7 @@ namespace STFU.Lib.Youtube.Upload
 
 					if (!SimplifyLogging)
 					{
-						LOGGER.Info($"State of Job '{Video.Title}' changed to '{state}'");
+						Logger.Info($"State of Job '{Video.Title}' changed to '{state}'");
 					}
 
 					OnPropertyChanged();
@@ -55,7 +55,7 @@ namespace STFU.Lib.Youtube.Upload
 				if (shouldBeSkipped != value)
 				{
 					shouldBeSkipped = value;
-					LOGGER.Info($"Should be skipped value of Job '{Video.Title}' changed to '{shouldBeSkipped}'");
+					Logger.Info($"Should be skipped value of Job '{Video.Title}' changed to '{shouldBeSkipped}'");
 					OnPropertyChanged();
 				}
 			}
@@ -74,7 +74,7 @@ namespace STFU.Lib.Youtube.Upload
 				if (error != value)
 				{
 					error = value;
-					LOGGER.Info($"Error of Job '{Video.Title}' changed to '{error}'");
+					Logger.Info($"Error of Job '{Video.Title}' changed to '{error}'");
 					OnPropertyChanged();
 				}
 			}
@@ -103,7 +103,7 @@ namespace STFU.Lib.Youtube.Upload
 
 					if (!SimplifyLogging)
 					{
-						LOGGER.Info($"Uploadstatus of Job '{Video.Title}' changed to '{uploadStatus}'");
+						Logger.Info($"Uploadstatus of Job '{Video.Title}' changed to '{uploadStatus}'");
 					}
 				}
 			}
@@ -113,7 +113,7 @@ namespace STFU.Lib.Youtube.Upload
 
 		public YoutubeJob(IYoutubeVideo video, IYoutubeAccount account, UploadStatus uploadStatus)
 		{
-			LOGGER.Info($"Creating new job for video '{video?.Title ?? "null"}' and account '{account?.Title ?? "null"}'");
+			Logger.Info($"Creating new job for video '{video?.Title ?? "null"}' and account '{account?.Title ?? "null"}'");
 
 			Video = video;
 			Account = account;
@@ -129,7 +129,7 @@ namespace STFU.Lib.Youtube.Upload
 		{
 			if (!SimplifyLogging)
 			{
-				LOGGER.Info($"Creating new job with error '{error}'");
+				Logger.Info($"Creating new job with error '{error}'");
 			}
 
 			Error = error;
@@ -147,14 +147,14 @@ namespace STFU.Lib.Youtube.Upload
 
 		public void Run()
 		{
-			LOGGER.Info($"Starting upload, video: '{Video.Title}'");
+			Logger.Info($"Starting upload, video: '{Video.Title}'");
 
 			JobUploader.Run();
 		}
 
 		public void Pause()
 		{
-			LOGGER.Info($"Pausing upload, video: '{Video.Title}'");
+			Logger.Info($"Pausing upload, video: '{Video.Title}'");
 
 			if (UploadStatus?.CurrentStep != null)
 			{
@@ -166,7 +166,7 @@ namespace STFU.Lib.Youtube.Upload
 
 		public void Resume()
 		{
-			LOGGER.Info($"Resuming upload, video: '{Video.Title}'");
+			Logger.Info($"Resuming upload, video: '{Video.Title}'");
 
 			if (UploadStatus.CurrentStep != null)
 			{
@@ -182,7 +182,7 @@ namespace STFU.Lib.Youtube.Upload
 
 		public void Cancel()
 		{
-			LOGGER.Info($"Canceling upload, video: '{Video.Title}'");
+			Logger.Info($"Canceling upload, video: '{Video.Title}'");
 
 			JobUploader.Reset();
 			UploadStatus = new UploadStatus();
@@ -191,7 +191,7 @@ namespace STFU.Lib.Youtube.Upload
 
 		public void Reset(bool resetStatus = false)
 		{
-			LOGGER.Info($"Reseting upload, video: '{Video.Title}'");
+			Logger.Info($"Reseting upload, video: '{Video.Title}'");
 
 			JobUploader.Reset();
 
@@ -203,7 +203,7 @@ namespace STFU.Lib.Youtube.Upload
 
 		public void Delete()
 		{
-			LOGGER.Info($"Deleting upload, video: '{Video.Title}'");
+			Logger.Info($"Deleting upload, video: '{Video.Title}'");
 
 			JobUploader.Reset();
 

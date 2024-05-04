@@ -104,7 +104,7 @@
 			this.shouldOverridePublishAtCheckbox.TabIndex = 1;
 			this.shouldOverridePublishAtCheckbox.Text = "Eigener Startzeitpunkt: ";
 			this.shouldOverridePublishAtCheckbox.UseVisualStyleBackColor = true;
-			this.shouldOverridePublishAtCheckbox.CheckedChanged += new System.EventHandler(this.shouldOverridePublishAtCheckboxCheckedChanged);
+			this.shouldOverridePublishAtCheckbox.CheckedChanged += new System.EventHandler(this.ShouldOverridePublishAtCheckboxCheckedChanged);
 			// 
 			// customStartPointCombobox
 			// 
@@ -132,7 +132,7 @@
 			this.customStartPointCheckbox.TabIndex = 3;
 			this.customStartPointCheckbox.Text = "Eigener Starttag: ";
 			this.customStartPointCheckbox.UseVisualStyleBackColor = true;
-			this.customStartPointCheckbox.CheckedChanged += new System.EventHandler(this.customStartPointCheckboxCheckedChanged);
+			this.customStartPointCheckbox.CheckedChanged += new System.EventHandler(this.CustomStartPointCheckboxCheckedChanged);
 			// 
 			// overrideDateTimePicker
 			// 
@@ -160,7 +160,7 @@
 			this.dontObservePathCheckbox.TabIndex = 5;
 			this.dontObservePathCheckbox.Text = "Pfad dieses mal nicht überwachen";
 			this.dontObservePathCheckbox.UseVisualStyleBackColor = true;
-			this.dontObservePathCheckbox.CheckedChanged += new System.EventHandler(this.dontObservePathCheckboxCheckedChanged);
+			this.dontObservePathCheckbox.CheckedChanged += new System.EventHandler(this.DontObservePathCheckboxCheckedChanged);
 			// 
 			// uploadVideosPrivateCheckbox
 			// 
@@ -175,7 +175,7 @@
 			this.uploadVideosPrivateCheckbox.TabIndex = 6;
 			this.uploadVideosPrivateCheckbox.Text = "Videos privat hochladen";
 			this.uploadVideosPrivateCheckbox.UseVisualStyleBackColor = true;
-			this.uploadVideosPrivateCheckbox.CheckedChanged += new System.EventHandler(this.uploadVideosPrivateCheckboxCheckedChanged);
+			this.uploadVideosPrivateCheckbox.CheckedChanged += new System.EventHandler(this.UploadVideosPrivateCheckboxCheckedChanged);
 			// 
 			// explanationTextbox
 			// 

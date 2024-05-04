@@ -22,21 +22,21 @@ namespace STFU.Lib.Youtube.Automation
 {
 	public class AutomationUploader : IAutomationUploader
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(AutomationUploader));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(AutomationUploader));
 
 		private IYoutubeUploader uploader = null;
 		public IYoutubeUploader Uploader
 		{
 			get
 			{
-				LOGGER.Debug($"Returning uploader with value {uploader}");
+				Logger.Debug($"Returning uploader with value {uploader}");
 				return uploader;
 			}
 			set
 			{
 				if (State == RunningState.NotRunning && uploader != value)
 				{
-					LOGGER.Debug($"Setting uploader to new value {value}");
+					Logger.Debug($"Setting uploader to new value {value}");
 					uploader = value;
 					OnPropertyChaged();
 				}
@@ -48,14 +48,14 @@ namespace STFU.Lib.Youtube.Automation
 		{
 			get
 			{
-				LOGGER.Debug($"Returning account with value {account}");
+				Logger.Debug($"Returning account with value {account}");
 				return account;
 			}
 			set
 			{
 				if (account != value)
 				{
-					LOGGER.Debug($"Setting account to new value {value}");
+					Logger.Debug($"Setting account to new value {value}");
 					account = value;
 					OnPropertyChaged();
 				}
@@ -68,14 +68,14 @@ namespace STFU.Lib.Youtube.Automation
 		{
 			get
 			{
-				LOGGER.Debug($"Returning state with value {state}");
+				Logger.Debug($"Returning state with value {state}");
 				return state;
 			}
 			private set
 			{
 				if (state != value)
 				{
-					LOGGER.Debug($"Setting state to new value {value}");
+					Logger.Debug($"Setting state to new value {value}");
 					state = value;
 					OnPropertyChaged();
 				}
@@ -87,14 +87,14 @@ namespace STFU.Lib.Youtube.Automation
 		{
 			get
 			{
-				LOGGER.Debug($"Returning watchedProcesses with value {watchedProcesses}");
+				Logger.Debug($"Returning watchedProcesses with value {watchedProcesses}");
 				return watchedProcesses;
 			}
 			set
 			{
 				if (watchedProcesses != value && value != null)
 				{
-					LOGGER.Debug($"Setting watchedProcesses to new value {value}");
+					Logger.Debug($"Setting watchedProcesses to new value {value}");
 					watchedProcesses = value;
 					OnPropertyChaged();
 				}
@@ -108,21 +108,21 @@ namespace STFU.Lib.Youtube.Automation
 
 		private TemplateVideoCreator VideoCreator { get; set; }
 
-		private IYoutubeJobContainer archive;
+		private readonly IYoutubeJobContainer archive;
 
 		private IPlaylistServiceConnectionContainer pscContainer = null;
 		public IPlaylistServiceConnectionContainer PscContainer
 		{
 			get
 			{
-				LOGGER.Debug($"Returning pscContainer with value {pscContainer}");
+				Logger.Debug($"Returning pscContainer with value {pscContainer}");
 				return pscContainer;
 			}
 			set
 			{
 				if (pscContainer != value)
 				{
-					LOGGER.Debug($"Setting pscContainer to new value {value}");
+					Logger.Debug($"Setting pscContainer to new value {value}");
 					pscContainer = value;
 					OnPropertyChaged();
 				}
@@ -131,7 +131,7 @@ namespace STFU.Lib.Youtube.Automation
 
 		public AutomationUploader(IYoutubeUploader uploader, IYoutubeJobContainer archiveContainer, IPlaylistServiceConnectionContainer pscContainer)
 		{
-			LOGGER.Debug($"Creating new instance of AutomationUploader");
+			Logger.Debug($"Creating new instance of AutomationUploader");
 
 			Uploader = uploader;
 			archive = archiveContainer;
@@ -141,12 +141,12 @@ namespace STFU.Lib.Youtube.Automation
 		public AutomationUploader(IYoutubeUploader uploader, IYoutubeJobContainer archiveContainer, IPlaylistServiceConnectionContainer pscContainer, IYoutubeAccount account, IEnumerable<IObservationConfiguration> configurationsToAdd)
 			: this(uploader, archiveContainer, pscContainer)
 		{
-			LOGGER.Debug($"Creating new instance of AutomationUploader with account with title {account?.Title ?? null}");
+			Logger.Debug($"Creating new instance of AutomationUploader with account with title {account?.Title ?? null}");
 			Account = account;
 
 			foreach (var config in configurationsToAdd)
 			{
-				LOGGER.Debug($"Adding configuration for template '{config.Template.Name}' and path '{config.PathInfo.Fullname}'");
+				Logger.Debug($"Adding configuration for template '{config.Template.Name}' and path '{config.PathInfo.Fullname}'");
 				Configuration.Add(config);
 			}
 		}
@@ -155,11 +155,11 @@ namespace STFU.Lib.Youtube.Automation
 
 		public void Cancel(bool cancelYoutubeUploader)
 		{
-			LOGGER.Debug($"Received cancel request");
+			Logger.Debug($"Received cancel request");
 
 			if (State == RunningState.Running)
 			{
-				LOGGER.Info($"Cancelling auto uploader");
+				Logger.Info($"Cancelling auto uploader");
 
 				State = RunningState.CancelPending;
 				Uploader.StopAfterCompleting = true;
@@ -168,7 +168,7 @@ namespace STFU.Lib.Youtube.Automation
 
 				if (cancelYoutubeUploader)
 				{
-					LOGGER.Info($"Cancelling youtube uploader");
+					Logger.Info($"Cancelling youtube uploader");
 					Uploader.CancelAll();
 				}
 
@@ -178,11 +178,11 @@ namespace STFU.Lib.Youtube.Automation
 
 		public async void StartAsync()
 		{
-			LOGGER.Debug($"Received start async request");
+			Logger.Debug($"Received start async request");
 
 			if (State == RunningState.NotRunning)
 			{
-				LOGGER.Info($"Starting auto uploader asynchronously");
+				Logger.Info($"Starting auto uploader asynchronously");
 
 				await Task.Run(() => Start(Configuration
 					.Where(c => !c.IgnorePath)
@@ -193,31 +193,35 @@ namespace STFU.Lib.Youtube.Automation
 
 		public async void StartWithExtraConfigAsync()
 		{
-			LOGGER.Debug($"Received start with extra config async request");
+			Logger.Debug($"Received start with extra config async request");
 
 			if (State == RunningState.NotRunning)
 			{
-				LOGGER.Info($"Starting auto uploader asynchronously");
+				Logger.Info($"Starting auto uploader asynchronously");
 				await Task.Run(() => Start(Configuration
 					.Where(c => !c.IgnorePath)
-					.Select(pto => new PublishTimeCalculator(
-							pto.PathInfo,
-							pto.StartDate,
-							pto.Template,
-							pto.HasCustomStartDayIndex ? pto.CustomStartDayIndex : null)
-						{
-							UploadPrivate = pto.UploadPrivate
-						})
+					.Select(pto =>
+                    {
+                        var calculator = new PublishTimeCalculator(
+                        pto.PathInfo,
+                        pto.StartDate,
+                        pto.Template,
+                        pto.HasCustomStartDayIndex ? pto.CustomStartDayIndex : null)
+                        {
+                            UploadPrivate = pto.UploadPrivate
+                        };
+                        return calculator;
+                    })
 				.ToList()));
 			}
 		}
 
 		private void Start(IList<PublishTimeCalculator> infos)
 		{
-			LOGGER.Info($"Starting auto uploader");
+			Logger.Info($"Starting auto uploader");
 			if (Account == null || Uploader == null)
 			{
-				LOGGER.Error($"Either the account or the uploader were not set - can't start auto uploader!");
+				Logger.Error($"Either the account or the uploader were not set - can't start auto uploader!");
 				return;
 			}
 
@@ -236,36 +240,36 @@ namespace STFU.Lib.Youtube.Automation
 
 			foreach (var config in Configuration.Where(c => !c.IgnorePath && Directory.Exists(c.PathInfo.Fullname)))
 			{
-				LOGGER.Info($"Starting file searcher and directory watcher for configuration for template '{config.Template.Name}' and path '{config.PathInfo.Fullname}'");
+				Logger.Info($"Starting file searcher and directory watcher for configuration for template '{config.Template.Name}' and path '{config.PathInfo.Fullname}'");
 
 				var pathInfo = config.PathInfo;
 				Searcher.SearchFilesAsync(pathInfo.Fullname, pathInfo.Filter, pathInfo.SearchRecursively, pathInfo.SearchHidden, pathInfo.SearchOrder);
 				DirectoryWatcher.AddWatcher(pathInfo.Fullname, pathInfo.Filter, pathInfo.SearchRecursively);
 			}
 
-			LOGGER.Info($"Starting youtube uploader");
+			Logger.Info($"Starting youtube uploader");
 			Uploader.StartUploader();
 
-			LOGGER.Info($"Auto uploader was started successfully");
+			Logger.Info($"Auto uploader was started successfully");
 		}
 
 		private void OnProcessesCompleted(object sender, System.EventArgs e)
 		{
-			LOGGER.Debug($"Received a process completed event");
+			Logger.Debug($"Received a process completed event");
 
 			if (EndAfterUpload && uploader.State != UploaderState.Uploading && uploader.State != UploaderState.CancelPending && Searcher.State == RunningState.NotRunning)
 			{
-				LOGGER.Info($"Stopping auto uploader");
+				Logger.Info($"Stopping auto uploader");
 
 				if (uploader.State == UploaderState.Waiting)
 				{
-					LOGGER.Info($"Stopping youtube uploader");
+					Logger.Info($"Stopping youtube uploader");
 					uploader.CancelAll();
 				}
 
 				if (DirectoryWatcher.State == RunningState.Running)
 				{
-					LOGGER.Info($"Stopping directory watcher");
+					Logger.Info($"Stopping directory watcher");
 					DirectoryWatcher.Cancel();
 				}
 
@@ -275,7 +279,7 @@ namespace STFU.Lib.Youtube.Automation
 
 		private void SearcherPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			LOGGER.Debug($"Received a searcher completed event");
+			Logger.Debug($"Received a searcher completed event");
 
 			if (Searcher.State == RunningState.NotRunning)
 			{
@@ -285,24 +289,24 @@ namespace STFU.Lib.Youtube.Automation
 
 		private void UploaderPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			LOGGER.Debug($"Received a uploader property changed event for property {e.PropertyName}");
+			Logger.Debug($"Received a uploader property changed event for property {e.PropertyName}");
 
 			if (e.PropertyName == nameof(Uploader.State))
 			{
 				if (Uploader.State == UploaderState.Waiting)
 				{
-					LOGGER.Info($"Uploader state changed to waiting -> end if should end afterwards");
+					Logger.Info($"Uploader state changed to waiting -> end if should end afterwards");
 					WatchedProcesses.ProcessesCompleted += ProcessesCompleted;
 					EndIfShouldEnd();
 				}
 				else if (Uploader.State == UploaderState.Uploading)
 				{
-					LOGGER.Info($"Uploader state changed to uploading -> can't end until it's finished or cancelled");
+					Logger.Info($"Uploader state changed to uploading -> can't end until it's finished or cancelled");
 					WatchedProcesses.ProcessesCompleted -= ProcessesCompleted;
 				}
 				else if (Uploader.State == UploaderState.NotRunning)
 				{
-					LOGGER.Info($"Uploader state changed to not running -> end if should end");
+					Logger.Info($"Uploader state changed to not running -> end if should end");
 					DirectoryWatcher.Cancel();
 					EndIfShouldEnd();
 				}
@@ -317,7 +321,7 @@ namespace STFU.Lib.Youtube.Automation
 				&& (Uploader.State != UploaderState.Waiting || !Uploader.Queue.Any(u => u.State == JobState.NotStarted && !u.ShouldBeSkipped))
 				&& Searcher.State != RunningState.Running)
 			{
-				LOGGER.Info($"Auto uploader should end now");
+				Logger.Info($"Auto uploader should end now");
 
 				Uploader.CancelAll();
 				DirectoryWatcher.Cancel();
@@ -327,39 +331,39 @@ namespace STFU.Lib.Youtube.Automation
 
 		private void ProcessesCompleted(object sender, System.EventArgs e)
 		{
-			LOGGER.Debug($"Received a process completed event");
+			Logger.Debug($"Received a process completed event");
 			EndIfShouldEnd();
 		}
 
 		private void RefreshState()
 		{
-			LOGGER.Debug($"Refreshing state");
+			Logger.Debug($"Refreshing state");
 
 			if (Searcher.State == RunningState.NotRunning
 				&& DirectoryWatcher.State == RunningState.NotRunning
 				&& Uploader.State == UploaderState.NotRunning)
 			{
-				LOGGER.Info($"Auto uploader state is now 'not running'");
+				Logger.Info($"Auto uploader state is now 'not running'");
 				State = RunningState.NotRunning;
 			}
 		}
 
 		private void OnFileToUploadOccured(FileSystemEventArgs e)
 		{
-			LOGGER.Debug($"Received a file found event for file '{e.FullPath}'");
+			Logger.Debug($"Received a file found event for file '{e.FullPath}'");
 
 			if (!e.Name.StartsWith("_")
 				&& Uploader.Queue.All(job => job.Video.File.FullName.ToLower() != e.FullPath.ToLower())
 				&& archive.RegisteredJobs.All(job => job.Video.File.FullName.ToLower() != e.FullPath.ToLower()))
 			{
-				LOGGER.Info($"Found file to upload: '{e.FullPath}', adding it to uploader");
+				Logger.Info($"Found file to upload: '{e.FullPath}', adding it to uploader");
 
 				var videoAndEvaluator = VideoCreator.CreateVideo(e.FullPath);
 				var video = videoAndEvaluator.Video;
 				var evaluator = videoAndEvaluator.Evaluator;
 				var notificationSettings = videoAndEvaluator.NotificationSettings;
 
-				LOGGER.Info($"Video title: '{video.Title}', queueing it");
+				Logger.Info($"Video title: '{video.Title}', queueing it");
 
 				var job = Uploader.QueueUpload(video, Account, notificationSettings);
 				var path = VideoCreator.FindNearestPath(e.FullPath);
@@ -370,7 +374,7 @@ namespace STFU.Lib.Youtube.Automation
 
 				if (path.MoveAfterUpload)
 				{
-					LOGGER.Info($"Moving finished video file from: '{video.Path}' to: '{path.MoveDirectoryPath}'");
+					Logger.Info($"Moving finished video file from: '{video.Path}' to: '{path.MoveDirectoryPath}'");
 					job.UploadCompletedAction += (args) => MoveVideo(args.Job, path.MoveDirectoryPath);
 				}
 
@@ -380,14 +384,14 @@ namespace STFU.Lib.Youtube.Automation
 
 		public void MoveVideo(IYoutubeJob job, string moveDirectory)
 		{
-			LOGGER.Debug($"Moving file: '{job.Video.Path}' to directory: '{moveDirectory}'");
+			Logger.Debug($"Moving file: '{job.Video.Path}' to directory: '{moveDirectory}'");
 
 			if (File.Exists(job.Video.Path))
 			{
 				var canMove = true;
 				if (!Directory.Exists(moveDirectory))
 				{
-					LOGGER.Info($"Creating directory: '{moveDirectory}'");
+					Logger.Info($"Creating directory: '{moveDirectory}'");
 
 					try
 					{
@@ -395,14 +399,14 @@ namespace STFU.Lib.Youtube.Automation
 					}
 					catch (Exception ex)
 					{
-						LOGGER.Info($"Could not create directory, exception occured!", ex);
+						Logger.Info($"Could not create directory, exception occured!", ex);
 						canMove = false;
 					}
 				}
 
 				if (canMove)
 				{
-					LOGGER.Info($"Trying to move video file");
+					Logger.Info($"Trying to move video file");
 					try
 					{
 						string filename = Path.GetFileNameWithoutExtension(job.Video.Path);
@@ -416,21 +420,21 @@ namespace STFU.Lib.Youtube.Automation
 						{
 							fullFileName = $"{filename} ({i}){extension}";
 
-							LOGGER.Info($"File '{movedFullName}' exists, trying new file name '{fullFileName}'");
+							Logger.Info($"File '{movedFullName}' exists, trying new file name '{fullFileName}'");
 
 							i++;
 							movedFullName = Path.Combine(moveDirectory, fullFileName);
 						}
 
-						LOGGER.Info($"Moving video file to path: '{movedFullName}'");
+						Logger.Info($"Moving video file to path: '{movedFullName}'");
 						File.Move(job.Video.Path, movedFullName);
 						job.Video.Path = movedFullName;
 
-						LOGGER.Info($"Video file was moved successfully");
+						Logger.Info($"Video file was moved successfully");
 					}
 					catch (Exception ex)
 					{
-						LOGGER.Info($"Could not move video file, exception occured!", ex);
+						Logger.Info($"Could not move video file, exception occured!", ex);
 					}
 				}
 			}
@@ -441,7 +445,7 @@ namespace STFU.Lib.Youtube.Automation
 
 		private void OnPropertyChaged([CallerMemberName] string caller = "")
 		{
-			LOGGER.Debug($"Property {caller} changed, invoking handler");
+			Logger.Debug($"Property {caller} changed, invoking handler");
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(caller));
 		}
 		#endregion PropertyChanged

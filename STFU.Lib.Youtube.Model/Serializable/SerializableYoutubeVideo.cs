@@ -6,37 +6,36 @@ namespace STFU.Lib.Youtube.Model.Serializable
 {
 	public class SerializableYoutubeVideo
 	{
-		public YoutubeSnippet snippet { get; set; }
-		public YoutubeStatus status { get; set; }
+		public YoutubeSnippet Snippet { get; set; }
+		public YoutubeStatus Status { get; set; }
 
-		public string id { get; set; }
+		public string Id { get; set; }
 
 		public static SerializableYoutubeVideo Create(IYoutubeVideo video)
 		{
-			var svideo = new SerializableYoutubeVideo();
+			var svideo = new SerializableYoutubeVideo
+            {
+                Id = video.Id,
+                Snippet = new YoutubeSnippet
+                {
+                    CategoryId = video.Category?.Id ?? 20,
+                    Title = video.Title,
+                    DefaultLanguage = video.DefaultLanguage?.Hl ?? "de-de",
+                    Description = video.Description,
+                    Tags = video.Tags.ToArray()
+                },
+                Status = new YoutubeStatus
+                {
+                    IsEmbeddable = video.IsEmbeddable,
+                    Privacy = video.Privacy,
+                    License = video.License,
+                    PublishAt = (video.PublishAt ?? default).ToString("yyyy-MM-ddTHH:mm:ss.ffffzzz"),
+                    ShouldPublishAt = video.PublishAt != null,
+                    PublicStatsViewable = video.PublicStatsViewable
+                }
+            };
 
-			svideo.id = video.Id;
-
-			svideo.snippet = new YoutubeSnippet()
-			{
-				categoryId = video.Category?.Id ?? 20,
-				title = video.Title,
-				defaultLanguage = video.DefaultLanguage?.Hl ?? "de-de",
-				description = video.Description,
-				tags = video.Tags.ToArray()
-			};
-
-			svideo.status = new YoutubeStatus()
-			{
-				IsEmbeddable = video.IsEmbeddable,
-				Privacy = video.Privacy,
-				License = video.License,
-				PublishAt = (video.PublishAt ?? default(DateTime)).ToString("yyyy-MM-ddTHH:mm:ss.ffffzzz"),
-				ShouldPublishAt = video.PublishAt != null,
-				PublicStatsViewable = video.PublicStatsViewable
-			};
-
-			return svideo;
+            return svideo;
 		}
 	}
 }

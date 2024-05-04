@@ -9,7 +9,7 @@ namespace STFU.Lib.Youtube
 {
 	public class YoutubeJobContainer: IYoutubeJobContainer
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubeJobContainer));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubeJobContainer));
 
 		private IList<IYoutubeJob> Jobs { get; } = new List<IYoutubeJob>();
 
@@ -19,7 +19,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (!RegisteredJobs.Any(j => j == job))
 			{
-				LOGGER.Debug($"Adding a new job, video title: '{job.Video.Title}'");
+				Logger.Debug($"Adding a new job, video title: '{job.Video.Title}'");
 				Jobs.Add(job);
 			}
 		}
@@ -28,14 +28,14 @@ namespace STFU.Lib.Youtube
 		{
 			if (!RegisteredJobs.Any(j => j == job))
 			{
-				LOGGER.Debug($"Adding a new job, video title: '{job.Video.Title}' on position {newPosition}");
+				Logger.Debug($"Adding a new job, video title: '{job.Video.Title}' on position {newPosition}");
 				Jobs.Insert(newPosition, job);
 			}
 		}
 
 		public void UnregisterAllJobs()
 		{
-			LOGGER.Debug($"Removing all jobs");
+			Logger.Debug($"Removing all jobs");
 			Jobs.Clear();
 		}
 
@@ -43,7 +43,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Jobs.Contains(job))
 			{
-				LOGGER.Debug($"Removing job, video title: '{job.Video.Title}'");
+				Logger.Debug($"Removing job, video title: '{job.Video.Title}'");
 				Jobs.Remove(job);
 			}
 		}
@@ -52,7 +52,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Jobs.Count > index)
 			{
-				LOGGER.Debug($"Removing job at index {index}, video title: '{Jobs[index].Video.Title}'");
+				Logger.Debug($"Removing job at index {index}, video title: '{Jobs[index].Video.Title}'");
 				Jobs.RemoveAt(index);
 			}
 		}

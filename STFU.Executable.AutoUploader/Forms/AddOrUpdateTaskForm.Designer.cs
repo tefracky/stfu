@@ -331,7 +331,7 @@
 			this.cancelButton.TabIndex = 0;
 			this.cancelButton.Text = "Abbrechen";
 			this.cancelButton.UseVisualStyleBackColor = true;
-			this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+			this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
 			// 
 			// saveButton
 			// 
@@ -346,7 +346,7 @@
 			this.saveButton.TabIndex = 0;
 			this.saveButton.Text = "Speichern";
 			this.saveButton.UseVisualStyleBackColor = true;
-			this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
+			this.saveButton.Click += new System.EventHandler(this.SaveButton_Click);
 			// 
 			// reopenWarningLabel
 			// 

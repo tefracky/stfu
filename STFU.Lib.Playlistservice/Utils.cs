@@ -7,11 +7,11 @@ namespace STFU.Lib.Playlistservice
 {
 	public class Utils
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(Utils));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(Utils));
 
 		public static void AddBasicAuth(HttpWebRequest request, string username, string password)
 		{
-			LOGGER.Info($"Request is being sent with username: '{username}' and password: '{password}'");
+			Logger.Info($"Request is being sent with username: '{username}' and password: '{password}'");
 			request.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.GetEncoding("ISO-8859-1").GetBytes(username + ":" + password)));
 		}
 	}

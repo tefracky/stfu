@@ -17,7 +17,7 @@ namespace STFU.Lib.Youtube.Services
 {
 	public class YoutubeAccountCommunicator : IYoutubeAccountCommunicator
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubeAccountCommunicator));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubeAccountCommunicator));
 
 		public YoutubeAccountCommunicator() { }
 
@@ -37,7 +37,7 @@ namespace STFU.Lib.Youtube.Services
 
 		public IYoutubeAccount ConnectToAccount(string code, bool mailsAllowed, IYoutubeClient client, YoutubeRedirectUri redirectUri)
 		{
-			LOGGER.Info($"Connecting to account, mails allowed: {mailsAllowed}, redirect uri: {redirectUri}");
+			Logger.Info($"Connecting to account, mails allowed: {mailsAllowed}, redirect uri: {redirectUri}");
 
 			var uri = redirectUri.GetAttribute<EnumMemberAttribute>().Value;
 			string content = $"code={code}&client_id={client.Id}&client_secret={client.Secret}&redirect_uri={uri}&grant_type=authorization_code";
@@ -54,11 +54,13 @@ namespace STFU.Lib.Youtube.Services
 			IYoutubeAccount account = null;
 			var authResponse = JsonConvert.DeserializeObject<YoutubeAuthResponse>(result);
 
-			IYoutubeAccountAccess access = new YoutubeAccountAccess();
-			access.Client = client;
-			access.HasSendMailPrivilegue = mailsAllowed;
+            IYoutubeAccountAccess access = new YoutubeAccountAccess
+            {
+                Client = client,
+                HasSendMailPrivilegue = mailsAllowed
+            };
 
-			if (authResponse != null && !string.IsNullOrWhiteSpace(authResponse.access_token))
+            if (authResponse != null && !string.IsNullOrWhiteSpace(authResponse.access_token))
 			{
 				access.AccessToken = authResponse.access_token;
 				access.RefreshToken = authResponse.refresh_token;
@@ -66,16 +68,16 @@ namespace STFU.Lib.Youtube.Services
 				access.ExpirationDate = DateTime.Now.AddSeconds(authResponse.expires_in);
 				access.ClientId = client.Id;
 
-				LOGGER.Info($"Connection successful, loading account details");
+				Logger.Info($"Connection successful, loading account details");
 
 				var accountDetails = GetAccountDetails(access);
-				var acc = accountDetails.items.First();
-				account = YoutubeAccount.Create(acc.id, acc.snippet.country, acc.snippet.title);
+				var acc = accountDetails.Items.First();
+				account = YoutubeAccount.Create(acc.Id, acc.Snippet.Country, acc.Snippet.Title);
 
 				account.Access.Add(access);
 			}
 
-			LOGGER.Info($"Connected to account with id: {account.Id} and title: '{account.Title}'");
+			Logger.Info($"Connected to account with id: {account.Id} and title: '{account.Title}'");
 
 			return account;
 		}
@@ -101,7 +103,7 @@ namespace STFU.Lib.Youtube.Services
 
 		public void RevokeAccount(IYoutubeAccountContainer container, IYoutubeAccount account)
 		{
-			LOGGER.Info($"Revoking connecgtion to account with id: {account.Id} and title: '{account.Title}'");
+			Logger.Info($"Revoking connecgtion to account with id: {account.Id} and title: '{account.Title}'");
 
 			YoutubeAccountService.RevokeAccessOfAccount(account);
 			container.UnregisterAccount(account);
@@ -142,10 +144,15 @@ namespace STFU.Lib.Youtube.Services
 		private class YoutubeAuthResponse
 		{
 			public string access_token { get; set; }
-			public string token_type { get; set; }
-			public int expires_in { get; set; }
-			public string refresh_token { get; set; }
-		}
+
+            public int expires_in { get; set; }
+
+            public string refresh_token { get; set; }
+
+            public string scope { get; set; }
+
+            public string token_type { get; set; }
+        }
 
 		private class YoutubeAccountComparer : IEqualityComparer<IYoutubeAccount>
 		{

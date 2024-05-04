@@ -13,50 +13,49 @@ namespace STFU.Lib.Youtube.Services
 {
 	public static class YoutubeLanguageService
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubeLanguageService));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubeLanguageService));
 
-		private static bool loaded = false;
-		private static List<ILanguage> languages = new List<ILanguage>();
+		private static bool _loaded = false;
+		private static List<ILanguage> _languages = new List<ILanguage>();
 
 		public static IReadOnlyList<ILanguage> LoadLanguages(IYoutubeAccountContainer container)
 		{
-			if (!loaded)
+			if (!_loaded)
 			{
-				var communicator = new YoutubeAccountCommunicator();
 				if (container.RegisteredAccounts.Count > 0)
 				{
 					var account = container.RegisteredAccounts.First();
 
-					LOGGER.Info($"Loading languages for account with id: '{account.Id}', title: '{account.Title}'");
+					Logger.Info($"Loading languages for account with id: '{account.Id}', title: '{account.Title}'");
 
-					languages = GetLanguages(account.GetActiveToken()).ToList();
+					_languages = GetLanguages().ToList();
 				}
 				else
 				{
-					LOGGER.Info($"No accounts registered => using fallback languages");
+					Logger.Info($"No accounts registered => using fallback languages");
 
 					// Fallback
 					foreach (var lang in StandardLanguages.Languages)
 					{
-						LOGGER.Info($"Adding language with id: {lang.Id}, hl: {lang.Hl} and title: '{lang.Name}'");
+						Logger.Info($"Adding language with id: {lang.Id}, hl: {lang.Hl} and title: '{lang.Name}'");
 
-						languages.Add(lang);
+						_languages.Add(lang);
 					}
 				}
 
-				loaded = true;
+				_loaded = true;
 			}
 			else
 			{
-				LOGGER.Info($"Languages were already loaded");
+				Logger.Info($"Languages were already loaded");
 			}
 
-			return languages.AsReadOnly();
+			return _languages.AsReadOnly();
 		}
 
-		public static ILanguage[] GetLanguages(string accessToken)
-		{
-			LOGGER.Info($"Loading languages from youtube");
+		public static ILanguage[] GetLanguages()
+        {
+			Logger.Info($"Loading languages from youtube");
 
 			var pageToken = string.Empty;
 			CultureInfo ci = CultureInfo.CurrentUICulture;
@@ -72,17 +71,26 @@ namespace STFU.Lib.Youtube.Services
 
 			Response response = JsonConvert.DeserializeObject<Response>(result);
 
-			if (response.items == null)
+			if (response.Items == null)
 			{
-				response.items = new Item[0];
-				LOGGER.Error($"Could not load languages from youtube!");
+				response.Items = new Item[0];
+				Logger.Error($"Could not load languages from youtube!");
 			}
 
-			var languages = response.items.Select(i => new YoutubeLanguage() { Id = i.id, Hl = i.snippet.hl, Name = i.snippet.name }).OrderBy(lang => lang.Name).ToArray();
+			var languages = response.Items.Select(i =>
+            {
+                var language = new YoutubeLanguage
+                {
+                    Id = i.Id,
+                    Hl = i.Snippet.Hl,
+                    Name = i.Snippet.Name
+                };
+                return language;
+            }).OrderBy(lang => lang.Name).ToArray();
 
 			foreach (var lang in languages)
 			{
-				LOGGER.Info($"Adding language with id: {lang.Id}, hl: {lang.Hl} and title: '{lang.Name}'");
+				Logger.Info($"Adding language with id: {lang.Id}, hl: {lang.Hl} and title: '{lang.Name}'");
 			}
 
 			return languages;
@@ -90,7 +98,7 @@ namespace STFU.Lib.Youtube.Services
 
 		private static class StandardLanguages
 		{
-			public static ILanguage[] Languages = new YoutubeLanguage[] {
+			public static readonly ILanguage[] Languages = new YoutubeLanguage[] {
 				new YoutubeLanguage()
 				{
 					Id= "af",

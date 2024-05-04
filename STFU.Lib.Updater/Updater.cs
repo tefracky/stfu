@@ -9,14 +9,14 @@ namespace STFU.Lib.Updater
 {
 	public class Updater : IUpdater
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(Updater));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(Updater));
 
-		private string currentVersion = string.Empty;
+		private readonly string currentVersion = string.Empty;
 		private UpdateInformation updateInfos = null;
 
 		public Updater(string currentVersion)
 		{
-			LOGGER.Info($"Creating new instance of Updater with program Version: {currentVersion}");
+			Logger.Info($"Creating new instance of Updater with program Version: {currentVersion}");
 			this.currentVersion = currentVersion;
 		}
 
@@ -29,7 +29,7 @@ namespace STFU.Lib.Updater
 					updateInfos = new VersionChecker().CheckStfuVersion(currentVersion);
 				}
 
-				LOGGER.Info($"Is an update availabe: {updateInfos.UpdateAvailable}");
+				Logger.Info($"Is an update availabe: {updateInfos.UpdateAvailable}");
 				return updateInfos.UpdateAvailable;
 			}
 		}
@@ -53,7 +53,7 @@ namespace STFU.Lib.Updater
 
 			if (UpdateFile != null)
 			{
-				LOGGER.Info($"Extracting updater executable from zip file to folder: '{extractPath}'");
+				Logger.Info($"Extracting updater executable from zip file to folder: '{extractPath}'");
 
 				using (ZipArchive archive = ZipFile.OpenRead(UpdateFile.FullName))
 				{
@@ -74,7 +74,7 @@ namespace STFU.Lib.Updater
 			}
 			else
 			{
-				LOGGER.Warn($"Update could not be extracted because the zip file could not found on your local drive - did the download fail?");
+				Logger.Warn($"Update could not be extracted because the zip file could not found on your local drive - did the download fail?");
 			}
 
 			return result;
@@ -98,7 +98,7 @@ namespace STFU.Lib.Updater
 					{
 						tries++;
 						entry.ExtractToFile(destinationPath, true);
-						LOGGER.Info($"File '{entry.Name}' was successfully extracted");
+						Logger.Info($"File '{entry.Name}' was successfully extracted");
 						stop = true;
 					}
 					catch (Exception) when (tries <= 12)

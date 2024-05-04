@@ -6,7 +6,7 @@ namespace STFU.Lib.Youtube.Services
 {
 	public class QuotaProblemHandler
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(QuotaProblemHandler));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(QuotaProblemHandler));
 
 		public static bool IsQuotaLimitReached(string response)
 		{
@@ -23,14 +23,14 @@ namespace STFU.Lib.Youtube.Services
 			{
 				var castedError = JsonConvert.DeserializeObject<QuotaErrorResponse>(response);
 
-				var isQuotaReached = castedError?.error?.code == 403
-					&& castedError?.error?.errors?[0] != null
-					&& castedError?.error?.errors?[0].domain == "youtube.quota"
-					&& castedError?.error?.errors?[0].reason == "quotaExceeded";
+				var isQuotaReached = castedError?.Error?.Code == 403
+					&& castedError?.Error?.Errors?[0] != null
+					&& castedError?.Error?.Errors?[0].Domain == "youtube.quota"
+					&& castedError?.Error?.Errors?[0].Reason == "quotaExceeded";
 
 				if (isQuotaReached)
 				{
-					LOGGER.Error($"YOUTUBE QUOTA FOR THIS APPLICATION WAS REACHED! RESPONSE: '{response}'");
+					Logger.Error($"YOUTUBE QUOTA FOR THIS APPLICATION WAS REACHED! RESPONSE: '{response}'");
 				}
 
 				return isQuotaReached;
@@ -46,7 +46,7 @@ namespace STFU.Lib.Youtube.Services
 		{
 			if (IsQuotaLimitReached(response))
 			{
-				LOGGER.Error($"THROWING AN EXCEPTION!");
+				Logger.Error($"THROWING AN EXCEPTION!");
 				throw new QuotaErrorException();
 			}
 		}

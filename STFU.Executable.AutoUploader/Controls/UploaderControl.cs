@@ -78,7 +78,7 @@ namespace STFU.Executable.AutoUploader.Controls
 			}
 		}
 
-		private void refreshTimer_Tick(object sender, EventArgs e)
+		private void RefreshTimer_Tick(object sender, EventArgs e)
 		{
 			if (changed)
 			{
@@ -111,7 +111,7 @@ namespace STFU.Executable.AutoUploader.Controls
 			}
 		}
 
-		private void queueStatusButton_Click(object sender, EventArgs e)
+		private void QueueStatusButton_Click(object sender, EventArgs e)
 		{
 			if (Uploader.State == UploaderState.NotRunning)
 			{
@@ -123,7 +123,7 @@ namespace STFU.Executable.AutoUploader.Controls
 			}
 		}
 
-		private void startAutouploaderbutton_Click(object sender, EventArgs e)
+		private void StartAutouploaderbutton_Click(object sender, EventArgs e)
 		{
 			if (QueueFiller.State == RunningState.NotRunning)
 			{

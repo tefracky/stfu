@@ -67,13 +67,13 @@
 			// 
 			this.refreshControlsTimer.Enabled = true;
 			this.refreshControlsTimer.Interval = 250;
-			this.refreshControlsTimer.Tick += new System.EventHandler(this.refreshControlsTimerTick);
+			this.refreshControlsTimer.Tick += new System.EventHandler(this.RefreshControlsTimerTick);
 			// 
 			// handleActionsTimer
 			// 
 			this.handleActionsTimer.Enabled = true;
 			this.handleActionsTimer.Interval = 50;
-			this.handleActionsTimer.Tick += new System.EventHandler(this.handleActionsTimer_Tick);
+			this.handleActionsTimer.Tick += new System.EventHandler(this.HandleActionsTimer_Tick);
 			// 
 			// JobQueue
 			// 

@@ -2,23 +2,23 @@
 {
 	public class QuotaErrorResponse
 	{
-		public QuotaError error { get; set; }
+		public QuotaError Error { get; set; }
 	}
 
 	public class QuotaError
 	{
-		public int code { get; set; }
-		public string message { get; set; }
+		public int Code { get; set; }
+		public string Message { get; set; }
 
-		public QuotaErrorDetails[] errors { get; set; }
+		public QuotaErrorDetails[] Errors { get; set; }
 	}
 
 	public class QuotaErrorDetails
 	{
-		public string message { get; set; }
-		public string domain { get; set; }
-		public string reason { get; set; }
-		public string debugInfo { get; set; }
+		public string Message { get; set; }
+		public string Domain { get; set; }
+		public string Reason { get; set; }
+		public string DebugInfo { get; set; }
 	}
 
 	//	string error = @"{

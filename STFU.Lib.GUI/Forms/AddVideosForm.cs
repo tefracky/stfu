@@ -81,7 +81,7 @@ namespace STFU.Lib.GUI.Forms
 			return templates.FirstOrDefault(t => t.Id == 0);
 		}
 
-		private void videosListView_SelectedIndexChanged(object sender, System.EventArgs e)
+		private void VideosListView_SelectedIndexChanged(object sender, System.EventArgs e)
 		{
 			moveVideosUpButton.Enabled = moveVideosDownButton.Enabled = removeVideoButton.Enabled = insertTemplatesButton.Enabled = videosListView.SelectedIndices.Count > 0;
 
@@ -96,19 +96,19 @@ namespace STFU.Lib.GUI.Forms
 			}
 		}
 
-		private void cancelButton_Click(object sender, System.EventArgs e)
+		private void CancelButton_Click(object sender, System.EventArgs e)
 		{
 			Close();
 		}
 
-		private void acceptButton_Click(object sender, System.EventArgs e)
+		private void AcceptButton_Click(object sender, System.EventArgs e)
 		{
 			DialogResult = DialogResult.OK;
 			TemplateVideoCreator.SaveNextUploadSuggestions();
 			Close();
 		}
 
-		private void loadWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+		private void LoadWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
 		{
 			var publishTimeCalculators = PathInfos
 				.Select(p => new ObservationConfiguration(p, FindTemplate(p, Templates)))
@@ -134,18 +134,12 @@ namespace STFU.Lib.GUI.Forms
 
 			foreach (var videoWithPath in videosWithPaths)
 			{
-				IPath path = videoWithPath.Value;
-
-				if (path == null)
-				{
-					path = new Youtube.Automation.Paths.Path()
+				IPath path = videoWithPath.Value ?? new Youtube.Automation.Paths.Path()
 					{
 						Fullname = videoWithPath.Key.DirectoryName,
 						SelectedTemplateId = 0
 					};
-				}
-
-				if (sortedPaths.ContainsKey(path))
+                if (sortedPaths.ContainsKey(path))
 				{
 					sortedPaths[path].Add(videoWithPath.Key);
 				}
@@ -220,12 +214,12 @@ namespace STFU.Lib.GUI.Forms
 			mainTlp.Enabled = true;
 		}
 
-		private void addVideosWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+		private void AddVideosWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
 		{
 			AddVideos(Paths);
 		}
 
-		private void addVideosButton_Click(object sender, System.EventArgs e)
+		private void AddVideosButton_Click(object sender, System.EventArgs e)
 		{
 			if (addVideosDialog.ShowDialog(this) == DialogResult.OK)
 			{
@@ -234,7 +228,7 @@ namespace STFU.Lib.GUI.Forms
 			}
 		}
 
-		private void moveVideosUpButton_Click(object sender, System.EventArgs e)
+		private void MoveVideosUpButton_Click(object sender, System.EventArgs e)
 		{
 			videosListView.BeginUpdate();
 
@@ -252,11 +246,9 @@ namespace STFU.Lib.GUI.Forms
 					continue;
 				}
 
-				var save = Videos[index];
-				Videos[index] = Videos[index - 1];
-				Videos[index - 1] = save;
+				(Videos[index], Videos[index - 1]) = (Videos[index - 1], Videos[index]);
 
-				var itemsSave = videosListView.Items[index];
+                var itemsSave = videosListView.Items[index];
 				videosListView.Items.RemoveAt(index);
 				videosListView.Items.Insert(index - 1, itemsSave);
 			}
@@ -264,7 +256,7 @@ namespace STFU.Lib.GUI.Forms
 			videosListView.EndUpdate();
 		}
 
-		private void moveVideosDownButton_Click(object sender, System.EventArgs e)
+		private void MoveVideosDownButton_Click(object sender, System.EventArgs e)
 		{
 			videosListView.BeginUpdate();
 
@@ -282,11 +274,9 @@ namespace STFU.Lib.GUI.Forms
 					continue;
 				}
 
-				var save = Videos[index];
-				Videos[index] = Videos[index + 1];
-				Videos[index + 1] = save;
+				(Videos[index], Videos[index + 1]) = (Videos[index + 1], Videos[index]);
 
-				var itemsSave = videosListView.Items[index];
+                var itemsSave = videosListView.Items[index];
 				videosListView.Items.RemoveAt(index);
 				videosListView.Items.Insert(index + 1, itemsSave);
 			}
@@ -294,7 +284,7 @@ namespace STFU.Lib.GUI.Forms
 			videosListView.EndUpdate();
 		}
 
-		private void removeVideoButton_Click(object sender, System.EventArgs e)
+		private void RemoveVideoButton_Click(object sender, System.EventArgs e)
 		{
 			videosListView.BeginUpdate();
 
@@ -309,23 +299,25 @@ namespace STFU.Lib.GUI.Forms
 			videosListView.EndUpdate();
 		}
 
-		private void clearVideosButton_Click(object sender, System.EventArgs e)
+		private void ClearVideosButton_Click(object sender, System.EventArgs e)
 		{
 			Videos.Clear();
 			videosListView.Items.Clear();
 		}
 
-		private void videosListView_Resize(object sender, System.EventArgs e)
+		private void VideosListView_Resize(object sender, System.EventArgs e)
 		{
 			videosListView.Columns[0].Width = videosListView.Width - 15;
 		}
 
-		private void insertTemplatesButton_Click(object sender, System.EventArgs e)
+		private void InsertTemplatesButton_Click(object sender, System.EventArgs e)
 		{
-			SelectTemplateDialog dialog = new SelectTemplateDialog();
-			dialog.Templates = Templates;
+            SelectTemplateDialog dialog = new SelectTemplateDialog
+            {
+                Templates = Templates
+            };
 
-			var result = dialog.ShowDialog(this);
+            var result = dialog.ShowDialog(this);
 
 			if (result == DialogResult.OK)
 			{

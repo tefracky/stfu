@@ -5,9 +5,9 @@ namespace STFU.Lib.Common
 {
 	public static class IsVideoAnalyzer
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(IsVideoAnalyzer));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(IsVideoAnalyzer));
 
-		static string[] allowedVideoTypes = new[]
+		static readonly string[] _allowedVideoTypes = new[]
 		{
 			".mkv",
 			".mov",
@@ -29,8 +29,8 @@ namespace STFU.Lib.Common
 
 		public static bool IsVideo(string filename)
 		{
-			bool isVideo = allowedVideoTypes.Any(extension => filename.ToLower().EndsWith(extension));
-			LOGGER.Info($"Is '{filename}' a video: {isVideo}");
+			bool isVideo = _allowedVideoTypes.Any(extension => filename.ToLower().EndsWith(extension));
+			Logger.Info($"Is '{filename}' a video: {isVideo}");
 			return isVideo;
 		}
 	}

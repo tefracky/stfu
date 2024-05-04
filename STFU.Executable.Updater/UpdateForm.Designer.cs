@@ -85,14 +85,14 @@
 			// 
 			// installUpdateBgw
 			// 
-			this.installUpdateBgw.DoWork += new System.ComponentModel.DoWorkEventHandler(this.installUpdateBgwDoWork);
-			this.installUpdateBgw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.installUpdateBgwRunWorkerCompleted);
+			this.installUpdateBgw.DoWork += new System.ComponentModel.DoWorkEventHandler(this.InstallUpdateBgwDoWork);
+			this.installUpdateBgw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.InstallUpdateBgwRunWorkerCompleted);
 			// 
 			// refreshStatusTextTimer
 			// 
 			this.refreshStatusTextTimer.Enabled = true;
 			this.refreshStatusTextTimer.Interval = 1;
-			this.refreshStatusTextTimer.Tick += new System.EventHandler(this.refreshStatusTextTimerTick);
+			this.refreshStatusTextTimer.Tick += new System.EventHandler(this.RefreshStatusTextTimerTick);
 			// 
 			// UpdateForm
 			// 

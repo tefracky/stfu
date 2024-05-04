@@ -16,18 +16,18 @@ namespace STFU.Lib.Twitter
 		public string CreateBrowseableUrl()
 		{
 			// this is the endpoint we will be calling
-			string REQUEST_URL = "https://api.twitter.com/oauth/request_token?oauth_callback=oob";
+			string requestUrl = "https://api.twitter.com/oauth/request_token?oauth_callback=oob";
 
 			// Create a new connection to the OAuth server, with a helper method
 			OAuthRequest client = OAuthRequest.ForRequestToken(YoutubeClientData.TwitterOauthToken, YoutubeClientData.TwitterOauthTokenSecret, "oob");
-			client.RequestUrl = REQUEST_URL;
+			client.RequestUrl = requestUrl;
 
 			// add HTTP header authorization
 			string auth = client.GetAuthorizationHeader();
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(client.RequestUrl);
 			request.Headers.Add("Authorization", auth);
 
-			Console.WriteLine("Calling " + REQUEST_URL);
+			Console.WriteLine("Calling " + requestUrl);
 
 			// make the call and print the string value of the response JSON
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -44,16 +44,16 @@ namespace STFU.Lib.Twitter
 
 		public ITwitterAccount ConnectAccount(string pin)
 		{
-			string REQUEST_URL = $"https://api.twitter.com/oauth/access_token?oauth_token={RequestToken}&oauth_verifier={pin}";
+			string requestUrl = $"https://api.twitter.com/oauth/access_token?oauth_token={RequestToken}&oauth_verifier={pin}";
 
 			OAuthRequest client = OAuthRequest.ForAccessToken(YoutubeClientData.TwitterOauthToken, YoutubeClientData.TwitterOauthTokenSecret, RequestToken, pin);
-			client.RequestUrl = REQUEST_URL;
+			client.RequestUrl = requestUrl;
 
 			string auth = client.GetAuthorizationHeader();
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(client.RequestUrl);
 			request.Headers.Add("Authorization", auth);
 
-			Console.WriteLine("Calling " + REQUEST_URL);
+			Console.WriteLine("Calling " + requestUrl);
 
 			// make the call and print the string value of the response JSON
 			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -70,10 +70,10 @@ namespace STFU.Lib.Twitter
 		{
 			try
 			{
-				string REQUEST_URL = $"https://api.twitter.com/1.1/oauth/invalidate_token?oauth_token={account.OAuthToken}";
+				string requestUrl = $"https://api.twitter.com/1.1/oauth/invalidate_token?oauth_token={account.OAuthToken}";
 
 				OAuthRequest client = OAuthRequest.ForProtectedResource("POST", YoutubeClientData.TwitterOauthToken, YoutubeClientData.TwitterOauthTokenSecret, account.OAuthToken, account.OAuthTokenSecret);
-				client.RequestUrl = REQUEST_URL;
+				client.RequestUrl = requestUrl;
 				client.Method = "POST";
 
 				string auth = client.GetAuthorizationHeader();
@@ -81,7 +81,7 @@ namespace STFU.Lib.Twitter
 				request.Headers.Add("Authorization", auth);
 				request.Method = "POST";
 
-				Console.WriteLine("Calling " + REQUEST_URL);
+				Console.WriteLine("Calling " + requestUrl);
 
 				// make the call and print the string value of the response JSON
 				HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -114,10 +114,10 @@ namespace STFU.Lib.Twitter
 		{
 			try
 			{
-				string GET_REQUEST_URL = "https://api.twitter.com/1.1/statuses/update.json?status=Hello%20world";
+				string getRequestUrl = "https://api.twitter.com/1.1/statuses/update.json?status=Hello%20world";
 
 				OAuthRequest client = OAuthRequest.ForProtectedResource("POST", YoutubeClientData.TwitterOauthToken, YoutubeClientData.TwitterOauthTokenSecret, account.OAuthToken, account.OAuthTokenSecret);
-				client.RequestUrl = GET_REQUEST_URL;
+				client.RequestUrl = getRequestUrl;
 				client.Method = "POST";
 
 				string auth = client.GetAuthorizationHeader();
@@ -126,7 +126,7 @@ namespace STFU.Lib.Twitter
 				request.Method = "POST";
 				request.ContentType = "application/x-www-form-urlencoded";
 
-				Console.WriteLine("Calling " + GET_REQUEST_URL);
+				Console.WriteLine("Calling " + getRequestUrl);
 
 				using (StreamWriter writer = new StreamWriter(request.GetRequestStream()))
 				{
@@ -139,7 +139,7 @@ namespace STFU.Lib.Twitter
 				StreamReader reader = new StreamReader(dataStream);
 				string strResponse = reader.ReadToEnd();
 
-				ScheduleTweetPOST(account);
+				ScheduleTweetPost(account);
 
 				return true;
 			}
@@ -160,27 +160,19 @@ namespace STFU.Lib.Twitter
 			}
 		}
 
-		private static void ScheduleTweetPOST(ITwitterAccount account)
+		private static void ScheduleTweetPost(ITwitterAccount account)
 		{
-			string REQUEST_URL = $"https://ads-api.twitter.com/7/accounts/{account.UserId}/scheduled_tweets?";
+			string requestUrl = $"https://ads-api.twitter.com/7/accounts/{account.UserId}/scheduled_tweets?";
 
 			OAuthRequest client = OAuthRequest.ForProtectedResource("POST", YoutubeClientData.TwitterOauthToken, YoutubeClientData.TwitterOauthTokenSecret, account.OAuthToken, account.OAuthTokenSecret);
-			client.RequestUrl = REQUEST_URL;
+			client.RequestUrl = requestUrl;
 			client.Method = "POST";
 
 			string auth = client.GetAuthorizationHeader();
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(client.RequestUrl);
 			request.Headers.Add("Authorization", auth);
 
-			Console.WriteLine("Calling " + REQUEST_URL);
-
-			// make the call and print the string value of the response JSON
-			HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-			Stream dataStream = response.GetResponseStream();
-			StreamReader reader = new StreamReader(dataStream);
-			string strResponse = reader.ReadToEnd();
-
-			var queryParams = HttpUtility.ParseQueryString(strResponse);
+			Console.WriteLine("Calling " + requestUrl);
 		}
 	}
 }

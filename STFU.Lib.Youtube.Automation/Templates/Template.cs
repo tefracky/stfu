@@ -247,50 +247,45 @@ namespace STFU.Lib.Youtube.Automation.Templates
 		}
 
 		public static ITemplate Duplicate(ITemplate template)
-		{
-			return new Template(template.Id, template.Name, template.DefaultLanguage, template.Category, template.PublishTimes, template.PlannedVideos)
-			{
-				AutoLevels = template.AutoLevels,
-				Description = template.Description,
-				IsEmbeddable = template.IsEmbeddable,
-				License = template.License,
-				NotifySubscribers = template.NotifySubscribers,
-				Privacy = template.Privacy,
-				PublicStatsViewable = template.PublicStatsViewable,
-				PlannedVideos = new List<IPlannedVideo>(template.PlannedVideos),
-				PublishTimes = new List<IPublishTime>(template.PublishTimes),
-				ShouldPublishAt = template.ShouldPublishAt,
-				Stabilize = template.Stabilize,
-				Tags = template.Tags,
-				ThumbnailPath = template.ThumbnailPath,
-				Title = template.Title,
-
-				EnableExpertMode = template.EnableExpertMode,
-				CSharpPreparationScript = template.CSharpPreparationScript,
-				CSharpCleanUpScript = template.CSharpCleanUpScript,
-				ReferencedAssembliesText = template.ReferencedAssembliesText,
-
-				NextUploadSuggestion = template.NextUploadSuggestion,
-
-				MailTo = template.MailTo,
-
-				NewVideoDesktopNotification = template.NewVideoDesktopNotification,
-				NewVideoMailNotification = template.NewVideoMailNotification,
-				UploadStartedDesktopNotification = template.UploadStartedDesktopNotification,
-				UploadStartedMailNotification = template.UploadStartedMailNotification,
-				UploadFinishedDesktopNotification = template.UploadFinishedDesktopNotification,
-				UploadFinishedMailNotification = template.UploadFinishedMailNotification,
-				UploadFailedDesktopNotification = template.UploadFailedDesktopNotification,
-				UploadFailedMailNotification = template.UploadFailedMailNotification,
-
-				AddToPlaylist = template.AddToPlaylist,
-				PlaylistId = template.PlaylistId,
-
-				SendToPlaylistService = template.SendToPlaylistService,
-				AccountId = template.AccountId,
-				PlaylistIdForService = template.PlaylistIdForService,
-				PlaylistTitleForService = template.PlaylistTitleForService
-			};
-		}
+        {
+            var duplicate = new Template(template.Id, template.Name, template.DefaultLanguage, template.Category, template.PublishTimes, template.PlannedVideos)
+                {
+                    AutoLevels = template.AutoLevels,
+                    Description = template.Description,
+                    IsEmbeddable = template.IsEmbeddable,
+                    License = template.License,
+                    NotifySubscribers = template.NotifySubscribers,
+                    Privacy = template.Privacy,
+                    PublicStatsViewable = template.PublicStatsViewable,
+                    PlannedVideos = new List<IPlannedVideo>(template.PlannedVideos),
+                    PublishTimes = new List<IPublishTime>(template.PublishTimes),
+                    ShouldPublishAt = template.ShouldPublishAt,
+                    Stabilize = template.Stabilize,
+                    Tags = template.Tags,
+                    ThumbnailPath = template.ThumbnailPath,
+                    Title = template.Title,
+                    EnableExpertMode = template.EnableExpertMode,
+                    CSharpPreparationScript = template.CSharpPreparationScript,
+                    CSharpCleanUpScript = template.CSharpCleanUpScript,
+                    ReferencedAssembliesText = template.ReferencedAssembliesText,
+                    NextUploadSuggestion = template.NextUploadSuggestion,
+                    MailTo = template.MailTo,
+                    NewVideoDesktopNotification = template.NewVideoDesktopNotification,
+                    NewVideoMailNotification = template.NewVideoMailNotification,
+                    UploadStartedDesktopNotification = template.UploadStartedDesktopNotification,
+                    UploadStartedMailNotification = template.UploadStartedMailNotification,
+                    UploadFinishedDesktopNotification = template.UploadFinishedDesktopNotification,
+                    UploadFinishedMailNotification = template.UploadFinishedMailNotification,
+                    UploadFailedDesktopNotification = template.UploadFailedDesktopNotification,
+                    UploadFailedMailNotification = template.UploadFailedMailNotification,
+                    AddToPlaylist = template.AddToPlaylist,
+                    PlaylistId = template.PlaylistId,
+                    SendToPlaylistService = template.SendToPlaylistService,
+                    AccountId = template.AccountId,
+                    PlaylistIdForService = template.PlaylistIdForService,
+                    PlaylistTitleForService = template.PlaylistTitleForService
+                };
+            return duplicate;
+        }
 	}
 }

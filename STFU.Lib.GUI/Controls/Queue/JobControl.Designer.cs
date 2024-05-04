@@ -135,7 +135,7 @@
 			this.actionsButton.TabIndex = 3;
 			this.actionsButton.Text = "Aktionen";
 			this.actionsButton.UseVisualStyleBackColor = true;
-			this.actionsButton.Click += new System.EventHandler(this.actionsButton_Click);
+			this.actionsButton.Click += new System.EventHandler(this.ActionsButton_Click);
 			// 
 			// thumbnailBox
 			// 
@@ -173,7 +173,7 @@
 			this.startenToolStripMenuItem.Name = "startenToolStripMenuItem";
 			this.startenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.startenToolStripMenuItem.Text = "Starten";
-			this.startenToolStripMenuItem.Click += new System.EventHandler(this.startenToolStripMenuItem_Click);
+			this.startenToolStripMenuItem.Click += new System.EventHandler(this.StartToolStripMenuItem_Click);
 			// 
 			// pausierenToolStripMenuItem
 			// 
@@ -181,7 +181,7 @@
 			this.pausierenToolStripMenuItem.Name = "pausierenToolStripMenuItem";
 			this.pausierenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.pausierenToolStripMenuItem.Text = "Pausieren";
-			this.pausierenToolStripMenuItem.Click += new System.EventHandler(this.pausierenToolStripMenuItem_Click);
+			this.pausierenToolStripMenuItem.Click += new System.EventHandler(this.PauseToolStripMenuItem_Click);
 			// 
 			// fortsetzenToolStripMenuItem
 			// 
@@ -189,7 +189,7 @@
 			this.fortsetzenToolStripMenuItem.Name = "fortsetzenToolStripMenuItem";
 			this.fortsetzenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.fortsetzenToolStripMenuItem.Text = "Fortsetzen";
-			this.fortsetzenToolStripMenuItem.Click += new System.EventHandler(this.fortsetzenToolStripMenuItem_Click);
+			this.fortsetzenToolStripMenuItem.Click += new System.EventHandler(this.ResumeToolStripMenuItem_Click);
 			// 
 			// überspringenToolStripMenuItem
 			// 
@@ -197,7 +197,7 @@
 			this.überspringenToolStripMenuItem.Name = "überspringenToolStripMenuItem";
 			this.überspringenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.überspringenToolStripMenuItem.Text = "Überspringen";
-			this.überspringenToolStripMenuItem.CheckedChanged += new System.EventHandler(this.überspringenToolStripMenuItem_CheckedChanged);
+			this.überspringenToolStripMenuItem.CheckedChanged += new System.EventHandler(this.SkipToolStripMenuItem_CheckedChanged);
 			// 
 			// abbrechenToolStripMenuItem
 			// 
@@ -205,7 +205,7 @@
 			this.abbrechenToolStripMenuItem.Name = "abbrechenToolStripMenuItem";
 			this.abbrechenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.abbrechenToolStripMenuItem.Text = "Abbrechen";
-			this.abbrechenToolStripMenuItem.Click += new System.EventHandler(this.abbrechenToolStripMenuItem_Click);
+			this.abbrechenToolStripMenuItem.Click += new System.EventHandler(this.CancelToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator1
 			// 
@@ -217,21 +217,21 @@
 			this.detailsBearbeitenToolStripMenuItem.Name = "detailsBearbeitenToolStripMenuItem";
 			this.detailsBearbeitenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.detailsBearbeitenToolStripMenuItem.Text = "Details bearbeiten";
-			this.detailsBearbeitenToolStripMenuItem.Click += new System.EventHandler(this.detailsBearbeitenToolStripMenuItem_Click);
+			this.detailsBearbeitenToolStripMenuItem.Click += new System.EventHandler(this.ModifyDetailsToolStripMenuItem_Click);
 			// 
 			// nachObenSchiebenToolStripMenuItem
 			// 
 			this.nachObenSchiebenToolStripMenuItem.Name = "nachObenSchiebenToolStripMenuItem";
 			this.nachObenSchiebenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.nachObenSchiebenToolStripMenuItem.Text = "Nach oben schieben";
-			this.nachObenSchiebenToolStripMenuItem.Click += new System.EventHandler(this.nachObenSchiebenToolStripMenuItem_Click);
+			this.nachObenSchiebenToolStripMenuItem.Click += new System.EventHandler(this.MoveUpToolStripMenuItem_Click);
 			// 
 			// nachUntenSchiebenToolStripMenuItem
 			// 
 			this.nachUntenSchiebenToolStripMenuItem.Name = "nachUntenSchiebenToolStripMenuItem";
 			this.nachUntenSchiebenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.nachUntenSchiebenToolStripMenuItem.Text = "Nach unten schieben";
-			this.nachUntenSchiebenToolStripMenuItem.Click += new System.EventHandler(this.nachUntenSchiebenToolStripMenuItem_Click);
+			this.nachUntenSchiebenToolStripMenuItem.Click += new System.EventHandler(this.MoveDownToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator2
 			// 
@@ -243,19 +243,19 @@
 			this.löschenToolStripMenuItem.Name = "löschenToolStripMenuItem";
 			this.löschenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.löschenToolStripMenuItem.Text = "Aus der Liste entfernen";
-			this.löschenToolStripMenuItem.Click += new System.EventHandler(this.löschenToolStripMenuItem_Click);
+			this.löschenToolStripMenuItem.Click += new System.EventHandler(this.DeleteToolStripMenuItem_Click);
 			// 
 			// refreshUploadBrokenTimer
 			// 
 			this.refreshUploadBrokenTimer.Interval = 500;
-			this.refreshUploadBrokenTimer.Tick += new System.EventHandler(this.refreshUploadBrokenTimer_Tick);
+			this.refreshUploadBrokenTimer.Tick += new System.EventHandler(this.RefreshUploadBrokenTimer_Tick);
 			// 
 			// zurücksetzenToolStripMenuItem
 			// 
 			this.zurücksetzenToolStripMenuItem.Name = "zurücksetzenToolStripMenuItem";
 			this.zurücksetzenToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
 			this.zurücksetzenToolStripMenuItem.Text = "Zurücksetzen";
-			this.zurücksetzenToolStripMenuItem.Click += new System.EventHandler(this.zurücksetzenToolStripMenuItem_Click);
+			this.zurücksetzenToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
 			// 
 			// JobControl
 			// 

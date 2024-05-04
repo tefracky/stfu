@@ -2,9 +2,9 @@
 {
 	public class AuthCode
 	{
-		public string code { get; set; }
-		public string clientId { get; set; }
-		public string clientSecret { get; set; }
-		public string redirectUri { get; set; }
+		public string Code { get; set; }
+		public string ClientId { get; set; }
+		public string ClientSecret { get; set; }
+		public string RedirectUri { get; set; }
 	}
 }

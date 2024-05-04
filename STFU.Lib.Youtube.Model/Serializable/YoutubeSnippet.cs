@@ -5,25 +5,25 @@ namespace STFU.Lib.Youtube.Model.Serializable
 	public class YoutubeSnippet
 	{
 		[JsonProperty(PropertyName = "title")]
-		public string title { get; set; }
+		public string Title { get; set; }
 
 		[JsonProperty(PropertyName = "description")]
-		public string description { get; set; }
+		public string Description { get; set; }
 
 		[JsonProperty(PropertyName = "tags")]
-		public string[] tags { get; set; }
+		public string[] Tags { get; set; }
 
 		[JsonProperty(PropertyName = "categoryId")]
-		public int categoryId { get; set; }
+		public int CategoryId { get; set; }
 
 		[JsonProperty(PropertyName = "defaultLanguage")]
-		public string defaultLanguage { get; set; }
+		public string DefaultLanguage { get; set; }
 
 		[JsonProperty(PropertyName = "defaultAudioLanguage")]
-		public string defaultAudioLanguage => defaultLanguage;
+		public string DefaultAudioLanguage => DefaultLanguage;
 
-		public bool shouldSerializedefaultLanguage { get { return defaultLanguage != null; } }
+		public bool ShouldSerializedefaultLanguage { get { return DefaultLanguage != null; } }
 
-		public bool shouldSerializedefaultAudioLanguage { get { return defaultLanguage != null; } }
+		public bool ShouldSerializedefaultAudioLanguage { get { return DefaultLanguage != null; } }
 	}
 }

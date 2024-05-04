@@ -9,73 +9,73 @@ namespace STFU.Lib.Youtube.Upload.Steps
 {
 	public class ThrottledReadStream : Stream
 	{
-		private static ILog LOGGER { get; set; } = LogManager.GetLogger(nameof(ThrottledReadStream));
+		private static ILog Logger { get; set; } = LogManager.GetLogger(nameof(ThrottledReadStream));
 
 		private delegate void ThrottleEnabledChangedEventHandler();
 		private delegate void ThrottleChangedEventHandler();
 
-		private static bool shouldThrottle = false;
+		private static bool _shouldThrottle = false;
 		public static bool ShouldThrottle
 		{
 			get
 			{
-				return shouldThrottle;
+				return _shouldThrottle;
 			}
 			set
 			{
-				if (shouldThrottle != value)
+				if (_shouldThrottle != value)
 				{
-					LOGGER.Info($"Throttling is now {(value ? "enabled" : "disabled")}");
+					Logger.Info($"Throttling is now {(value ? "enabled" : "disabled")}");
 
-					shouldThrottle = value;
-					ShouldThrottleChanged?.Invoke();
+					_shouldThrottle = value;
+					_shouldThrottleChanged?.Invoke();
 				}
 			}
 		}
 
-		private static long globalLimit = 1_000_000;
+		private static long _globalLimit = 1_000_000;
 		public static long GlobalLimit
 		{
 			get
 			{
-				return globalLimit;
+				return _globalLimit;
 			}
 			set
 			{
-				if (globalLimit != value)
+				if (_globalLimit != value)
 				{
-					LOGGER.Info($"Global upload throttle was set to {value}");
+					Logger.Info($"Global upload throttle was set to {value}");
 
-					globalLimit = value;
-					ThrottleChanged?.Invoke();
+					_globalLimit = value;
+					_throttleChanged?.Invoke();
 				}
 			}
 		}
 
 		private long DefinedLimit { get; set; } = GlobalLimit;
 
-		private static ThrottleEnabledChangedEventHandler ShouldThrottleChanged;
-		private static ThrottleChangedEventHandler ThrottleChanged;
+		private static ThrottleEnabledChangedEventHandler _shouldThrottleChanged;
+		private static ThrottleChangedEventHandler _throttleChanged;
 
 		private static int KByteModifier { get; set; } = 1000;
 
-		Stream baseStream = null;
-		Stopwatch watch = Stopwatch.StartNew();
+        readonly Stream baseStream = null;
+        readonly Stopwatch watch = Stopwatch.StartNew();
 		long totalBytesRead = 0;
 
 		public ThrottledReadStream(Stream incommingStream)
 		{
 			baseStream = incommingStream;
-			ShouldThrottleChanged += ResetThrottle;
-			ThrottleChanged += ResetThrottleIfActive;
+			_shouldThrottleChanged += ResetThrottle;
+			_throttleChanged += ResetThrottleIfActive;
 		}
 
 		~ThrottledReadStream()
 		{
-			LOGGER.Info($"Throttled read stream gets destructed");
+			Logger.Info($"Throttled read stream gets destructed");
 
-			ShouldThrottleChanged -= ResetThrottle;
-			ThrottleChanged -= ResetThrottleIfActive;
+			_shouldThrottleChanged -= ResetThrottle;
+			_throttleChanged -= ResetThrottleIfActive;
 		}
 
 		private void ResetThrottle()

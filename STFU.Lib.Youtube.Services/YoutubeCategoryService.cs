@@ -13,17 +13,16 @@ namespace STFU.Lib.Youtube.Services
 {
 	public static class YoutubeCategoryService
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubeCategoryService));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubeCategoryService));
 
-		private static bool loaded = false;
-		private static List<ICategory> categories = new List<ICategory>();
+		private static bool _loaded = false;
+		private static List<ICategory> _categories = new List<ICategory>();
 
 		public static IReadOnlyList<ICategory> LoadCategories(IYoutubeAccountContainer container)
 		{
-			if (!loaded)
+			if (!_loaded)
 			{
-				var communicator = new YoutubeAccountCommunicator();
-				if (container.RegisteredAccounts.Count > 0)
+                if (container.RegisteredAccounts.Count > 0)
 				{
 					var account = container.RegisteredAccounts.First();
 
@@ -33,36 +32,36 @@ namespace STFU.Lib.Youtube.Services
 						region = "de";
 					}
 
-					LOGGER.Info($"Loading categores for account with id: '{account.Id}', title: '{account.Title}' and region: {region}");
+					Logger.Info($"Loading categores for account with id: '{account.Id}', title: '{account.Title}' and region: {region}");
 
-					categories = GetVideoCategories(region, account.GetActiveToken()).ToList();
+					_categories = GetVideoCategories(region, account.GetActiveToken()).ToList();
 				}
 				else
 				{
-					LOGGER.Info($"No accounts registered => using fallback categories");
+					Logger.Info($"No accounts registered => using fallback categories");
 
 					// Fallback
 					foreach (var cat in StandardCategories.Categories)
 					{
-						LOGGER.Info($"Adding category with id: {cat.Id} and title: '{cat.Title}'");
+						Logger.Info($"Adding category with id: {cat.Id} and title: '{cat.Title}'");
 
-						categories.Add(cat);
+						_categories.Add(cat);
 					}
 				}
 
-				loaded = true;
+				_loaded = true;
 			}
 			else
 			{
-				LOGGER.Info($"Categories were already loaded");
+				Logger.Info($"Categories were already loaded");
 			}
 
-			return categories.AsReadOnly();
+			return _categories.AsReadOnly();
 		}
 
 		public static ICategory[] GetVideoCategories(string regionCode, string accessToken)
 		{
-			LOGGER.Info($"Loading video categories from youtube");
+			Logger.Info($"Loading video categories from youtube");
 
 			var pageToken = string.Empty;
 			CultureInfo ci = CultureInfo.CurrentUICulture;
@@ -81,17 +80,17 @@ namespace STFU.Lib.Youtube.Services
 
 			Response response = JsonConvert.DeserializeObject<Response>(result);
 
-			if (response.items == null)
+			if (response.Items == null)
 			{
-				response.items = new Item[0];
-				LOGGER.Error($"Could not load video categories from youtube!");
+				response.Items = new Item[0];
+				Logger.Error($"Could not load video categories from youtube!");
 			}
 
-			var categories = response.items.Where(i => i.snippet.assignable).Select(i => new YoutubeCategory(int.Parse(i.id), i.snippet.title)).ToArray();
+			var categories = response.Items.Where(i => i.Snippet.Assignable).Select(i => new YoutubeCategory(int.Parse(i.Id), i.Snippet.Title)).ToArray();
 
 			foreach (var cat in categories)
 			{
-				LOGGER.Info($"Adding category with id: {cat.Id} and title: {cat.Title}");
+				Logger.Info($"Adding category with id: {cat.Id} and title: {cat.Title}");
 			}
 
 			return categories;
@@ -99,7 +98,7 @@ namespace STFU.Lib.Youtube.Services
 
 		private static class StandardCategories
 		{
-			public static ICategory[] Categories = new YoutubeCategory[] {
+			public static readonly ICategory[] Categories = new YoutubeCategory[] {
 				new YoutubeCategory(1, "Film & Animation"),
 				new YoutubeCategory(2, "Autos & Fahrzeuge"),
 				new YoutubeCategory(10, "Musik"),

@@ -11,7 +11,7 @@ namespace STFU.Lib.Youtube.Persistor
 {
 	public class AccountPersistor
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(AccountPersistor));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(AccountPersistor));
 
 		public string Path { get; private set; } = null;
 		public IYoutubeAccountContainer Container { get; private set; } = null;
@@ -21,7 +21,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public AccountPersistor(IYoutubeAccountContainer container, string path, IYoutubeClientContainer clients)
 		{
-			LOGGER.Debug($"Creating account persistor for path '{path}'");
+			Logger.Debug($"Creating account persistor for path '{path}'");
 
 			Path = path;
 			Container = container;
@@ -30,7 +30,7 @@ namespace STFU.Lib.Youtube.Persistor
 
 		public bool Load()
 		{
-			LOGGER.Info($"Loading accounts from path '{Path}'");
+			Logger.Info($"Loading accounts from path '{Path}'");
 			Container.UnregisterAllAccounts();
 
 			bool worked = true;
@@ -42,18 +42,18 @@ namespace STFU.Lib.Youtube.Persistor
 					using (StreamReader reader = new StreamReader(Path))
 					{
 						var json = reader.ReadToEnd();
-						LOGGER.Debug($"Json from loaded path: '{json}'");
+						Logger.Debug($"Json from loaded path: '{json}'");
 
 						var accounts = JsonConvert.DeserializeObject<YoutubeAccount[]>(json);
-						LOGGER.Info($"Loaded {accounts.Length} accounts");
+						Logger.Info($"Loaded {accounts.Length} accounts");
 
 						foreach (var loaded in accounts)
 						{
-							LOGGER.Info($"Adding account '{loaded.Title}'");
+							Logger.Info($"Adding account '{loaded.Title}'");
 
 							foreach (var ac in loaded.Access)
 							{
-								LOGGER.Debug($"Setting client to access '{ac.AccessToken}'");
+								Logger.Debug($"Setting client to access '{ac.AccessToken}'");
 								ac.Client = Clients.RegisteredClients.SingleOrDefault(rc => rc.Id == ac.ClientId);
 							}
 
@@ -61,7 +61,7 @@ namespace STFU.Lib.Youtube.Persistor
 							{
 								if (loaded.Access[i].Client == null)
 								{
-									LOGGER.Debug($"Removing access without client '{loaded.Access[i].AccessToken}'");
+									Logger.Debug($"Removing access without client '{loaded.Access[i].AccessToken}'");
 									loaded.Access.RemoveAt(i);
 									i--;
 								}
@@ -82,7 +82,7 @@ namespace STFU.Lib.Youtube.Persistor
 			|| e is PathTooLongException
 			|| e is IOException)
 			{
-				LOGGER.Error($"Could not load accounts, exception occured!", e);
+				Logger.Error($"Could not load accounts, exception occured!", e);
 				worked = false;
 			}
 
@@ -92,7 +92,7 @@ namespace STFU.Lib.Youtube.Persistor
 		public bool Save()
 		{
 			IYoutubeAccount[] accounts = Container.RegisteredAccounts.ToArray();
-			LOGGER.Info($"Saving {accounts.Length} accounts to file '{Path}'");
+			Logger.Info($"Saving {accounts.Length} accounts to file '{Path}'");
 
 			var json = JsonConvert.SerializeObject(accounts);
 
@@ -103,7 +103,7 @@ namespace STFU.Lib.Youtube.Persistor
 				{
 					writer.Write(json);
 				}
-				LOGGER.Info($"Accounts saved");
+				Logger.Info($"Accounts saved");
 
 				RecreateSaved();
 			}
@@ -115,7 +115,7 @@ namespace STFU.Lib.Youtube.Persistor
 			|| e is PathTooLongException
 			|| e is IOException)
 			{
-				LOGGER.Error($"Could not save accounts, exception occured!", e);
+				Logger.Error($"Could not save accounts, exception occured!", e);
 				worked = false;
 			}
 
@@ -124,11 +124,11 @@ namespace STFU.Lib.Youtube.Persistor
 
 		private void RecreateSaved()
 		{
-			LOGGER.Debug($"Recreating cache of saved accounts");
+			Logger.Debug($"Recreating cache of saved accounts");
 			Saved = new YoutubeAccountContainer();
 			foreach (var account in Container.RegisteredAccounts)
 			{
-				LOGGER.Debug($"Recreating cache for account '{account.Title}'");
+				Logger.Debug($"Recreating cache for account '{account.Title}'");
 				var newAccount = YoutubeAccount.Create(account.Id, account.Title, account.Region);
 
 				Saved.RegisterAccount(newAccount);

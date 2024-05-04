@@ -90,7 +90,7 @@
 			this.releaseNotesBox.Size = new System.Drawing.Size(911, 557);
 			this.releaseNotesBox.TabIndex = 1;
 			this.releaseNotesBox.Text = "";
-			this.releaseNotesBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.releaseNotesBoxLinkClicked);
+			this.releaseNotesBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.ReleaseNotesBoxLinkClicked);
 			// 
 			// closeButton
 			// 
@@ -105,7 +105,7 @@
 			this.closeButton.TabIndex = 2;
 			this.closeButton.Text = "Schließen";
 			this.closeButton.UseVisualStyleBackColor = true;
-			this.closeButton.Click += new System.EventHandler(this.closeButtonClick);
+			this.closeButton.Click += new System.EventHandler(this.CloseButtonClick);
 			// 
 			// disableNotesCheckbox
 			// 
@@ -118,7 +118,7 @@
 			this.disableNotesCheckbox.TabIndex = 3;
 			this.disableNotesCheckbox.Text = "Beim nächsten Start anzeigen";
 			this.disableNotesCheckbox.UseVisualStyleBackColor = true;
-			this.disableNotesCheckbox.CheckedChanged += new System.EventHandler(this.disableNotesCheckboxCheckedChanged);
+			this.disableNotesCheckbox.CheckedChanged += new System.EventHandler(this.DisableNotesCheckboxCheckedChanged);
 			// 
 			// ReleaseNotesForm
 			// 

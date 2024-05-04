@@ -21,20 +21,6 @@ namespace STFU.Lib.MailSender.Generator
 				tags = $"{tags},{job.Video.Tags.ElementAt(i)}";
 			}
 
-			var privacy = string.Empty;
-			switch (job.Video.Privacy)
-			{
-				case Youtube.Interfaces.Model.Enums.PrivacyStatus.Public:
-					privacy = "Öffentlich";
-					break;
-				case Youtube.Interfaces.Model.Enums.PrivacyStatus.Unlisted:
-					privacy = "Nicht gelistet";
-					break;
-				case Youtube.Interfaces.Model.Enums.PrivacyStatus.Private:
-					privacy = "Privat";
-					break;
-			}
-
 			return string.Format(
 				template,
 				HttpUtility.HtmlEncode(job.Video.Title),
@@ -43,7 +29,7 @@ namespace STFU.Lib.MailSender.Generator
 			);
 		}
 
-		private string template =
+		private readonly string template =
 			@"<html style=""padding: 0; margin:0;"">
 
 <body style=""padding: 0; margin:0;"">

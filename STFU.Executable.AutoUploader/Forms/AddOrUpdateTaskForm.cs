@@ -8,77 +8,76 @@ namespace STFU.Executable.AutoUploader.Forms
 {
 	public partial class AddOrUpdateTaskForm : Form
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(AddOrUpdateTaskForm));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(AddOrUpdateTaskForm));
 
 		public Task Task { get; private set; }
 
 		public AddOrUpdateTaskForm(Task task)
 		{
-			LOGGER.Info($"Initializing new instance of AddOrUpdateTaskForm");
+			Logger.Info($"Initializing new instance of AddOrUpdateTaskForm");
 
 			InitializeComponent();
 
 			Task = task;
-			LOGGER.Debug($"Task to handle: {Task}");
+			Logger.Debug($"Task to handle: {Task}");
 		}
 
 		private void AddOrUpdateTaskForm_Load(object sender, EventArgs e)
 		{
-			LOGGER.Info($"Loading form");
+			Logger.Info($"Loading form");
 
 			if (Task != null)
 			{
-				LOGGER.Info($"Form was created to edit a task. Task to edit: '{Task}'");
+				Logger.Info($"Form was created to edit a task. Task to edit: '{Task}'");
 
-				idLabel.Text = Task.id.ToString();
+				idLabel.Text = Task.Id.ToString();
 
-				playlistIdTextbox.Text = Task.playlistId;
-				videoIdTextbox.Text = Task.videoId;
-				addDtp.Value = Task.addAt;
+				playlistIdTextbox.Text = Task.PlaylistId;
+				videoIdTextbox.Text = Task.VideoId;
+				addDtp.Value = Task.AddAt;
 
-				playlistTitleTextbox.Text = Task.playlistTitle;
-				videoTitleTextbox.Text = Task.videoTitle;
+				playlistTitleTextbox.Text = Task.PlaylistTitle;
+				videoTitleTextbox.Text = Task.VideoTitle;
 
-				reopenWarningLabel.Visible = Task.state == TaskState.Done;
+				reopenWarningLabel.Visible = Task.State == TaskState.Done;
 			}
 			else
 			{
-				LOGGER.Info($"Form was created to add a new task");
+				Logger.Info($"Form was created to add a new task");
 
 				addDtp.Value = DateTime.Now.Date.AddHours(DateTime.Now.Hour + 1);
 				Task = new Task();
 			}
 		}
 
-		private void cancelButton_Click(object sender, EventArgs e)
+		private void CancelButton_Click(object sender, EventArgs e)
 		{
-			LOGGER.Info($"User canceled the form");
+			Logger.Info($"User canceled the form");
 
 			Close();
 		}
 
-		private void saveButton_Click(object sender, EventArgs e)
+		private void SaveButton_Click(object sender, EventArgs e)
 		{
-			LOGGER.Info($"User finished the form");
+			Logger.Info($"User finished the form");
 
 			DialogResult = DialogResult.OK;
 
-			Task.playlistId = GetId(playlistIdTextbox.Text, "list");
-			Task.videoId = GetId(videoIdTextbox.Text, "v");
-			Task.addAt = addDtp.Value;
+			Task.PlaylistId = GetId(playlistIdTextbox.Text, "list");
+			Task.VideoId = GetId(videoIdTextbox.Text, "v");
+			Task.AddAt = addDtp.Value;
 
-			Task.playlistTitle = playlistTitleTextbox.Text;
-			Task.videoTitle = videoTitleTextbox.Text;
+			Task.PlaylistTitle = playlistTitleTextbox.Text;
+			Task.VideoTitle = videoTitleTextbox.Text;
 
-			LOGGER.Info($"Resulting task: '{Task}'");
+			Logger.Info($"Resulting task: '{Task}'");
 
 			Close();
 		}
 
 		private string GetId(string text, string queryParameter)
 		{
-			Uri uri = null;
-			if ((text.ToLower().Contains("youtube") || text.ToLower().Contains("youtu.be")) && Uri.TryCreate(text, UriKind.RelativeOrAbsolute, out uri))
+            if ((text.ToLower().Contains("youtube") || text.ToLower().Contains("youtu.be")) && Uri.TryCreate(text, UriKind.RelativeOrAbsolute, out var uri))
 			{
 				string queryString = uri.Query;
 				var queryDictionary = System.Web.HttpUtility.ParseQueryString(queryString);

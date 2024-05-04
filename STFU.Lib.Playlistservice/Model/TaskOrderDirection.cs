@@ -2,7 +2,7 @@
 {
 	public enum TaskOrderDirection
 	{
-		ASC = 0,
-		DESC = 1
+		Asc = 0,
+		Desc = 1
 	}
 }

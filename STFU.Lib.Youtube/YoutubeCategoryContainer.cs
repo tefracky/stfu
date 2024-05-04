@@ -9,7 +9,7 @@ namespace STFU.Lib.Youtube
 {
 	public class YoutubeCategoryContainer: IYoutubeCategoryContainer
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(YoutubeCategoryContainer));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(YoutubeCategoryContainer));
 
 		private IList<ICategory> Categories { get; } = new List<ICategory>();
 
@@ -19,14 +19,14 @@ namespace STFU.Lib.Youtube
 		{
 			if (!RegisteredCategories.Any(c => c.Id == category.Id))
 			{
-				LOGGER.Debug($"Adding a new category, title: '{category.Title}'");
+				Logger.Debug($"Adding a new category, title: '{category.Title}'");
 				Categories.Add(category);
 			}
 		}
 
 		public void UnregisterAllCategories()
 		{
-			LOGGER.Debug($"Removing all categories");
+			Logger.Debug($"Removing all categories");
 			Categories.Clear();
 		}
 
@@ -34,7 +34,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Categories.Contains(category))
 			{
-				LOGGER.Debug($"Removing category, title: '{category.Title}'");
+				Logger.Debug($"Removing category, title: '{category.Title}'");
 				Categories.Remove(category);
 			}
 		}
@@ -43,7 +43,7 @@ namespace STFU.Lib.Youtube
 		{
 			if (Categories.Count > index)
 			{
-				LOGGER.Debug($"Removing category at index {index}, title: '{Categories[index].Title}'");
+				Logger.Debug($"Removing category at index {index}, title: '{Categories[index].Title}'");
 				Categories.RemoveAt(index);
 			}
 		}

@@ -10,14 +10,14 @@ namespace STFU.Lib.Playlistservice
 {
 	public class AccountClient : AbstractClient
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(AccountClient));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(AccountClient));
 
 		public AccountClient(Uri host) : base(host) { }
 		public AccountClient(Uri host, string user, string pass) : base(host, user, pass) { }
 
 		public Account[] GetAllAccounts()
 		{
-			LOGGER.Info($"Getting all accounts");
+			Logger.Info($"Getting all accounts");
 
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Host, "/accounts"));
 			request.Method = "GET";
@@ -31,14 +31,14 @@ namespace STFU.Lib.Playlistservice
 			string json = WebService.Communicate(request);
 			Account[] accounts = JsonConvert.DeserializeObject<Account[]>(json);
 
-			LOGGER.Info($"Returning {accounts.Length} accounts");
+			Logger.Info($"Returning {accounts.Length} accounts");
 
 			return accounts;
 		}
 
 		public Account AddAccount(AuthCode code)
 		{
-			LOGGER.Info($"Adding a new account");
+			Logger.Info($"Adding a new account");
 
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Host, "/accounts"));
 			request.Method = "POST";
@@ -53,16 +53,16 @@ namespace STFU.Lib.Playlistservice
 			var bytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(code));
 			string json = WebService.Communicate(request, bytes);
 
-			LOGGER.Info($"Got a result, returning account");
+			Logger.Info($"Got a result, returning account");
 
 			return JsonConvert.DeserializeObject<Account>(json);
 		}
 
 		public string DeleteAccount(Account account)
 		{
-			LOGGER.Info($"Deleting account with id: {account.id}");
+			Logger.Info($"Deleting account with id: {account.Id}");
 
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Host, $"/accounts/{account.id}"));
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Host, $"/accounts/{account.Id}"));
 			request.Method = "DELETE";
 			request.Accept = "application/json";
 
@@ -73,14 +73,14 @@ namespace STFU.Lib.Playlistservice
 			
 			string result = WebService.Communicate(request);
 
-			LOGGER.Info($"Got a result, returning it");
+			Logger.Info($"Got a result, returning it");
 
 			return result;
 		}
 
 		public string DeleteAllAccounts()
 		{
-			LOGGER.Info($"Deleting all accounts");
+			Logger.Info($"Deleting all accounts");
 
 			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(new Uri(Host, $"/accounts"));
 			request.Method = "DELETE";
@@ -93,7 +93,7 @@ namespace STFU.Lib.Playlistservice
 
 			string result = WebService.Communicate(request);
 
-			LOGGER.Info($"Got a result, returning it");
+			Logger.Info($"Got a result, returning it");
 
 			return result;
 		}

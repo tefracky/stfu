@@ -11,16 +11,16 @@ namespace STFU.Executable.Updater
 {
 	public partial class UpdateForm : Form
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(UpdateForm));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(UpdateForm));
 
-		private string zipFile;
-		private string executableFile;
+		private readonly string zipFile;
+		private readonly string executableFile;
 
-		private Updater updater = new Updater();
+		private readonly Updater updater = new Updater();
 
 		public UpdateForm(string zipFile, string executableFile)
 		{
-			LOGGER.Info("Initializing update form");
+			Logger.Info("Initializing update form");
 
 			InitializeComponent();
 
@@ -30,23 +30,23 @@ namespace STFU.Executable.Updater
 			installUpdateBgw.RunWorkerAsync();
 		}
 
-		private void refreshStatusTextTimerTick(object sender, EventArgs e)
+		private void RefreshStatusTextTimerTick(object sender, EventArgs e)
 		{
 			statusLabel.Text = updater.Message;
 		}
 
-		private void installUpdateBgwDoWork(object sender, DoWorkEventArgs e)
+		private void InstallUpdateBgwDoWork(object sender, DoWorkEventArgs e)
 		{
 			var procs = Process.GetProcesses().Where(p => ProcessBlocksExe(p)).ToArray();
 
-			LOGGER.Info("Waiting for blocking processes to exit");
+			Logger.Info("Waiting for blocking processes to exit");
 
 			while (procs.Any(p => !p.HasExited))
 			{
 				Thread.Sleep(100);
 			}
 
-			LOGGER.Info("All processes exited -> extracting zip");
+			Logger.Info("All processes exited -> extracting zip");
 
 			updater.ExtractUpdate(zipFile);
 		}
@@ -60,7 +60,7 @@ namespace STFU.Executable.Updater
 				string fullPath = p.MainModule.FileName;
 				if (Path.GetFullPath(fullPath).ToLower() == Path.GetFullPath(executableFile).ToLower())
 				{
-					LOGGER.Info($"Found blocking process '{p.ProcessName}'");
+					Logger.Info($"Found blocking process '{p.ProcessName}'");
 
 					result = true;
 				}
@@ -71,27 +71,27 @@ namespace STFU.Executable.Updater
 			return result;
 		}
 
-		private void installUpdateBgwRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+		private void InstallUpdateBgwRunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
 		{
 			if (updater.Successfull)
 			{
 				refreshStatusTextTimer.Enabled = false;
 
-				LOGGER.Info("Updater finished sucessfully");
+				Logger.Info("Updater finished sucessfully");
 
 				if (File.Exists(executableFile))
 				{
-					LOGGER.Info($"Starting executable '{executableFile}'");
+					Logger.Info($"Starting executable '{executableFile}'");
 
 					Process.Start(executableFile, "showReleaseNotes");
 				}
 
-				LOGGER.Info("Closing the form");
+				Logger.Info("Closing the form");
 				Close();
 			}
 			else
 			{
-				LOGGER.Info("Updater did not finish sucessfully!");
+				Logger.Info("Updater did not finish sucessfully!");
 			}
 		}
 	}

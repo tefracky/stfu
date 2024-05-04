@@ -4,65 +4,65 @@ namespace STFU.Lib.Youtube.Model.Serializable
 {
 	public class Response
 	{
-		public string kind { get; set; }
-		public string etag { get; set; }
-		public string prevPageToken { get; set; }
-		public string nextPageToken { get; set; }
-		public PageInfo pageInfo { get; set; }
-		public Item[] items { get; set; }
+		public string Kind { get; set; }
+		public string Etag { get; set; }
+		public string PrevPageToken { get; set; }
+		public string NextPageToken { get; set; }
+		public PageInfo PageInfo { get; set; }
+		public Item[] Items { get; set; }
 	}
 
 	public class PageInfo
 	{
-		public int totalResults { get; set; }
-		public int resultsPerPage { get; set; }
+		public int TotalResults { get; set; }
+		public int ResultsPerPage { get; set; }
 	}
 
 	public class Item
 	{
-		public string kind { get; set; }
-		public string etag { get; set; }
-		public string id { get; set; }
-		public ContentDetails contentDetails { get; set; }
-		public Snippet snippet { get; set; }
+		public string Kind { get; set; }
+		public string Etag { get; set; }
+		public string Id { get; set; }
+		public ContentDetails ContentDetails { get; set; }
+		public Snippet Snippet { get; set; }
 	}
 
 	public class ContentDetails
 	{
-		public string videoId { get; set; }
-		public string videoPublishedAt { get; set; }
+		public string VideoId { get; set; }
+		public string VideoPublishedAt { get; set; }
 	}
 
 	public class Snippet
 	{
-		public string title { get; set; }
-		public string description { get; set; }
-		public string customUrl { get; set; }
-		public DateTime publishedAt { get; set; }
-		public string country { get; set; }
-		public Thumbnails thumbnails { get; set; }
-		public Localization localized { get; set; }
-		public string channelId { get; set; }
-		public bool assignable { get; set; }
-		public string hl { get; set; }
-		public string name { get; set; }
+		public string Title { get; set; }
+		public string Description { get; set; }
+		public string CustomUrl { get; set; }
+		public DateTime PublishedAt { get; set; }
+		public string Country { get; set; }
+		public Thumbnails Thumbnails { get; set; }
+		public Localization Localized { get; set; }
+		public string ChannelId { get; set; }
+		public bool Assignable { get; set; }
+		public string Hl { get; set; }
+		public string Name { get; set; }
 	}
 
 	public class Thumbnails
 	{
 		public Url Default { get; set; }
-		public Url medium { get; set; }
-		public Url high { get; set; }
+		public Url Medium { get; set; }
+		public Url High { get; set; }
 	}
 
 	public class Url
 	{
-		public string url { get; set; }
+		public string UrlString { get; set; }
 	}
 
 	public class Localization
 	{
-		public string title { get; set; }
-		public string description { get; set; }
+		public string Title { get; set; }
+		public string Description { get; set; }
 	}
 }

@@ -28,12 +28,12 @@ namespace STFU.Lib.GUI.Forms
 			}
 		}
 
-		private void cancelButton_Click(object sender, System.EventArgs e)
+		private void CancelButton_Click(object sender, System.EventArgs e)
 		{
 			Close();
 		}
 
-		private void saveButton_Click(object sender, System.EventArgs e)
+		private void SaveButton_Click(object sender, System.EventArgs e)
 		{
 			SelectedTemplate = Templates[templatesCombobox.SelectedIndex];
 			DialogResult = DialogResult.OK;

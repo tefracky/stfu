@@ -11,7 +11,7 @@ namespace STFU.Executable.AutoUploader
 {
 	public static class Program
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(Program));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(Program));
 
 		/// <summary>
 		/// The main entry point for the application.
@@ -19,7 +19,7 @@ namespace STFU.Executable.AutoUploader
 		[STAThread]
 		public static void Main(string[] args)
 		{
-			LOGGER.Info("Application was started");
+			Logger.Info("Application was started");
 			AppDomain.CurrentDomain.FirstChanceException += LogException;
 
 			ClearOldExceptionFiles();
@@ -29,24 +29,24 @@ namespace STFU.Executable.AutoUploader
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new MainForm(args.Any(arg => arg.ToLower() == "showreleasenotes")));
 
-			LOGGER.Info("Application stopped");
+			Logger.Info("Application stopped");
 		}
 
 		private static void ClearOldExceptionFiles()
 		{
 			if (Directory.Exists("errors"))
 			{
-				LOGGER.Info($"Clearing old exception logs");
+				Logger.Info($"Clearing old exception logs");
 				var subdirectories = Directory.EnumerateDirectories("errors");
 				foreach (var subdir in subdirectories)
 				{
-					LOGGER.Debug($"Clearing old exception logs in folder '{subdir}'");
+					Logger.Debug($"Clearing old exception logs in folder '{subdir}'");
 					var maxTime = new TimeSpan(14, 0, 0, 0);
 					foreach (var file in Directory.EnumerateFiles(subdir))
 					{
 						if (DateTime.Now - new FileInfo(file).CreationTime > maxTime)
 						{
-							LOGGER.Debug($"Deleting file '{file}'");
+							Logger.Debug($"Deleting file '{file}'");
 							File.Delete(file);
 						}
 					}
@@ -54,7 +54,7 @@ namespace STFU.Executable.AutoUploader
 
 				if (new DirectoryInfo("errors").EnumerateFiles("*", SearchOption.AllDirectories).ToArray().Length == 0)
 				{
-					LOGGER.Info($"Deleting old errors folder once and for all");
+					Logger.Info($"Deleting old errors folder once and for all");
 
 					try
 					{
@@ -62,7 +62,7 @@ namespace STFU.Executable.AutoUploader
 					}
 					catch (Exception ex)
 					{
-						LOGGER.Error($"Errors folder could not be deleted because of an exception occured", ex);
+						Logger.Error($"Errors folder could not be deleted because of an exception occured", ex);
 					}
 				}
 			}
@@ -74,14 +74,14 @@ namespace STFU.Executable.AutoUploader
 				&& !IsCoreLibException(e)
 				&& !IsCancelException(e))
 			{
-				LOGGER.Error("An unexpected Exception occured.", e.Exception);
+				Logger.Error("An unexpected Exception occured.", e.Exception);
 			}
 		}
 
 		private static bool IsCancelException(FirstChanceExceptionEventArgs e)
 		{
-			return (e.Exception is IOException && ((IOException)e.Exception).HResult == -2146232800)
-				|| (e.Exception is WebException && ((WebException)e.Exception).Status == WebExceptionStatus.RequestCanceled);
+			return (e.Exception is IOException exception && exception.HResult == -2146232800)
+				|| (e.Exception is WebException webException && webException.Status == WebExceptionStatus.RequestCanceled);
 		}
 
 		private static bool IsCoreLibException(FirstChanceExceptionEventArgs e)
@@ -91,9 +91,9 @@ namespace STFU.Executable.AutoUploader
 
 		private static bool IsIncompleteResume(FirstChanceExceptionEventArgs e)
 		{
-			return e.Exception is WebException
-					&& ((WebException)e.Exception).Status == WebExceptionStatus.ProtocolError
-					&& (int)(((WebException)e.Exception).Response as HttpWebResponse).StatusCode == 308;
+			return e.Exception is WebException exception
+					&& exception.Status == WebExceptionStatus.ProtocolError
+					&& (int)(exception.Response as HttpWebResponse).StatusCode == 308;
 		}
 	}
 }

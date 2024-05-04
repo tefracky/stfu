@@ -14,7 +14,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 {
 	public class ExpressionEvaluator
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(ExpressionEvaluator));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(ExpressionEvaluator));
 
 		private IReadOnlyDictionary<string, Func<string, string, string>> GlobalVariables =>
 			new ReadOnlyDictionary<string, Func<string, string, string>>(new Dictionary<string, Func<string, string, string>>
@@ -41,7 +41,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 
 		public ExpressionEvaluator(string filepath, string templatename, IList<IPlannedVideo> plannedVideos, string csharpPreparationScript, string csharpCleanupScript, string referencedAssembliesText)
 		{
-			LOGGER.Info($"Creating expression evaluator for path: '{filepath}' and template: '{templatename}'");
+			Logger.Info($"Creating expression evaluator for path: '{filepath}' and template: '{templatename}'");
 
 			FilePath = filepath;
 			TemplateName = templatename;
@@ -66,14 +66,14 @@ namespace STFU.Lib.Youtube.Automation.Programming
 				{
 					var trimmed = line.Trim();
 
-					LOGGER.Info($"Attempting to load assembly: '{trimmed}'");
+					Logger.Info($"Attempting to load assembly: '{trimmed}'");
 
 					try
 					{
 						var assembly = Assembly.LoadFrom(trimmed);
 						Options = Options.AddReferences(assembly);
 
-						LOGGER.Info($"Loaded assembly: '{trimmed}' via 'Assembly.LoadFrom'");
+						Logger.Info($"Loaded assembly: '{trimmed}' via 'Assembly.LoadFrom'");
 					}
 					catch (Exception ex1)
 					{
@@ -82,7 +82,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 							var netAssembly = Assembly.Load(trimmed);
 							Options = Options.AddReferences(netAssembly);
 
-							LOGGER.Info($"Loaded assembly: '{trimmed}' via 'Assembly.Load'");
+							Logger.Info($"Loaded assembly: '{trimmed}' via 'Assembly.Load'");
 						}
 						catch (Exception ex2)
 						{
@@ -92,13 +92,13 @@ namespace STFU.Lib.Youtube.Automation.Programming
 								var gacAssembly = Assembly.LoadFrom(gacAssemblyPath);
 								Options = Options.AddReferences(gacAssembly);
 
-								LOGGER.Info($"Loaded assembly: '{trimmed}' via 'AssemblyNameResolver.GetAssemblyPath'");
+								Logger.Info($"Loaded assembly: '{trimmed}' via 'AssemblyNameResolver.GetAssemblyPath'");
 							}
 							catch (Exception ex3)
 							{
-								LOGGER.Error($"Couldn't load assembly {trimmed} via 'Assembly.LoadFrom'", ex1);
-								LOGGER.Error($"Couldn't load assembly {trimmed} via 'Assembly.Load'", ex2);
-								LOGGER.Error($"Couldn't load assembly {trimmed} via 'AssemblyNameResolver.GetAssemblyPath'", ex3);
+								Logger.Error($"Couldn't load assembly {trimmed} via 'Assembly.LoadFrom'", ex1);
+								Logger.Error($"Couldn't load assembly {trimmed} via 'Assembly.Load'", ex2);
+								Logger.Error($"Couldn't load assembly {trimmed} via 'AssemblyNameResolver.GetAssemblyPath'", ex3);
 							}
 						}
 					}
@@ -109,7 +109,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 
 			foreach (var func in StandardFunctions.GlobalFunctions)
 			{
-				LOGGER.Debug($"Loading standard function: '{func}'");
+				Logger.Debug($"Loading standard function: '{func}'");
 
 				if (CsScript == null)
 				{
@@ -125,43 +125,43 @@ namespace STFU.Lib.Youtube.Automation.Programming
 			{
 				string func = $"const string {var.Key} = @\"{var.Value(FilePath, TemplateName)}\";";
 
-				LOGGER.Info($"Loading global variable: '{func}'");
+				Logger.Info($"Loading global variable: '{func}'");
 
 				CsScript = await CsScript.ContinueWithAsync(func);
 			}
 
 			try
 			{
-				LOGGER.Info($"Executing preparation script");
-				LOGGER.Debug($"Preparation script: {CSharpPreparationScript}");
+				Logger.Info($"Executing preparation script");
+				Logger.Debug($"Preparation script: {CSharpPreparationScript}");
 
 				CsScript = await CsScript.ContinueWithAsync(CSharpPreparationScript, Options);
 
-				LOGGER.Info($"Executed preparation script");
+				Logger.Info($"Executed preparation script");
 			}
 			catch (CompilationErrorException ex)
 			{
 				CsScript = await CSharpScript.RunAsync("using System;");
-				LOGGER.Error($"Couldn't execute preparation script: {CSharpPreparationScript}", ex);
+				Logger.Error($"Couldn't execute preparation script: {CSharpPreparationScript}", ex);
 			}
 
-			LOGGER.Info($"Expression evaluator creation finished");
+			Logger.Info($"Expression evaluator creation finished");
 		}
 
 		public async Task CleanUp()
 		{
 			try
 			{
-				LOGGER.Info($"Executing cleanup script");
-				LOGGER.Debug($"Cleanup script: {CSharpCleanupScript}");
+				Logger.Info($"Executing cleanup script");
+				Logger.Debug($"Cleanup script: {CSharpCleanupScript}");
 
 				CsScript = await CsScript.ContinueWithAsync(CSharpCleanupScript, Options);
 
-				LOGGER.Info($"Executed cleanup script");
+				Logger.Info($"Executed cleanup script");
 			}
 			catch (CompilationErrorException ex)
 			{
-				LOGGER.Error($"Couldn't execute cleanup script: {CSharpCleanupScript}", ex);
+				Logger.Error($"Couldn't execute cleanup script: {CSharpCleanupScript}", ex);
 			}
 		}
 
@@ -186,7 +186,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 						int closingPos = FindClosingPosition(expression, currentPos);
 						if (closingPos < 0)
 						{
-							LOGGER.Error($"Field: '{expression}' is not valid because there is a simple script that hasn't been closed");
+							Logger.Error($"Field: '{expression}' is not valid because there is a simple script that hasn't been closed");
 
 							valid = false;
 							break;
@@ -201,7 +201,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 						currentPos = FindComplexClosingPosition(expression, currentPos);
 						if (currentPos < 0)
 						{
-							LOGGER.Error($"Field: '{expression}' is not valid because there is a c# script that hasn't been closed");
+							Logger.Error($"Field: '{expression}' is not valid because there is a c# script that hasn't been closed");
 
 							valid = false;
 							break;
@@ -227,7 +227,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 		{
 			List<string> result = new List<string>();
 
-			LOGGER.Info($"Searching for all field names");
+			Logger.Info($"Searching for all field names");
 
 			result.AddRange(FindFieldNames(template.Title));
 			result.AddRange(FindFieldNames(template.Description));
@@ -236,7 +236,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 
 			var resultList = result.Distinct().ToList();
 
-			LOGGER.Info($"Finished search, found {resultList.Count} field names");
+			Logger.Info($"Finished search, found {resultList.Count} field names");
 
 			return resultList;
 		}
@@ -264,7 +264,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 						{
 							var fieldName = text.Substring(currentPos + 1, closingPos - currentPos - 1).ToLower().Trim();
 
-							LOGGER.Info($"Found field name: '{fieldName}'");
+							Logger.Info($"Found field name: '{fieldName}'");
 
 							result.Add(fieldName);
 						}
@@ -281,8 +281,8 @@ namespace STFU.Lib.Youtube.Automation.Programming
 
 		public string Evaluate(string text)
 		{
-			LOGGER.Info($"Starting text evaluation");
-			LOGGER.Info($"Text: '{text}'");
+			Logger.Info($"Starting text evaluation");
+			Logger.Info($"Text: '{text}'");
 
 			if (text == null)
 			{
@@ -295,7 +295,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 				{
 					ScriptType scriptType = FindScriptType(text, currentPos);
 
-					LOGGER.Info($"Found a script of type: {scriptType}");
+					Logger.Info($"Found a script of type: {scriptType}");
 
 					// Get if it is a simple script or a C# one
 					if (scriptType == ScriptType.Simple)
@@ -309,7 +309,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 							var replacement = EvaluateField(field);
 							text = $"{text.Substring(0, currentPos)}{replacement}{text.Substring(closingPos + 1)}";
 
-							LOGGER.Info($"Replaced placeholder field: '{field}' with value: '{replacement}'");
+							Logger.Info($"Replaced placeholder field: '{field}' with value: '{replacement}'");
 						}
 					}
 					else
@@ -324,7 +324,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 
 							try
 							{
-								LOGGER.Info($"Running found script: '{script}'");
+								Logger.Info($"Running found script: '{script}'");
 
 								var state = CsScript.ContinueWithAsync(script);
 
@@ -334,12 +334,12 @@ namespace STFU.Lib.Youtube.Automation.Programming
 
 									result = state.Result.ReturnValue?.ToString() ?? string.Empty;
 
-									LOGGER.Info($"Script returned result: '{result}'");
+									Logger.Info($"Script returned result: '{result}'");
 								}
 							}
 							catch (CompilationErrorException ex)
 							{
-								LOGGER.Error($"Couldn't execute script: {script}", ex);
+								Logger.Error($"Couldn't execute script: {script}", ex);
 							}
 
 							string before = text.Substring(0, currentPos);
@@ -351,7 +351,7 @@ namespace STFU.Lib.Youtube.Automation.Programming
 				}
 			}
 
-			LOGGER.Info($"Final evaluated text: '{text.Replace("<", "").Replace(">", "")}'");
+			Logger.Info($"Final evaluated text: '{text.Replace("<", "").Replace(">", "")}'");
 
 			return text.Replace("<", "").Replace(">", "");
 		}

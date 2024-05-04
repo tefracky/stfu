@@ -51,7 +51,6 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.playlistserviceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.hilfeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.neueFunktionenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.datenschutzerklärungToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.videotutorialPlaylistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.threadImLPFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -188,7 +187,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.lnklblCurrentLoggedIn.TabStop = true;
 			this.lnklblCurrentLoggedIn.Text = "link";
 			this.lnklblCurrentLoggedIn.Visible = false;
-			this.lnklblCurrentLoggedIn.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lnklblCurrentLoggedInLinkClicked);
+			this.lnklblCurrentLoggedIn.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LnklblCurrentLoggedInLinkClicked);
 			// 
 			// mainMenu
 			// 
@@ -220,7 +219,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.beendenToolStripMenuItem.Name = "beendenToolStripMenuItem";
 			this.beendenToolStripMenuItem.Size = new System.Drawing.Size(120, 22);
 			this.beendenToolStripMenuItem.Text = "Beenden";
-			this.beendenToolStripMenuItem.Click += new System.EventHandler(this.beendenToolStripMenuItemClick);
+			this.beendenToolStripMenuItem.Click += new System.EventHandler(this.BeendenToolStripMenuItemClick);
 			// 
 			// verwaltenToolStripMenuItem
 			// 
@@ -249,14 +248,14 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.verbindenToolStripMenuItem.Name = "verbindenToolStripMenuItem";
 			this.verbindenToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.verbindenToolStripMenuItem.Text = "Anmelden mit Google";
-			this.verbindenToolStripMenuItem.Click += new System.EventHandler(this.verbindenToolStripMenuItem1_Click);
+			this.verbindenToolStripMenuItem.Click += new System.EventHandler(this.ConnectToolStripMenuItem1_Click);
 			// 
 			// verbindungLösenToolStripMenuItem
 			// 
 			this.verbindungLösenToolStripMenuItem.Name = "verbindungLösenToolStripMenuItem";
 			this.verbindungLösenToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
 			this.verbindungLösenToolStripMenuItem.Text = "Verbindung lösen";
-			this.verbindungLösenToolStripMenuItem.Click += new System.EventHandler(this.verbindungLösenToolStripMenuItem_Click);
+			this.verbindungLösenToolStripMenuItem.Click += new System.EventHandler(this.DeleteConnectionToolStripMenuItem_Click);
 			// 
 			// twitterAccountToolStripMenuItem
 			// 
@@ -287,34 +286,33 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.templatesToolStripMenuItem1.Name = "templatesToolStripMenuItem1";
 			this.templatesToolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
 			this.templatesToolStripMenuItem1.Text = "Templates";
-			this.templatesToolStripMenuItem1.Click += new System.EventHandler(this.templatesToolStripMenuItem1Click);
+			this.templatesToolStripMenuItem1.Click += new System.EventHandler(this.TemplatesToolStripMenuItem1Click);
 			// 
 			// pfadeToolStripMenuItem1
 			// 
 			this.pfadeToolStripMenuItem1.Name = "pfadeToolStripMenuItem1";
 			this.pfadeToolStripMenuItem1.Size = new System.Drawing.Size(169, 22);
 			this.pfadeToolStripMenuItem1.Text = "Pfade";
-			this.pfadeToolStripMenuItem1.Click += new System.EventHandler(this.pfadeToolStripMenuItem1_Click);
+			this.pfadeToolStripMenuItem1.Click += new System.EventHandler(this.PathsToolStripMenuItem1_Click);
 			// 
 			// playlistsToolStripMenuItem
 			// 
 			this.playlistsToolStripMenuItem.Name = "playlistsToolStripMenuItem";
 			this.playlistsToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
 			this.playlistsToolStripMenuItem.Text = "Playlists";
-			this.playlistsToolStripMenuItem.Click += new System.EventHandler(this.playlistsToolStripMenuItem_Click);
+			this.playlistsToolStripMenuItem.Click += new System.EventHandler(this.PlaylistsToolStripMenuItem_Click);
 			// 
 			// playlistserviceToolStripMenuItem
 			// 
 			this.playlistserviceToolStripMenuItem.Name = "playlistserviceToolStripMenuItem";
 			this.playlistserviceToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
 			this.playlistserviceToolStripMenuItem.Text = "Playlistservice";
-			this.playlistserviceToolStripMenuItem.Click += new System.EventHandler(this.playlistserviceToolStripMenuItem_Click);
+			this.playlistserviceToolStripMenuItem.Click += new System.EventHandler(this.PlaylistserviceToolStripMenuItem_Click);
 			// 
 			// hilfeToolStripMenuItem
 			// 
 			this.hilfeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.neueFunktionenToolStripMenuItem,
-            this.datenschutzerklärungToolStripMenuItem,
             this.toolStripSeparator2,
             this.videotutorialPlaylistToolStripMenuItem,
             this.threadImLPFToolStripMenuItem,
@@ -334,14 +332,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.neueFunktionenToolStripMenuItem.Name = "neueFunktionenToolStripMenuItem";
 			this.neueFunktionenToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
 			this.neueFunktionenToolStripMenuItem.Text = "Neue Funktionen";
-			this.neueFunktionenToolStripMenuItem.Click += new System.EventHandler(this.neueFunktionenToolStripMenuItem_Click);
-			// 
-			// datenschutzerklärungToolStripMenuItem
-			// 
-			this.datenschutzerklärungToolStripMenuItem.Name = "datenschutzerklärungToolStripMenuItem";
-			this.datenschutzerklärungToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
-			this.datenschutzerklärungToolStripMenuItem.Text = "Datenschutzerklärung im Browser öffnen";
-			this.datenschutzerklärungToolStripMenuItem.Click += new System.EventHandler(this.datenschutzerklärungToolStripMenuItem_Click);
+			this.neueFunktionenToolStripMenuItem.Click += new System.EventHandler(this.NewFeaturesToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator2
 			// 
@@ -353,21 +344,21 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.videotutorialPlaylistToolStripMenuItem.Name = "videotutorialPlaylistToolStripMenuItem";
 			this.videotutorialPlaylistToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
 			this.videotutorialPlaylistToolStripMenuItem.Text = "Videotutorial-Playlist";
-			this.videotutorialPlaylistToolStripMenuItem.Click += new System.EventHandler(this.videotutorialPlaylistToolStripMenuItem_Click);
+			this.videotutorialPlaylistToolStripMenuItem.Click += new System.EventHandler(this.VideoTutorialPlaylistToolStripMenuItem_Click);
 			// 
 			// threadImLPFToolStripMenuItem
 			// 
 			this.threadImLPFToolStripMenuItem.Name = "threadImLPFToolStripMenuItem";
 			this.threadImLPFToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
 			this.threadImLPFToolStripMenuItem.Text = "Thread im LPF";
-			this.threadImLPFToolStripMenuItem.Click += new System.EventHandler(this.threadImLPFToolStripMenuItem_Click);
+			this.threadImLPFToolStripMenuItem.Click += new System.EventHandler(this.ThreadImLPFToolStripMenuItem_Click);
 			// 
 			// threadImYTFToolStripMenuItem
 			// 
 			this.threadImYTFToolStripMenuItem.Name = "threadImYTFToolStripMenuItem";
 			this.threadImYTFToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
 			this.threadImYTFToolStripMenuItem.Text = "Thread im YTF";
-			this.threadImYTFToolStripMenuItem.Click += new System.EventHandler(this.threadImYTFToolStripMenuItem_Click);
+			this.threadImYTFToolStripMenuItem.Click += new System.EventHandler(this.ThreadImYTFToolStripMenuItem_Click);
 			// 
 			// discordServerToolStripMenuItem
 			// 
@@ -393,7 +384,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.downloadSeiteToolStripMenuItem.Name = "downloadSeiteToolStripMenuItem";
 			this.downloadSeiteToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
 			this.downloadSeiteToolStripMenuItem.Text = "Download-Seite";
-			this.downloadSeiteToolStripMenuItem.Click += new System.EventHandler(this.downloadSeiteToolStripMenuItem_Click);
+			this.downloadSeiteToolStripMenuItem.Click += new System.EventHandler(this.DownloadPageToolStripMenuItem_Click);
 			// 
 			// toolStripSeparator3
 			// 
@@ -405,7 +396,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.logverzeichnisÖffnenToolStripMenuItem.Name = "logverzeichnisÖffnenToolStripMenuItem";
 			this.logverzeichnisÖffnenToolStripMenuItem.Size = new System.Drawing.Size(289, 22);
 			this.logverzeichnisÖffnenToolStripMenuItem.Text = "Logverzeichnis öffnen";
-			this.logverzeichnisÖffnenToolStripMenuItem.Click += new System.EventHandler(this.logverzeichnisÖffnenToolStripMenuItem_Click);
+			this.logverzeichnisÖffnenToolStripMenuItem.Click += new System.EventHandler(this.OpenLogsToolStripMenuItem_Click);
 			// 
 			// mainTabControl
 			// 
@@ -544,7 +535,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.toolTip.SetToolTip(this.queueStatusButton, "Den Uploader starten oder stoppen - hiermit werden bereits in die Warteschlange h" +
         "inzugefügte Videos hochgeladen.");
 			this.queueStatusButton.UseVisualStyleBackColor = true;
-			this.queueStatusButton.Click += new System.EventHandler(this.queueStatusButton_Click);
+			this.queueStatusButton.Click += new System.EventHandler(this.QueueStatusButton_Click);
 			// 
 			// lblFinishAction
 			// 
@@ -567,7 +558,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.chbChoseProcesses.TabIndex = 16;
 			this.chbChoseProcesses.Text = "Programmenden abwarten";
 			this.chbChoseProcesses.UseVisualStyleBackColor = true;
-			this.chbChoseProcesses.CheckedChanged += new System.EventHandler(this.chbChoseProcessesCheckedChanged);
+			this.chbChoseProcesses.CheckedChanged += new System.EventHandler(this.ChbChoseProcessesCheckedChanged);
 			// 
 			// btnChoseProcs
 			// 
@@ -582,7 +573,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.btnChoseProcs.TabIndex = 17;
 			this.btnChoseProcs.Text = "[...]";
 			this.btnChoseProcs.UseVisualStyleBackColor = true;
-			this.btnChoseProcs.Click += new System.EventHandler(this.btnChoseProcsClick);
+			this.btnChoseProcs.Click += new System.EventHandler(this.BtnChoseProcsClick);
 			// 
 			// jobQueue
 			// 
@@ -615,7 +606,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.cmbbxFinishAction.Name = "cmbbxFinishAction";
 			this.cmbbxFinishAction.Size = new System.Drawing.Size(641, 21);
 			this.cmbbxFinishAction.TabIndex = 15;
-			this.cmbbxFinishAction.SelectedIndexChanged += new System.EventHandler(this.cmbbxFinishActionSelectedIndexChanged);
+			this.cmbbxFinishAction.SelectedIndexChanged += new System.EventHandler(this.CmbbxFinishActionSelectedIndexChanged);
 			// 
 			// limitUploadSpeedNud
 			// 
@@ -640,7 +631,7 @@ namespace STFU.Executable.AutoUploader.Forms
             0,
             0,
             0});
-			this.limitUploadSpeedNud.ValueChanged += new System.EventHandler(this.limitUploadSpeedNud_ValueChanged);
+			this.limitUploadSpeedNud.ValueChanged += new System.EventHandler(this.LimitUploadSpeedNud_ValueChanged);
 			// 
 			// limitUploadSpeedCheckbox
 			// 
@@ -654,7 +645,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.limitUploadSpeedCheckbox.TabIndex = 16;
 			this.limitUploadSpeedCheckbox.Text = "Uploadgeschwindigkeit pro Job limitieren auf:";
 			this.limitUploadSpeedCheckbox.UseVisualStyleBackColor = true;
-			this.limitUploadSpeedCheckbox.CheckedChanged += new System.EventHandler(this.limitUploadSpeedCheckbox_CheckedChanged);
+			this.limitUploadSpeedCheckbox.CheckedChanged += new System.EventHandler(this.LimitUploadSpeedCheckbox_CheckedChanged);
 			// 
 			// limitUploadSpeedCombobox
 			// 
@@ -671,7 +662,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.limitUploadSpeedCombobox.Name = "limitUploadSpeedCombobox";
 			this.limitUploadSpeedCombobox.Size = new System.Drawing.Size(69, 21);
 			this.limitUploadSpeedCombobox.TabIndex = 21;
-			this.limitUploadSpeedCombobox.SelectedIndexChanged += new System.EventHandler(this.limitUploadSpeedCombobox_SelectedIndexChanged);
+			this.limitUploadSpeedCombobox.SelectedIndexChanged += new System.EventHandler(this.LimitUploadSpeedCombobox_SelectedIndexChanged);
 			// 
 			// addVideosToQueueButton
 			// 
@@ -690,7 +681,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.addVideosToQueueButton.Text = "+";
 			this.toolTip.SetToolTip(this.addVideosToQueueButton, "Neue Videos manuell hinzufügen");
 			this.addVideosToQueueButton.UseVisualStyleBackColor = true;
-			this.addVideosToQueueButton.Click += new System.EventHandler(this.addVideosToQueueButton_Click);
+			this.addVideosToQueueButton.Click += new System.EventHandler(this.AddVideosToQueueButton_Click);
 			// 
 			// clearVideosButton
 			// 
@@ -708,7 +699,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.clearVideosButton.Text = "x";
 			this.toolTip.SetToolTip(this.clearVideosButton, "Alle Videos aus der Warteschlange entfernen");
 			this.clearVideosButton.UseVisualStyleBackColor = true;
-			this.clearVideosButton.Click += new System.EventHandler(this.clearVideosButton_Click);
+			this.clearVideosButton.Click += new System.EventHandler(this.ClearVideosButton_Click);
 			// 
 			// groupBox2
 			// 
@@ -771,7 +762,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.toolTip.SetToolTip(this.btnStart, "Den Autouploader starten oder stoppen - hiermit werden Videos automatisch in die " +
         "Warteschlange aufgenommen.");
 			this.btnStart.UseVisualStyleBackColor = true;
-			this.btnStart.Click += new System.EventHandler(this.btnStartClick);
+			this.btnStart.Click += new System.EventHandler(this.BtnStartClick);
 			// 
 			// startExtendedOptionsContextMenu
 			// 
@@ -785,7 +776,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.zeitenFestlegenUndAutouploaderStartenToolStripMenuItem.Name = "zeitenFestlegenUndAutouploaderStartenToolStripMenuItem";
 			this.zeitenFestlegenUndAutouploaderStartenToolStripMenuItem.Size = new System.Drawing.Size(297, 22);
 			this.zeitenFestlegenUndAutouploaderStartenToolStripMenuItem.Text = "Zeiten festlegen und Autouploader starten";
-			this.zeitenFestlegenUndAutouploaderStartenToolStripMenuItem.Click += new System.EventHandler(this.zeitenFestlegenUndAutouploaderStartenToolStripMenuItem_Click);
+			this.zeitenFestlegenUndAutouploaderStartenToolStripMenuItem.Click += new System.EventHandler(this.SetTimeAndStartUploaderToolStripMenuItem_Click);
 			// 
 			// pathsTabPage
 			// 
@@ -944,7 +935,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.archiveListView.TabIndex = 1;
 			this.archiveListView.UseCompatibleStateImageBehavior = false;
 			this.archiveListView.View = System.Windows.Forms.View.Details;
-			this.archiveListView.SelectedIndexChanged += new System.EventHandler(this.archiveListView_SelectedIndexChanged);
+			this.archiveListView.SelectedIndexChanged += new System.EventHandler(this.ArchiveListView_SelectedIndexChanged);
 			// 
 			// archiveVideoName
 			// 
@@ -970,7 +961,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.archiveRemoveJobButton.TabIndex = 2;
 			this.archiveRemoveJobButton.Text = "Aus Archiv löschen";
 			this.archiveRemoveJobButton.UseVisualStyleBackColor = true;
-			this.archiveRemoveJobButton.Click += new System.EventHandler(this.archiveRemoveJobButton_Click);
+			this.archiveRemoveJobButton.Click += new System.EventHandler(this.ArchiveRemoveJobButton_Click);
 			// 
 			// archiveAddButton
 			// 
@@ -985,7 +976,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.archiveAddButton.TabIndex = 2;
 			this.archiveAddButton.Text = "Video hinzufügen";
 			this.archiveAddButton.UseVisualStyleBackColor = true;
-			this.archiveAddButton.Click += new System.EventHandler(this.archiveAddButton_Click);
+			this.archiveAddButton.Click += new System.EventHandler(this.ArchiveAddButton_Click);
 			// 
 			// moveBackToQueueButton
 			// 
@@ -1001,7 +992,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			this.moveBackToQueueButton.TabIndex = 2;
 			this.moveBackToQueueButton.Text = "In Warteschlange verschieben";
 			this.moveBackToQueueButton.UseVisualStyleBackColor = true;
-			this.moveBackToQueueButton.Click += new System.EventHandler(this.moveBackToQueueButton_Click);
+			this.moveBackToQueueButton.Click += new System.EventHandler(this.MoveBackToQueueButton_Click);
 			// 
 			// twitterAccountLabel
 			// 
@@ -1031,14 +1022,14 @@ namespace STFU.Executable.AutoUploader.Forms
 			// 
 			// bgwCreateUploader
 			// 
-			this.bgwCreateUploader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwCreateUploaderDoWork);
-			this.bgwCreateUploader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwCreateUploaderRunWorkerCompleted);
+			this.bgwCreateUploader.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgwCreateUploaderDoWork);
+			this.bgwCreateUploader.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgwCreateUploaderRunWorkerCompleted);
 			// 
 			// watchingTimer
 			// 
 			this.watchingTimer.Enabled = true;
 			this.watchingTimer.Interval = 3000;
-			this.watchingTimer.Tick += new System.EventHandler(this.watchingTimer_Tick);
+			this.watchingTimer.Tick += new System.EventHandler(this.WatchingTimer_Tick);
 			// 
 			// notifyIcon
 			// 
@@ -1174,7 +1165,6 @@ namespace STFU.Executable.AutoUploader.Forms
 		private System.Windows.Forms.LinkLabel twitterAccountLinkLabel;
 		private System.Windows.Forms.ToolStripMenuItem playlistsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem playlistserviceToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem datenschutzerklärungToolStripMenuItem;
 	}
 }
 

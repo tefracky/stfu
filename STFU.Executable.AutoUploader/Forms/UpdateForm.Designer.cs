@@ -86,18 +86,18 @@
 			// 
 			// searchUpdateBgw
 			// 
-			this.searchUpdateBgw.DoWork += new System.ComponentModel.DoWorkEventHandler(this.searchUpdateBgwDoWork);
-			this.searchUpdateBgw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchUpdateBgwRunWorkerCompleted);
+			this.searchUpdateBgw.DoWork += new System.ComponentModel.DoWorkEventHandler(this.SearchUpdateBgwDoWork);
+			this.searchUpdateBgw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.SearchUpdateBgwRunWorkerCompleted);
 			// 
 			// downloadUpdateBgw
 			// 
-			this.downloadUpdateBgw.DoWork += new System.ComponentModel.DoWorkEventHandler(this.downloadUpdateBgwDoWork);
-			this.downloadUpdateBgw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.downloadUpdateBgwRunWorkerCompleted);
+			this.downloadUpdateBgw.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DownloadUpdateBgwDoWork);
+			this.downloadUpdateBgw.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.DownloadUpdateBgwRunWorkerCompleted);
 			// 
 			// refreshStatusTextTimer
 			// 
 			this.refreshStatusTextTimer.Enabled = true;
-			this.refreshStatusTextTimer.Tick += new System.EventHandler(this.refreshStatusTextTimerTick);
+			this.refreshStatusTextTimer.Tick += new System.EventHandler(this.RefreshStatusTextTimerTick);
 			// 
 			// UpdateForm
 			// 

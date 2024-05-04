@@ -4,9 +4,9 @@ namespace STFU.Lib.Playlistservice.Model
 {
 	public class Account
 	{
-		public long id { get; set; }
-		public string title { get; set; }
-		public string channelId { get; set; }
+		public long Id { get; set; }
+		public string Title { get; set; }
+		public string ChannelId { get; set; }
 
 		public override string ToString()
 		{

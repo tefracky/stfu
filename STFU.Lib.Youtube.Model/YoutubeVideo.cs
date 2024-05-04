@@ -246,7 +246,7 @@ namespace STFU.Lib.Youtube.Model
 			}
 		}
 
-		private List<string> tags = new List<string>();
+		private readonly List<string> tags = new List<string>();
 		public ICollection<string> Tags
 		{
 			get
@@ -458,39 +458,39 @@ namespace STFU.Lib.Youtube.Model
 		public IYoutubeVideo CreateCopy()
 		{
 			YoutubeVideo video = new YoutubeVideo(Path)
-			{
-				AutoLevels = AutoLevels,
-				Category = Category,
-				DefaultLanguage = DefaultLanguage,
-				Description = Description,
-				IsDirty = false,
-				IsEmbeddable = IsEmbeddable,
-				IsThumbnailDirty = false,
-				License = License,
-				NotifySubscribers = NotifySubscribers,
-				Privacy = Privacy,
-				PublicStatsViewable = PublicStatsViewable,
-				PublishAt = PublishAt,
-				Stabilize = Stabilize,
-				ThumbnailPath = ThumbnailPath,
-				Title = Title,
-				AddToPlaylist = AddToPlaylist,
-				PlaylistId = PlaylistId,
-				PlaylistServiceSettings = new PlaylistServiceSettings()
-				{
-					AccountId = PlaylistServiceSettings?.AccountId ?? -1,
-					ShouldSend = PlaylistServiceSettings?.ShouldSend ?? false,
-					TaskId = PlaylistServiceSettings?.TaskId,
-					Host = PlaylistServiceSettings?.Host,
-					Port = PlaylistServiceSettings?.Port,
-					Username = PlaylistServiceSettings?.Username,
-					Password = PlaylistServiceSettings?.Password,
-					PlaylistId = PlaylistServiceSettings?.PlaylistId,
-					PlaylistTitle = PlaylistServiceSettings?.PlaylistTitle,
-				}
-			};
+            {
+                AutoLevels = AutoLevels,
+                Category = Category,
+                DefaultLanguage = DefaultLanguage,
+                Description = Description,
+                IsDirty = false,
+                IsEmbeddable = IsEmbeddable,
+                IsThumbnailDirty = false,
+                License = License,
+                NotifySubscribers = NotifySubscribers,
+                Privacy = Privacy,
+                PublicStatsViewable = PublicStatsViewable,
+                PublishAt = PublishAt,
+                Stabilize = Stabilize,
+                ThumbnailPath = ThumbnailPath,
+                Title = Title,
+                AddToPlaylist = AddToPlaylist,
+                PlaylistId = PlaylistId,
+                PlaylistServiceSettings = new PlaylistServiceSettings
+                {
+                    AccountId = PlaylistServiceSettings?.AccountId ?? -1,
+                    ShouldSend = PlaylistServiceSettings?.ShouldSend ?? false,
+                    TaskId = PlaylistServiceSettings?.TaskId,
+                    Host = PlaylistServiceSettings?.Host,
+                    Port = PlaylistServiceSettings?.Port,
+                    Username = PlaylistServiceSettings?.Username,
+                    Password = PlaylistServiceSettings?.Password,
+                    PlaylistId = PlaylistServiceSettings?.PlaylistId,
+                    PlaylistTitle = PlaylistServiceSettings?.PlaylistTitle
+                }
+            };
 
-			foreach (var tag in Tags)
+            foreach (var tag in Tags)
 			{
 				video.Tags.Add(tag);
 			}

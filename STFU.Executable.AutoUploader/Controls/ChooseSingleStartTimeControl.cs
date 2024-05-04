@@ -6,7 +6,7 @@ namespace STFU.Executable.AutoUploader.Controls
 {
 	public partial class ChooseSingleStartTimeControl : UserControl
 	{
-		private IObservationConfiguration publishSettings;
+		private readonly IObservationConfiguration publishSettings;
 
 		public ChooseSingleStartTimeControl()
 		{
@@ -59,7 +59,7 @@ namespace STFU.Executable.AutoUploader.Controls
 			ReenableControls();
 		}
 
-		private void shouldOverridePublishAtCheckboxCheckedChanged(object sender, EventArgs e)
+		private void ShouldOverridePublishAtCheckboxCheckedChanged(object sender, EventArgs e)
 		{
 			if (!shouldOverridePublishAtCheckbox.Checked)
 			{
@@ -74,12 +74,12 @@ namespace STFU.Executable.AutoUploader.Controls
 			ReenableControls();
 		}
 
-		private void customStartPointCheckboxCheckedChanged(object sender, EventArgs e)
+		private void CustomStartPointCheckboxCheckedChanged(object sender, EventArgs e)
 		{
 			ReenableControls();
 		}
 
-		private void dontObservePathCheckboxCheckedChanged(object sender, EventArgs e)
+		private void DontObservePathCheckboxCheckedChanged(object sender, EventArgs e)
 		{
 			if (dontObservePathCheckbox.Checked)
 			{
@@ -92,7 +92,7 @@ namespace STFU.Executable.AutoUploader.Controls
 			ReenableControls();
 		}
 
-		private void uploadVideosPrivateCheckboxCheckedChanged(object sender, EventArgs e)
+		private void UploadVideosPrivateCheckboxCheckedChanged(object sender, EventArgs e)
 		{
 			if (uploadVideosPrivateCheckbox.Checked)
 			{

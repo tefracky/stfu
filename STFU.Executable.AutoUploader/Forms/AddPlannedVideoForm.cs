@@ -6,31 +6,31 @@ namespace STFU.Executable.AutoUploader.Forms
 {
 	public partial class AddPlannedVideoForm : Form
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(AddPlannedVideoForm));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(AddPlannedVideoForm));
 
 		public string Filename { get; private set; }
 
 		public AddPlannedVideoForm()
 		{
-			LOGGER.Info($"Initializing new instance of AddPlannedVideoForm");
+			Logger.Info($"Initializing new instance of AddPlannedVideoForm");
 
 			InitializeComponent();
 			DialogResult = DialogResult.Cancel;
 		}
 
-		private void saveButtonClick(object sender, EventArgs e)
+		private void SaveButtonClick(object sender, EventArgs e)
 		{
 			Filename = filenameBox.Text;
 			DialogResult = DialogResult.OK;
 
-			LOGGER.Info($"User chose to add the following planned video: '{Filename}'");
+			Logger.Info($"User chose to add the following planned video: '{Filename}'");
 
 			Close();
 		}
 
-		private void cancelButtonClick(object sender, EventArgs e)
+		private void CancelButtonClick(object sender, EventArgs e)
 		{
-			LOGGER.Info($"User chose to cancel AddPlannedVideoForm");
+			Logger.Info($"User chose to cancel AddPlannedVideoForm");
 
 			Close();
 		}

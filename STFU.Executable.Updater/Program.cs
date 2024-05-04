@@ -9,7 +9,7 @@ namespace STFU.Executable.Updater
 {
 	static class Program
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(Program));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(Program));
 
 		/// <summary>
 		/// Der Haupteinstiegspunkt für die Anwendung.
@@ -17,19 +17,19 @@ namespace STFU.Executable.Updater
 		[STAThread]
 		static void Main(string[] args)
 		{
-			LOGGER.Info("Updater was started");
+			Logger.Info("Updater was started");
 			AppDomain.CurrentDomain.FirstChanceException += LogException;
 
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new UpdateForm(args[0], args[1]));
 
-			LOGGER.Info("Updater stopped");
+			Logger.Info("Updater stopped");
 		}
 
 		private static void LogException(object sender, FirstChanceExceptionEventArgs e)
 		{
-			LOGGER.Error("An unexpected Exception occured.", e.Exception);
+			Logger.Error("An unexpected Exception occured.", e.Exception);
 		}
 	}
 }

@@ -93,7 +93,7 @@
 			this.btnSubmit.TabIndex = 4;
 			this.btnSubmit.Text = "Bestätigen";
 			this.btnSubmit.UseVisualStyleBackColor = true;
-			this.btnSubmit.Click += new System.EventHandler(this.btnSubmitClick);
+			this.btnSubmit.Click += new System.EventHandler(this.BtnSubmitClick);
 			// 
 			// btnCancel
 			// 
@@ -120,7 +120,7 @@
 			this.btnRefresh.TabIndex = 6;
 			this.btnRefresh.Text = "Aktualisieren";
 			this.btnRefresh.UseVisualStyleBackColor = true;
-			this.btnRefresh.Click += new System.EventHandler(this.btnRefreshClick);
+			this.btnRefresh.Click += new System.EventHandler(this.BtnRefreshClick);
 			// 
 			// lvProcs
 			// 
@@ -143,7 +143,7 @@
 			this.lvProcs.TabIndex = 7;
 			this.lvProcs.UseCompatibleStateImageBehavior = false;
 			this.lvProcs.View = System.Windows.Forms.View.Details;
-			this.lvProcs.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvProcsItemChecked);
+			this.lvProcs.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.LvProcsItemChecked);
 			// 
 			// chSelected
 			// 

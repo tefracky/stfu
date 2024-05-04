@@ -14,7 +14,7 @@ namespace STFU.Lib.Youtube.Automation.Internal.Watcher
 
 	internal class DirectoryWatcher : INotifyPropertyChanged
 	{
-		private static ILog LOGGER { get; set; } = LogManager.GetLogger(nameof(DirectoryWatcher));
+		private static ILog Logger { get; set; } = LogManager.GetLogger(nameof(DirectoryWatcher));
 
 		internal event FileAdded FileAdded;
 
@@ -31,7 +31,7 @@ namespace STFU.Lib.Youtube.Automation.Internal.Watcher
 			{
 				if (value != state)
 				{
-					LOGGER.Info($"Directory watcher state updated to {value}");
+					Logger.Info($"Directory watcher state updated to {value}");
 
 					state = value;
 					OnPropertyChaged();
@@ -45,41 +45,43 @@ namespace STFU.Lib.Youtube.Automation.Internal.Watcher
 		{
 			if (State != RunningState.CancelPending)
 			{
-				LOGGER.Info($"Adding directory watcher for settings path: '{path}', filter: '{filter}', recursive: {searchRecursively}");
+				Logger.Info($"Adding directory watcher for settings path: '{path}', filter: '{filter}', recursive: {searchRecursively}");
 
 				State = RunningState.Running;
 
 				// Wenn alle Watcher einen anderen Pfad haben, dann passt es.
 				if (Watchers.All(w => SPath.GetFullPath(w.Path).ToLower() != SPath.GetFullPath(path).ToLower()))
 				{
-					LOGGER.Info($"There is no watcher for path '{path}' => adding new one");
+					Logger.Info($"There is no watcher for path '{path}' => adding new one");
 
 					var filters = filter.Split(';');
 					foreach (var f in filters)
 					{
-						var watcher = new FileSystemWatcher(path, f.Trim());
-						watcher.NotifyFilter = NotifyFilters.Attributes
-							| NotifyFilters.CreationTime
-							| NotifyFilters.DirectoryName
-							| NotifyFilters.FileName
-							| NotifyFilters.LastAccess
-							| NotifyFilters.LastWrite
-							| NotifyFilters.Security
-							| NotifyFilters.Size;
-						watcher.IncludeSubdirectories = searchRecursively;
-						watcher.Created += ReactOnFileChanges;
+                        var watcher = new FileSystemWatcher(path, f.Trim())
+                        {
+                            NotifyFilter = NotifyFilters.Attributes
+                            | NotifyFilters.CreationTime
+                            | NotifyFilters.DirectoryName
+                            | NotifyFilters.FileName
+                            | NotifyFilters.LastAccess
+                            | NotifyFilters.LastWrite
+                            | NotifyFilters.Security
+                            | NotifyFilters.Size,
+                            IncludeSubdirectories = searchRecursively
+                        };
+                        watcher.Created += ReactOnFileChanges;
 						watcher.Changed += ReactOnFileChanges;
 						watcher.Renamed += ReactOnFileChanges;
 						watcher.EnableRaisingEvents = true;
 
-						LOGGER.Info($"Adding watcher for path '{path}' and filter '{f}'");
+						Logger.Info($"Adding watcher for path '{path}' and filter '{f}'");
 
 						Watchers.Add(watcher);
 					}
 				}
 				else
 				{
-					LOGGER.Warn($"Watcher for path '{path}' already exists, skipping add");
+					Logger.Warn($"Watcher for path '{path}' already exists, skipping add");
 				}
 			}
 		}
@@ -88,11 +90,11 @@ namespace STFU.Lib.Youtube.Automation.Internal.Watcher
 		{
 			State = RunningState.CancelPending;
 
-			LOGGER.Info($"Canceling watchers");
+			Logger.Info($"Canceling watchers");
 
 			while (Watchers.Count > 0)
 			{
-				LOGGER.Info($"Removing watcher for path '{Watchers.First().Path}'");
+				Logger.Info($"Removing watcher for path '{Watchers.First().Path}'");
 
 				Watchers.First().Created -= ReactOnFileChanges;
 				Watchers.First().Changed -= ReactOnFileChanges;
@@ -102,7 +104,7 @@ namespace STFU.Lib.Youtube.Automation.Internal.Watcher
 				Watchers.RemoveAt(0);
 			}
 
-			LOGGER.Info($"Watchers canceled");
+			Logger.Info($"Watchers canceled");
 
 			State = RunningState.NotRunning;
 		}
@@ -111,7 +113,7 @@ namespace STFU.Lib.Youtube.Automation.Internal.Watcher
 		{
 			if (IsVideoAnalyzer.IsVideo(e.Name))
 			{
-				LOGGER.Info($"Watcher found file '{e.FullPath}'");
+				Logger.Info($"Watcher found file '{e.FullPath}'");
 
 				FileAdded?.Invoke(e);
 			}

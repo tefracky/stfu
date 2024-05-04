@@ -9,14 +9,14 @@ namespace STFU.Executable.AutoUploader.Forms
 {
 	public partial class RefreshPlaylistsForm : Form
 	{
-		private static readonly ILog LOGGER = LogManager.GetLogger(nameof(RefreshPlaylistsForm));
+		private static readonly ILog Logger = LogManager.GetLogger(nameof(RefreshPlaylistsForm));
 
 		private PlaylistPersistor PlaylistPersistor { get; set; }
 		private IYoutubeAccount Account { get; set; }
 
 		public RefreshPlaylistsForm(PlaylistPersistor playlistPersistor, IYoutubeAccount account)
 		{
-			LOGGER.Info($"Initializing new instance of RefreshPlaylistsForm");
+			Logger.Info($"Initializing new instance of RefreshPlaylistsForm");
 
 			InitializeComponent();
 
@@ -26,9 +26,9 @@ namespace STFU.Executable.AutoUploader.Forms
 			RefreshListView();
 		}
 
-		private void refreshButton_Click(object sender, EventArgs e)
+		private void RefreshButton_Click(object sender, EventArgs e)
 		{
-			LOGGER.Info($"Refreshing playlists of the youtube account");
+			Logger.Info($"Refreshing playlists of the youtube account");
 
 			Enabled = false;
 
@@ -37,7 +37,7 @@ namespace STFU.Executable.AutoUploader.Forms
 			var playlists = new YoutubePlaylistCommunicator().LoadPlaylists(Account);
 			foreach (var playlist in playlists)
 			{
-				LOGGER.Info($"Found playlist '{playlist.Title}'");
+				Logger.Info($"Found playlist '{playlist.Title}'");
 				PlaylistPersistor.Container.RegisterPlaylist(playlist);
 			}
 
@@ -50,13 +50,13 @@ namespace STFU.Executable.AutoUploader.Forms
 
 		private void RefreshListView()
 		{
-			LOGGER.Debug($"Refilling the playlists list view");
+			Logger.Debug($"Refilling the playlists list view");
 
 			playlistsListView.Items.Clear();
 
 			foreach (var playlist in PlaylistPersistor.Container.RegisteredPlaylists)
 			{
-				LOGGER.Debug($"Adding playlist '{playlist.Title}' to list view");
+				Logger.Debug($"Adding playlist '{playlist.Title}' to list view");
 
 				ListViewItem item = new ListViewItem(playlist.Title);
 				item.SubItems.Add(playlist.Id);
