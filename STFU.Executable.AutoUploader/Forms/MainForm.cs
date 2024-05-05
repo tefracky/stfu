@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -8,6 +9,7 @@ using log4net;
 using Microsoft.WindowsAPICodePack.Taskbar;
 using STFU.Lib.GUI.Forms;
 using STFU.Lib.Playlistservice;
+using STFU.Lib.Playlistservice.Model;
 using STFU.Lib.Youtube;
 using STFU.Lib.Youtube.Automation;
 using STFU.Lib.Youtube.Automation.Interfaces;
@@ -584,7 +586,7 @@ namespace STFU.Executable.AutoUploader.Forms
 
 			Logger.Info($"Revokation was successful");
 
-			MessageBox.Show(this, "Die Verbindung zum Youtube-Account wurde erfolgreich getrennt.", "Verbindung getrennt!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			// MessageBox.Show(this, "Die Verbindung zum Youtube-Account wurde erfolgreich getrennt.", "Verbindung getrennt!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 			btnStart.Enabled = false;
 			queueStatusButton.Enabled = false;
@@ -612,18 +614,29 @@ namespace STFU.Executable.AutoUploader.Forms
 			{
 				Logger.Info("Creating settings directory");
 				Directory.CreateDirectory("./settings");
-			}
+            }
 
-			pathPersistor = new PathPersistor(pathContainer, "./settings/paths.json");
+            accountPersistor = new AccountPersistor(accountContainer, "./settings/accounts.json", clientContainer);
+            accountPersistor.Load();
+
+            IReadOnlyCollection<IYoutubeAccount> registeredAccounts = accountContainer.RegisteredAccounts;
+
+            if (registeredAccounts.Count > 0 && registeredAccounts.First().Access.GetActiveToken() == null)
+            {
+                File.Delete("./settings/accounts.json");
+
+				BgwCreateUploaderDoWork(sender, e);
+
+				return;
+            }
+
+            pathPersistor = new PathPersistor(pathContainer, "./settings/paths.json");
 			pathPersistor.Load();
 
 			templatePersistor = new TemplatePersistor(templateContainer, "./settings/templates.json");
 			templatePersistor.Load();
 
-			accountPersistor = new AccountPersistor(accountContainer, "./settings/accounts.json", clientContainer);
-			accountPersistor.Load();
-
-			categoryPersistor = new CategoryPersistor(categoryContainer, "./settings/categories.json");
+            categoryPersistor = new CategoryPersistor(categoryContainer, "./settings/categories.json");
 			categoryPersistor.Load();
 
 			languagePersistor = new LanguagePersistor(languageContainer, "./settings/languages.json");
@@ -640,9 +653,9 @@ namespace STFU.Executable.AutoUploader.Forms
 			archivePersistor.Load();
 			YoutubeJob.SimplifyLogging = false;
 
-			RefreshPlaylists();
+            RefreshPlaylists();
 
-			playlistServiceConnectionPersistor = new PlaylistServiceConnectionPersistor(playlistServiceConnectionContainer, "./settings/playlistservice.json");
+            playlistServiceConnectionPersistor = new PlaylistServiceConnectionPersistor(playlistServiceConnectionContainer, "./settings/playlistservice.json");
 			playlistServiceConnectionPersistor.Load();
 
 			if (playlistServiceConnectionContainer.Connection != null && playlistServiceConnectionContainer.Connection.Accounts.Length > 0)
@@ -715,7 +728,7 @@ namespace STFU.Executable.AutoUploader.Forms
 
 				playlistContainer.UnregisterAllPlaylists();
 
-				var playlists = new YoutubePlaylistCommunicator().LoadPlaylists(accountContainer.RegisteredAccounts.First());
+                var playlists = new YoutubePlaylistCommunicator().LoadPlaylists(accountContainer.RegisteredAccounts.First());
 				foreach (var playlist in playlists)
 				{
 					Logger.Info($"Found playlist '{playlist.Title}'");
@@ -942,7 +955,7 @@ namespace STFU.Executable.AutoUploader.Forms
 		{
 			Logger.Debug($"Button to open the download page link was clicked");
 
-			Process.Start("https://drive.google.com/drive/folders/1kCRPLg-95PjbQKjEpj-HW7tjvzmZ87RI");
+			Process.Start("https://drive.google.com/drive/folders/1ClbLVtOf6uOEEkkujvmUmb9Ya5l7T_Yx");
 		}
 
 		private void ThreadImYTFToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1220,5 +1233,12 @@ namespace STFU.Executable.AutoUploader.Forms
 
 			playlistServiceConnectionPersistor.Save();
 		}
-	}
+
+        private void ThreadAufGitHubToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logger.Debug($"Button to open the GitHub support link was clicked");
+
+            Process.Start("https://github.com/tefracky/stfu");
+        }
+    }
 }
